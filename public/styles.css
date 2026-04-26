@@ -248,18 +248,32 @@ p  { margin: 0; }
   margin-bottom: 32px;
 }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-.hero-trust {
-  margin-top: 28px;
-  font-size: 0.92rem;
+.hero-trust-eyebrow {
+  margin: 36px 0 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
   color: var(--ink-3);
-  font-weight: 500;
-  letter-spacing: 0.02em;
 }
-.hero-trust::before {
-  content: "✦";
-  display: inline-block;
-  margin-right: 8px;
+.hero-trust-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+.hero-trust-list li {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  letter-spacing: 0.005em;
+}
+.hero-trust-list li[aria-hidden="true"] {
   color: var(--brand);
+  font-weight: 800;
 }
 
 /* ==========================================================================
