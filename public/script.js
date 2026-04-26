@@ -46,7 +46,7 @@
 
     try {
       const data = Object.fromEntries(new FormData(form).entries());
-      const res = await fetch('https://api.web3forms.com/submit', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -58,7 +58,7 @@
 
       if (res.ok && json.success) {
         status.className = 'form-status ok';
-        status.textContent = "Thanks — we got your message and will reply within one business day.";
+        status.textContent = "Thanks — we got your message and will reply within one business day. Check your inbox for a confirmation.";
         form.reset();
 
         // Fire Google Ads conversion event if gtag is loaded
@@ -76,7 +76,7 @@
       }
     } catch (err) {
       status.className = 'form-status error';
-      status.textContent = "Sorry — that didn't go through. Please email us directly at hello@agpixels.ca.";
+      status.textContent = (err && err.message) || "Sorry — that didn't go through. Please email us directly at hello@agpixels.ca.";
       console.error('Contact form error:', err);
     } finally {
       submit.disabled = false;
