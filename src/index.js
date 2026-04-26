@@ -169,7 +169,7 @@ function confirmationEmail({ name, projectType, message }) {
     <tr><td style="padding:8px 12px;color:#6B6A78;width:120px;">Project type</td><td style="padding:8px 12px;">${safeType}</td></tr>
     <tr><td style="padding:8px 12px;color:#6B6A78;vertical-align:top;">Message</td><td style="padding:8px 12px;line-height:1.55;white-space:pre-wrap;">${safeMessage}</td></tr>
   </table>
-  <p style="margin:0 0 16px;font-size:15px;line-height:1.55;">If you need to add anything in the meantime, just reply to this email.</p>
+  <p style="margin:0 0 16px;font-size:15px;line-height:1.55;">If you'd like to add anything in the meantime, email <a href="mailto:hello@agpixels.ca" style="color:#6B5DF7;">hello@agpixels.ca</a>.</p>
   <p style="margin:0;font-size:15px;line-height:1.55;">Talk soon,<br>Adel<br><a href="${SITE_URL}" style="color:#6B5DF7;text-decoration:none;">AGPixels</a></p>
 </div>
 </body></html>`;
