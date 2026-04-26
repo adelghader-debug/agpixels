@@ -362,42 +362,152 @@ p  { margin: 0; }
 }
 
 /* ==========================================================================
-   Contact CTA
+   Contact section
    ========================================================================== */
 
-.cta-card {
-  background: linear-gradient(135deg, var(--brand) 0%, #8472FF 100%);
-  border-radius: var(--radius-lg);
-  padding: clamp(36px, 5vw, 56px);
-  color: #fff;
+.contact-grid {
   display: grid;
-  grid-template-columns: 1.4fr auto;
-  gap: 32px;
-  align-items: center;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: start;
 }
-.cta-card .eyebrow { color: rgba(255, 255, 255, 0.85); }
-.cta-card h2 { color: #fff; margin-bottom: 10px; }
-.cta-sub { color: rgba(255, 255, 255, 0.92); max-width: 460px; }
-.cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-.cta-card .btn-primary {
+@media (max-width: 880px) { .contact-grid { grid-template-columns: 1fr; } }
+
+.contact-intro h2 { margin-bottom: 14px; }
+.contact-sub {
+  color: var(--ink-2);
+  font-size: 1.05rem;
+  margin-bottom: 24px;
+  max-width: 480px;
+}
+.contact-points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.contact-points li {
+  position: relative;
+  padding-left: 26px;
+  color: var(--ink-2);
+  font-size: 0.97rem;
+}
+.contact-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--brand-light);
+  border: 2px solid var(--brand);
+}
+
+/* Form card */
+.contact-form {
   background: #fff;
-  color: var(--brand);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 3.5vw, 36px);
+  box-shadow: var(--shadow-md);
+  display: grid;
+  gap: 16px;
 }
-.cta-card .btn-primary:hover { background: var(--bg-alt); color: var(--brand-dark); }
-.cta-card .btn-ghost {
-  background: transparent;
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.45);
+.field { display: grid; gap: 6px; }
+.field label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ink);
 }
-.cta-card .btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  border-color: #fff;
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.97rem;
+  color: var(--ink);
+  background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
-@media (max-width: 760px) {
-  .cta-card { grid-template-columns: 1fr; }
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(107, 93, 247, 0.15);
 }
+.field textarea { resize: vertical; min-height: 110px; }
+
+/* Honeypot — visually hidden, accessible */
+.hp {
+  position: absolute !important;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.form-submit { width: 100%; margin-top: 4px; }
+.form-submit[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+.form-status {
+  font-size: 0.92rem;
+  margin: 4px 0 0;
+  min-height: 1.2em;
+  color: var(--ink-2);
+}
+.form-status.ok    { color: #14a865; font-weight: 500; }
+.form-status.error { color: #d92626; font-weight: 500; }
+
+.form-fineprint {
+  font-size: 0.82rem;
+  color: var(--ink-3);
+  margin: 2px 0 0;
+  text-align: center;
+}
+.form-fineprint a { color: var(--ink-3); text-decoration: underline; }
+.form-fineprint a:hover { color: var(--brand); }
+
+/* ==========================================================================
+   Legal pages (privacy, terms)
+   ========================================================================== */
+
+.legal {
+  padding: clamp(48px, 7vw, 90px) 0;
+}
+.legal-container {
+  max-width: 760px;
+}
+.legal h1 {
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  margin-bottom: 8px;
+}
+.legal-effective {
+  color: var(--ink-3);
+  font-size: 0.92rem;
+  margin-bottom: 32px;
+}
+.legal h2 {
+  font-size: 1.3rem;
+  margin: 32px 0 12px;
+}
+.legal p, .legal ul {
+  color: var(--ink-2);
+  margin-bottom: 14px;
+}
+.legal ul {
+  padding-left: 24px;
+}
+.legal li {
+  margin-bottom: 8px;
+  line-height: 1.55;
+}
+.legal a { word-break: break-word; }
 
 /* ==========================================================================
    Footer
@@ -418,8 +528,20 @@ p  { margin: 0; }
 }
 .footer-tag { color: var(--ink-2); margin-right: auto; }
 .footer-meta { color: var(--ink-3); }
+.footer-links {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.footer-links a {
+  color: var(--ink-3);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.footer-links a:hover { color: var(--ink); }
 
 @media (max-width: 600px) {
   .footer-inner { flex-direction: column; align-items: flex-start; gap: 8px; }
   .footer-tag { margin-right: 0; }
+  .footer-links { gap: 14px; }
 }
