@@ -167,6 +167,28 @@ p  { margin: 0; }
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
+/* WhatsApp link in header */
+.header-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #f0fdf6;
+  color: #128C7E;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border: 1.5px solid #25D366;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.header-whatsapp:hover {
+  background: #25D366;
+  color: #fff;
+  transform: translateY(-1px);
+}
+.header-whatsapp svg { width: 16px; height: 16px; }
+
 /* Mobile nav */
 @media (max-width: 760px) {
   .nav {
@@ -190,6 +212,9 @@ p  { margin: 0; }
   }
   .nav-cta { display: none; }
   .nav-toggle { display: block; margin-left: auto; }
+  /* Hide WhatsApp text label on mobile, keep just the icon */
+  .header-whatsapp { padding: 8px 10px; }
+  .header-whatsapp span { display: none; }
   body.nav-open .nav { max-height: 70vh; }
   body.nav-open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
   body.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
@@ -223,6 +248,19 @@ p  { margin: 0; }
   margin-bottom: 32px;
 }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-trust {
+  margin-top: 28px;
+  font-size: 0.92rem;
+  color: var(--ink-3);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.hero-trust::before {
+  content: "✦";
+  display: inline-block;
+  margin-right: 8px;
+  color: var(--brand);
+}
 
 /* ==========================================================================
    Sections
@@ -508,6 +546,47 @@ p  { margin: 0; }
   line-height: 1.55;
 }
 .legal a { word-break: break-word; }
+
+/* ==========================================================================
+   404 not-found page
+   ========================================================================== */
+
+.not-found {
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+  padding: clamp(48px, 8vw, 100px) 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 50% 0%, rgba(107, 93, 247, 0.15), transparent 70%),
+    var(--bg);
+}
+.not-found-inner {
+  text-align: center;
+  max-width: 580px;
+}
+.nf-code {
+  font-size: clamp(4rem, 12vw, 7rem);
+  font-weight: 800;
+  color: var(--brand);
+  line-height: 1;
+  margin: 0 0 8px;
+  letter-spacing: -0.04em;
+}
+.nf-title {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  margin: 0 0 14px;
+}
+.nf-sub {
+  color: var(--ink-2);
+  font-size: 1.05rem;
+  margin: 0 0 32px;
+}
+.nf-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
 
 /* ==========================================================================
    Footer
