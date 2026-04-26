@@ -85,7 +85,7 @@
       }
     } catch (err) {
       status.className = 'form-status error';
-      status.textContent = (err && err.message) || "Sorry — that didn't go through. Please email us directly at hello@agpixels.ca.";
+      status.textContent = (err && err.message) || "Sorry — that didn't go through. Please email us directly at info@agpixels.ca.";
       console.error('Contact form error:', err);
     } finally {
       submit.disabled = false;

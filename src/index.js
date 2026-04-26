@@ -6,7 +6,7 @@
 
 const FROM_EMAIL = "AGPixels <noreply@agpixels.ca>";          // verified Resend sender — full SPF/DKIM/DMARC on agpixels.ca
 const TO_EMAIL   = "adel.ghader@gmail.com";                    // submission notifications go here
-const REPLY_TO   = "hello@agpixels.ca";                        // confirmation email's reply-to
+const REPLY_TO   = "info@agpixels.ca";                        // confirmation email's reply-to
 const SITE_URL   = "https://agpixels.ca";
 
 export default {
@@ -91,7 +91,7 @@ async function handleContact(request, env) {
   // The confirmation to the submitter is nice-to-have.
   if (notifyRes.status === "rejected" || (notifyRes.value && !notifyRes.value.ok)) {
     console.error("Notification email failed:", notifyRes);
-    return json({ success: false, message: "Could not send your message. Please email hello@agpixels.ca directly." }, 502);
+    return json({ success: false, message: "Could not send your message. Please email info@agpixels.ca directly." }, 502);
   }
 
   if (confirmRes.status === "rejected" || (confirmRes.value && !confirmRes.value.ok)) {
@@ -169,7 +169,7 @@ function confirmationEmail({ name, projectType, message }) {
     <tr><td style="padding:8px 12px;color:#6B6A78;width:120px;">Project type</td><td style="padding:8px 12px;">${safeType}</td></tr>
     <tr><td style="padding:8px 12px;color:#6B6A78;vertical-align:top;">Message</td><td style="padding:8px 12px;line-height:1.55;white-space:pre-wrap;">${safeMessage}</td></tr>
   </table>
-  <p style="margin:0 0 16px;font-size:15px;line-height:1.55;">If you'd like to add anything in the meantime, email <a href="mailto:hello@agpixels.ca" style="color:#6B5DF7;">hello@agpixels.ca</a>.</p>
+  <p style="margin:0 0 16px;font-size:15px;line-height:1.55;">If you'd like to add anything in the meantime, email <a href="mailto:info@agpixels.ca" style="color:#6B5DF7;">info@agpixels.ca</a>.</p>
   <p style="margin:0;font-size:15px;line-height:1.55;">Talk soon,<br>Adel<br><a href="${SITE_URL}" style="color:#6B5DF7;text-decoration:none;">AGPixels</a></p>
 </div>
 </body></html>`;
