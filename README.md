@@ -12,19 +12,20 @@ Live: https://agpixels.ca
 
 ## Local development
 
-Just open `index.html` in a browser, or serve the folder:
+Just open `public/index.html` in a browser, or serve the folder:
 
 ```bash
 # Python
-python -m http.server 8000
+cd public && python -m http.server 8000
 
 # Or Node
-npx serve .
+npx serve public
 ```
 
 ## Files
 
-- `index.html` — markup
-- `styles.css` — design system + layout
-- `script.js` — mobile nav toggle + footer year
-- `assets/` — images and logos
+- `public/index.html` — markup
+- `public/styles.css` — design system + layout
+- `public/script.js` — mobile nav toggle + footer year
+- `public/assets/` — images and logos
+- `wrangler.jsonc` — Cloudflare Workers (static assets) config
