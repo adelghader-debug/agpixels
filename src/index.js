@@ -4,7 +4,7 @@
  * - All other paths: serves the static site from the assets binding
  */
 
-const FROM_EMAIL = "AGPixels <onboarding@resend.dev>";        // swap to "AGPixels <noreply@agpixels.ca>" once Resend domain is verified
+const FROM_EMAIL = "AGPixels <noreply@agpixels.ca>";          // verified Resend sender — full SPF/DKIM/DMARC on agpixels.ca
 const TO_EMAIL   = "adel.ghader@gmail.com";                    // submission notifications go here
 const REPLY_TO   = "hello@agpixels.ca";                        // confirmation email's reply-to
 const SITE_URL   = "https://agpixels.ca";
