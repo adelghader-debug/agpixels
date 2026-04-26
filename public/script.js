@@ -59,18 +59,27 @@
       if (res.ok && json.success) {
         status.className = 'form-status ok';
         status.textContent = "Thanks — we got your message and will reply within one business day. Check your inbox for a confirmation.";
-        form.reset();
 
-        // Fire Google Ads conversion event if gtag is loaded
+        // Fire Google Ads conversion event (with Enhanced Conversions data)
+        // gtag.js hashes the email client-side before transmission.
         if (typeof window.gtag === 'function') {
-          window.gtag('event', 'conversion', {
-            send_to: 'GADS_CONVERSION_ID/GADS_CONVERSION_LABEL',
+          // Pass user data first so it's available for Enhanced Conversions matching
+          window.gtag('set', 'user_data', {
+            email: (data.email || '').trim().toLowerCase(),
           });
+
+          window.gtag('event', 'conversion', {
+            send_to: 'AW-18121549088/qKS5CL-omKMcEKDKg8FD',
+          });
+
+          // Also fire a GA4 generate_lead event for analytics reporting
           window.gtag('event', 'generate_lead', {
             event_category: 'contact',
             event_label: 'contact_form_submit',
           });
         }
+
+        form.reset();
       } else {
         throw new Error(json.message || 'Submission failed');
       }
