@@ -21,6 +21,27 @@
   if (year) year.textContent = new Date().getFullYear();
 })();
 
+// Sticky CTA — show once user has scrolled past the hero
+(function () {
+  const cta = document.querySelector('.sticky-cta');
+  const hero = document.querySelector('.hero');
+  if (!cta || !hero) return;
+
+  const onScroll = () => {
+    const heroBottom = hero.offsetTop + hero.offsetHeight - 100;
+    const contactSection = document.getElementById('contact');
+    const contactTop = contactSection ? contactSection.offsetTop : Infinity;
+    const scrolled = window.scrollY;
+
+    // Show after scrolling past hero, hide when contact section is in view
+    const shouldShow = scrolled > heroBottom && scrolled < contactTop - 200;
+    cta.classList.toggle('is-visible', shouldShow);
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
 // Contact form — AJAX submission to Web3Forms
 (function () {
   const form = document.getElementById('contact-form');
