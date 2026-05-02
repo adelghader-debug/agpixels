@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# Don't index utility / legal pages from search results — they're for human reference, not SEO
+# Don't index utility / legal pages from search results · they're for human reference, not SEO
 Disallow: /privacy
 
 Sitemap: https://agpixels.ca/sitemap.xml

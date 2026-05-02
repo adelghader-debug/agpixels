@@ -21,7 +21,7 @@
   if (year) year.textContent = new Date().getFullYear();
 })();
 
-// Sticky CTA — show once user has scrolled past the hero
+// Sticky CTA · show once user has scrolled past the hero
 (function () {
   const cta = document.querySelector('.sticky-cta');
   const hero = document.querySelector('.hero');
@@ -42,7 +42,7 @@
   onScroll();
 })();
 
-// Contact form — AJAX submission to Web3Forms
+// Contact form · AJAX submission to Web3Forms
 (function () {
   const form = document.getElementById('contact-form');
   if (!form) return;
@@ -79,7 +79,7 @@
 
       if (res.ok && json.success) {
         status.className = 'form-status ok';
-        status.textContent = "Thanks — we got your message and will reply within one business day. Check your inbox for a confirmation.";
+        status.textContent = "Thanks, we got your message and will reply within one business day. Check your inbox for a confirmation.";
 
         // Fire Google Ads conversion event (with Enhanced Conversions data)
         // gtag.js hashes the email client-side before transmission.
@@ -106,7 +106,7 @@
       }
     } catch (err) {
       status.className = 'form-status error';
-      status.textContent = (err && err.message) || "Sorry — that didn't go through. Please email us directly at info@agpixels.ca.";
+      status.textContent = (err && err.message) || "Sorry, that didn't go through. Please email us directly at info@agpixels.ca.";
       console.error('Contact form error:', err);
     } finally {
       submit.disabled = false;

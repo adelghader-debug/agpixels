@@ -262,7 +262,7 @@ p  { margin: 0; }
   color: var(--brand);
 }
 
-/* Sticky CTA — appears after user scrolls past hero */
+/* Sticky CTA · appears after user scrolls past hero */
 .sticky-cta {
   position: fixed;
   right: 20px;
@@ -518,7 +518,7 @@ p  { margin: 0; }
 }
 .field textarea { resize: vertical; min-height: 110px; }
 
-/* Honeypot — visually hidden, accessible */
+/* Honeypot · visually hidden, accessible */
 .hp {
   position: absolute !important;
   left: -9999px;
