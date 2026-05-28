@@ -9,20 +9,51 @@ const TO_EMAIL   = "adel.ghader@gmail.com";                    // submission not
 const REPLY_TO   = "info@agpixels.ca";                        // confirmation email's reply-to
 const SITE_URL   = "https://agpixels.ca";
 
+// Security headers applied to every response leaving the Worker.
+// HSTS preload requires the redirect + max-age >= 31536000 + includeSubDomains.
+const SECURITY_HEADERS = {
+  "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "SAMEORIGIN",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+};
+
+function withSecurityHeaders(response) {
+  const headers = new Headers(response.headers);
+  for (const [k, v] of Object.entries(SECURITY_HEADERS)) {
+    if (!headers.has(k)) headers.set(k, v);
+  }
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
+    // Force HTTPS. Cloudflare usually terminates TLS so request.url is already
+    // https, but the URL header reflects the original client scheme via
+    // CF-Visitor / forwarded headers. Honour an explicit http:// in the URL.
+    if (url.protocol === "http:") {
+      url.protocol = "https:";
+      return Response.redirect(url.toString(), 301);
+    }
+
     if (url.pathname === "/api/contact" && request.method === "POST") {
-      return handleContact(request, env);
+      return withSecurityHeaders(await handleContact(request, env));
     }
 
     if (url.pathname === "/api/contact") {
-      return json({ success: false, message: "Method not allowed" }, 405);
+      return withSecurityHeaders(json({ success: false, message: "Method not allowed" }, 405));
     }
 
     // Fall through to static assets
-    return env.ASSETS.fetch(request);
+    const assetResponse = await env.ASSETS.fetch(request);
+    return withSecurityHeaders(assetResponse);
   },
 };
 
