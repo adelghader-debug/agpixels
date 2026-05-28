@@ -815,3 +815,47 @@ p  { margin: 0; }
   .pricing-grid { gap: 16px; }
   .price-card .price-detail { min-height: 0; }
 }
+
+/* ==========================================================================
+   Trust bullets (LP "What you get" reinforcement)
+   ========================================================================== */
+.trust-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 36px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+.trust-bullets li {
+  position: relative;
+  padding: 16px 20px 16px 50px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.trust-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #f4f3ff;
+}
+.trust-bullets li::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  top: 50%;
+  width: 10px;
+  height: 5px;
+  border-left: 2px solid #6B5DF7;
+  border-bottom: 2px solid #6B5DF7;
+  transform: translateY(-80%) rotate(-45deg);
+}
