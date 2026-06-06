@@ -80,15 +80,30 @@ async function handleContact(request, env) {
   // Validate required fields
   const name    = (data.name    || "").trim();
   const email   = (data.email   || "").trim();
-  const message = (data.message || "").trim();
+  const phone   = (data.phone   || "").trim();
+  let   message = (data.message || "").trim();
   const projectType = (data.project_type || "Not specified").trim();
+  const source  = (data.source  || "contact").trim();
 
-  if (!name || !email || !message) {
-    return json({ success: false, message: "Name, email, and message are required" }, 400);
+  if (!name || !email) {
+    return json({ success: false, message: "Name and email are required" }, 400);
   }
   if (name.length    > 200)    return json({ success: false, message: "Name too long"    }, 400);
   if (email.length   > 200)    return json({ success: false, message: "Email too long"   }, 400);
+  if (phone.length   > 50)     return json({ success: false, message: "Phone too long"   }, 400);
   if (message.length > 5000)   return json({ success: false, message: "Message too long" }, 400);
+
+  // Mini-form (hero-mini) submits without a message field. Build a short
+  // synthetic one so the notification email reads cleanly and Adel knows
+  // which entry-point the lead came from.
+  if (!message) {
+    const bits = [];
+    bits.push(`Quick quote request via ${source === "hero-mini" ? "hero mini-form" : source}.`);
+    if (phone) bits.push(`Phone: ${phone}.`);
+    bits.push(`Project type: ${projectType}.`);
+    bits.push("No additional details provided. Reply directly to follow up.");
+    message = bits.join(" ");
+  }
 
   // Basic email shape check
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -106,8 +121,8 @@ async function handleContact(request, env) {
       from: FROM_EMAIL,
       to: TO_EMAIL,
       reply_to: email,
-      subject: `New project inquiry — ${name}`,
-      html: notificationEmail({ name, email, projectType, message }),
+      subject: `New project inquiry — ${name}${source === "hero-mini" ? " (hero mini-form)" : ""}`,
+      html: notificationEmail({ name, email, phone, projectType, message, source }),
     }),
     sendEmail(env.RESEND_API_KEY, {
       from: FROM_EMAIL,
@@ -165,11 +180,14 @@ function escapeHtml(s) {
     .replace(/'/g, "&#39;");
 }
 
-function notificationEmail({ name, email, projectType, message }) {
+function notificationEmail({ name, email, phone, projectType, message, source }) {
   const safeName    = escapeHtml(name);
   const safeEmail   = escapeHtml(email);
+  const safePhone   = escapeHtml(phone || "");
   const safeType    = escapeHtml(projectType);
   const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
+  const safeSource  = escapeHtml(source || "contact");
+  const sourceLabel = safeSource === "hero-mini" ? "Hero mini-form (quick quote)" : "Full contact form";
 
   return `<!DOCTYPE html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#0F0E1A;background:#fafafc;margin:0;padding:24px;">
 <div style="max-width:560px;margin:0 auto;background:#fff;border:1px solid #e6e5ee;border-radius:12px;padding:28px;">
@@ -177,7 +195,9 @@ function notificationEmail({ name, email, projectType, message }) {
   <table style="width:100%;border-collapse:collapse;font-size:15px;">
     <tr><td style="padding:6px 0;color:#6B6A78;width:120px;">Name</td><td style="padding:6px 0;"><strong>${safeName}</strong></td></tr>
     <tr><td style="padding:6px 0;color:#6B6A78;">Email</td><td style="padding:6px 0;"><a href="mailto:${safeEmail}" style="color:#6B5DF7;">${safeEmail}</a></td></tr>
+    ${safePhone ? `<tr><td style="padding:6px 0;color:#6B6A78;">Phone</td><td style="padding:6px 0;"><a href="tel:${safePhone}" style="color:#6B5DF7;">${safePhone}</a></td></tr>` : ""}
     <tr><td style="padding:6px 0;color:#6B6A78;">Project type</td><td style="padding:6px 0;">${safeType}</td></tr>
+    <tr><td style="padding:6px 0;color:#6B6A78;">Source</td><td style="padding:6px 0;">${sourceLabel}</td></tr>
   </table>
   <h3 style="margin:24px 0 8px;font-size:14px;color:#6B6A78;text-transform:uppercase;letter-spacing:0.08em;">Message</h3>
   <div style="font-size:15px;line-height:1.55;white-space:pre-wrap;">${safeMessage}</div>

@@ -817,6 +817,115 @@ p  { margin: 0; }
 }
 
 /* ==========================================================================
+   Quick-quote section · inline mini-form right after the hero
+   The whole point of this section is to put the conversion path within
+   one screen-scroll of the fold on mobile. Keep dense, no hero-style
+   padding, single-screen feel.
+   ========================================================================== */
+.quote-section {
+  background: linear-gradient(180deg, #f4f3ff 0%, #ffffff 100%);
+  padding: 36px 0 48px;
+  border-bottom: 1px solid var(--line);
+}
+.quote-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.quote-copy h2 {
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  margin: 6px 0 10px;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.quote-copy .eyebrow {
+  color: #6B5DF7;
+  margin: 0;
+}
+.quote-sub {
+  margin: 0 0 14px;
+  color: var(--ink-2);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.quote-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+  color: var(--ink-2);
+}
+.quote-bullets li {
+  padding: 4px 0 4px 22px;
+  position: relative;
+}
+.quote-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 10px;
+  height: 5px;
+  border-left: 2px solid #6B5DF7;
+  border-bottom: 2px solid #6B5DF7;
+  transform: rotate(-45deg);
+}
+
+.quote-form {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 10px 28px rgba(15, 14, 26, 0.06);
+}
+.quote-form .quote-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.quote-form .field { margin: 0; }
+.quote-form .field label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.quote-form .field input,
+.quote-form .field select {
+  padding: 10px 12px;
+  font-size: 1rem;
+}
+.quote-form .form-submit {
+  width: 100%;
+}
+.quote-form .form-fineprint {
+  margin: 12px 0 0;
+  font-size: 0.85rem;
+  color: var(--ink-2);
+  text-align: center;
+}
+.quote-form .form-fineprint a {
+  color: #6B5DF7;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Desktop: side-by-side copy + form */
+@media (min-width: 760px) {
+  .quote-section { padding: 52px 0 64px; }
+  .quote-inner {
+    grid-template-columns: 1fr 1.1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .quote-form .quote-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+}
+
+/* ==========================================================================
    Trust bullets (LP "What you get" reinforcement)
    ========================================================================== */
 .trust-bullets {

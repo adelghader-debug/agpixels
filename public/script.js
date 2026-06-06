@@ -42,75 +42,88 @@
   onScroll();
 })();
 
-// Contact form · AJAX submission to Web3Forms
+// Contact form(s) · AJAX submission to /api/contact
+// Now handles every form.contact-form on the page identically (full form +
+// hero mini-form), so both fire the same Google Ads conversion event.
 (function () {
-  const form = document.getElementById('contact-form');
-  if (!form) return;
+  const forms = document.querySelectorAll('form.contact-form');
+  if (!forms.length) return;
 
-  const status = form.querySelector('.form-status');
-  const submit = form.querySelector('.form-submit');
-  const originalLabel = submit.textContent;
+  forms.forEach((form) => {
+    const status = form.querySelector('.form-status');
+    const submit = form.querySelector('.form-submit');
+    if (!submit) return;
+    const originalLabel = submit.textContent;
+    const source = form.querySelector('input[name="source"]')?.value || 'contact';
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-    // Basic native validity check
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
-    submit.disabled = true;
-    submit.textContent = 'Sending…';
-    status.className = 'form-status';
-    status.textContent = '';
-
-    try {
-      const data = Object.fromEntries(new FormData(form).entries());
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      const json = await res.json();
-
-      if (res.ok && json.success) {
-        status.className = 'form-status ok';
-        status.textContent = "Thanks, we got your message and will reply within one business day. Check your inbox for a confirmation.";
-
-        // Fire Google Ads conversion event (with Enhanced Conversions data)
-        // gtag.js hashes the email client-side before transmission.
-        if (typeof window.gtag === 'function') {
-          // Pass user data first so it's available for Enhanced Conversions matching
-          window.gtag('set', 'user_data', {
-            email: (data.email || '').trim().toLowerCase(),
-          });
-
-          window.gtag('event', 'conversion', {
-            send_to: 'AW-18121549088/qKS5CL-omKMcEKDKg8FD',
-          });
-
-          // Also fire a GA4 generate_lead event for analytics reporting
-          window.gtag('event', 'generate_lead', {
-            event_category: 'contact',
-            event_label: 'contact_form_submit',
-          });
-        }
-
-        form.reset();
-      } else {
-        throw new Error(json.message || 'Submission failed');
+      // Basic native validity check
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
       }
-    } catch (err) {
-      status.className = 'form-status error';
-      status.textContent = (err && err.message) || "Sorry, that didn't go through. Please email us directly at info@agpixels.ca.";
-      console.error('Contact form error:', err);
-    } finally {
-      submit.disabled = false;
-      submit.textContent = originalLabel;
-    }
+
+      submit.disabled = true;
+      submit.textContent = 'Sending…';
+      if (status) {
+        status.className = 'form-status';
+        status.textContent = '';
+      }
+
+      try {
+        const data = Object.fromEntries(new FormData(form).entries());
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json();
+
+        if (res.ok && json.success) {
+          if (status) {
+            status.className = 'form-status ok';
+            status.textContent = "Thanks, we got your message and will reply within one business day. Check your inbox for a confirmation.";
+          }
+
+          // Fire Google Ads conversion event (with Enhanced Conversions data)
+          // gtag.js hashes the email client-side before transmission.
+          if (typeof window.gtag === 'function') {
+            // Pass user data first so it's available for Enhanced Conversions matching
+            window.gtag('set', 'user_data', {
+              email: (data.email || '').trim().toLowerCase(),
+              phone_number: (data.phone || '').trim(),
+            });
+
+            window.gtag('event', 'conversion', {
+              send_to: 'AW-18121549088/qKS5CL-omKMcEKDKg8FD',
+            });
+
+            // Also fire a GA4 generate_lead event tagged with the form source
+            window.gtag('event', 'generate_lead', {
+              event_category: 'contact',
+              event_label: source,
+            });
+          }
+
+          form.reset();
+        } else {
+          throw new Error(json.message || 'Submission failed');
+        }
+      } catch (err) {
+        if (status) {
+          status.className = 'form-status error';
+          status.textContent = (err && err.message) || "Sorry, that didn't go through. Please email us directly at info@agpixels.ca.";
+        }
+        console.error('Contact form error:', err);
+      } finally {
+        submit.disabled = false;
+        submit.textContent = originalLabel;
+      }
+    });
   });
 })();

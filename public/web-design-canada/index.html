@@ -119,6 +119,57 @@
     <div class="hero-bg" aria-hidden="true"></div>
   </section>
 
+  <!-- QUICK QUOTE · inline mini-form, right after hero (paid traffic lands
+       here, this puts the action one swipe below the fold on mobile). -->
+  <section id="quote" class="quote-section">
+    <div class="container quote-inner">
+      <div class="quote-copy">
+        <p class="eyebrow">Get started in 60 seconds</p>
+        <h2>Tell us a bit about your project.</h2>
+        <p class="quote-sub">Send us 4 quick details and we will reply within one business day with a written proposal. No obligation, no pressure.</p>
+        <ul class="quote-bullets">
+          <li>Free, no-obligation quote</li>
+          <li>Fixed-scope proposal, no surprise invoices</li>
+          <li>Reply within one business day</li>
+        </ul>
+      </div>
+      <form id="quick-quote-form" class="contact-form quote-form" novalidate>
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+        <input type="hidden" name="source" value="hero-mini">
+        <input type="hidden" name="project_type" value="Not sure yet">
+
+        <div class="quote-grid">
+          <div class="field">
+            <label for="qq-name">Your name</label>
+            <input type="text" id="qq-name" name="name" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="qq-email">Email</label>
+            <input type="email" id="qq-email" name="email" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="qq-phone">Phone</label>
+            <input type="tel" id="qq-phone" name="phone" autocomplete="tel" placeholder="Optional">
+          </div>
+          <div class="field">
+            <label for="qq-type">What do you need?</label>
+            <select id="qq-type" name="project_type">
+              <option value="New website">New website</option>
+              <option value="Website redesign">Website redesign</option>
+              <option value="WordPress maintenance">WordPress maintenance</option>
+              <option value="Mobile app">Mobile app</option>
+              <option value="Not sure yet">Not sure yet</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg form-submit">Get my free quote</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <p class="form-fineprint">Prefer to call? <a href="tel:+16136177233">(613) 617-7233</a></p>
+      </form>
+    </div>
+  </section>
+
   <!-- SERVICES -->
   <section id="services" class="section">
     <div class="container">
