@@ -9,6 +9,18 @@ const TO_EMAIL   = "adel.ghader@gmail.com";                    // submission not
 const REPLY_TO   = "info@agpixels.ca";                        // confirmation email's reply-to
 const SITE_URL   = "https://agpixels.ca";
 
+// Anti-spam: origin gate. Direct-API spam bots usually omit / spoof Origin.
+const ALLOWED_ORIGINS = new Set([
+  "https://agpixels.ca",
+  "https://www.agpixels.ca",
+]);
+const ALLOWED_REFERER_PREFIXES = [
+  "https://agpixels.ca/",
+  "https://www.agpixels.ca/",
+];
+const FORM_MIN_AGE_MS = 3 * 1000;          // submit any faster → bot
+const FORM_MAX_AGE_MS = 60 * 60 * 1000;     // page rendered > 1h ago → stale/bot
+
 // Security headers applied to every response leaving the Worker.
 // HSTS preload requires the redirect + max-age >= 31536000 + includeSubDomains.
 const SECURITY_HEADERS = {
@@ -58,6 +70,17 @@ export default {
 };
 
 async function handleContact(request, env) {
+  // --- Anti-spam gate 1: Origin / Referer must be agpixels.ca.
+  // Bot doing curl/Python POST against /api/contact will fail this.
+  const origin  = request.headers.get("Origin")  || "";
+  const referer = request.headers.get("Referer") || "";
+  const originOk  = ALLOWED_ORIGINS.has(origin);
+  const refererOk = ALLOWED_REFERER_PREFIXES.some((p) => referer.startsWith(p));
+  if (!originOk && !refererOk) {
+    console.warn("Rejected /api/contact: bad origin/referer", { origin, referer });
+    return json({ success: true, message: "OK" });   // silent 200 so bot doesn't iterate
+  }
+
   // Parse body — accept JSON or form-encoded
   let data;
   try {
@@ -72,8 +95,25 @@ async function handleContact(request, env) {
     return json({ success: false, message: "Invalid request body" }, 400);
   }
 
-  // Honeypot — if filled, silently "succeed" so bot doesn't retry
+  // --- Anti-spam gate 2: checkbox honeypot (legacy; kept for defense in depth)
   if (data.botcheck) {
+    console.warn("Rejected /api/contact: checkbox honeypot filled");
+    return json({ success: true, message: "OK" });
+  }
+
+  // --- Anti-spam gate 3: text-named honeypot.
+  // Bots autofill URL-shaped field names. A real user never sees these.
+  if ((data.website || "").toString().trim() || (data.url || "").toString().trim()) {
+    console.warn("Rejected /api/contact: text honeypot filled", { website: data.website, url: data.url });
+    return json({ success: true, message: "OK" });
+  }
+
+  // --- Anti-spam gate 4: form_loaded_at — page render timestamp set by JS.
+  // Missing / non-numeric / submitted in < 3s / older than 1h → bot.
+  const loaded = Number(data.form_loaded_at);
+  const elapsed = Date.now() - loaded;
+  if (!Number.isFinite(loaded) || loaded <= 0 || elapsed < FORM_MIN_AGE_MS || elapsed > FORM_MAX_AGE_MS) {
+    console.warn("Rejected /api/contact: bad form_loaded_at", { loaded, elapsed });
     return json({ success: true, message: "OK" });
   }
 

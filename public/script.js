@@ -56,6 +56,12 @@
     const originalLabel = submit.textContent;
     const source = form.querySelector('input[name="source"]')?.value || 'contact';
 
+    // Anti-spam: stamp the page load time on the form. Worker requires it to
+    // be present, numeric, and 3s..1h old. Direct-API POSTers can't set this
+    // unless they first GET and parse the page.
+    const loadedAt = form.querySelector('input[name="form_loaded_at"]');
+    if (loadedAt) loadedAt.value = String(Date.now());
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
