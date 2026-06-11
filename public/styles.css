@@ -968,3 +968,47 @@ p  { margin: 0; }
   border-bottom: 2px solid #6B5DF7;
   transform: translateY(-80%) rotate(-45deg);
 }
+
+/* FAQ (city landing pages) */
+.faq-list {
+  max-width: 760px;
+  margin: 0 auto;
+  display: grid;
+  gap: 12px;
+}
+.faq-item {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+}
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 18px 48px 18px 20px;
+  font-weight: 600;
+  font-size: 1.02rem;
+  position: relative;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #6B5DF7;
+  transition: transform 0.2s ease;
+}
+.faq-item[open] summary::after {
+  content: "\2212";
+}
+.faq-item p {
+  padding: 0 20px 18px;
+  margin: 0;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
