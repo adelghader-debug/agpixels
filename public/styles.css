@@ -1012,3 +1012,21 @@ p  { margin: 0; }
   color: var(--ink-2);
   line-height: 1.6;
 }
+
+/* How it works steps (Ottawa LP) */
+.how-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px; margin-top:8px; }
+.how-step { text-align:center; padding:8px 12px; }
+.how-num { display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border-radius:50%; background:#6B5DF7; color:#fff; font-weight:700; font-size:1.25rem; margin-bottom:14px; }
+.how-step h3 { margin:0 0 8px; font-size:1.1rem; }
+.how-step p { margin:0; color:var(--ink-2); font-size:0.97rem; line-height:1.55; }
+
+/* Pricing "most popular" badge */
+.price-badge { display:inline-block; background:#6B5DF7; color:#fff; font-size:0.78rem; font-weight:600; letter-spacing:.4px; text-transform:uppercase; padding:4px 12px; border-radius:999px; margin:0 0 10px; }
+
+/* Guarantee band (Ottawa LP) */
+.guarantee-band { background:#6B5DF7; color:#fff; padding:54px 0; text-align:center; }
+.guarantee-band h2 { color:#fff; margin:0 0 12px; }
+.guarantee-band p { max-width:680px; margin:0 auto 22px; color:#ece9ff; font-size:1.08rem; line-height:1.6; }
+.guarantee-band .eyebrow-light { color:#cfc9ff; }
+.guarantee-band .btn-primary { background:#fff; color:#4a3fd0; }
+.guarantee-band .btn-primary:hover { background:#f1efff; }
