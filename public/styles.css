@@ -1030,3 +1030,11 @@ p  { margin: 0; }
 .guarantee-band .eyebrow-light { color:#cfc9ff; }
 .guarantee-band .btn-primary { background:#fff; color:#4a3fd0; }
 .guarantee-band .btn-primary:hover { background:#f1efff; }
+
+/* Google reviews (Ottawa LP) */
+.reviews-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px; margin-top:8px; }
+.review-card { background:#fff; border:1px solid #e7e5f0; border-radius:14px; padding:22px 24px; }
+.review-stars { color:#EF9F27; letter-spacing:2px; font-size:1.05rem; margin-bottom:10px; }
+.review-text { margin:0 0 14px; font-size:1rem; line-height:1.62; color:#2a2a33; font-style:italic; }
+.review-author { margin:0; font-weight:600; color:#2a2a33; }
+.review-author span { display:block; font-weight:400; font-size:0.85rem; color:#73737f; margin-top:2px; }
