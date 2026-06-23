@@ -4,4 +4,7 @@ Allow: /
 # Don't index utility / legal pages from search results · they're for human reference, not SEO
 Disallow: /privacy
 
+# Outreach mockup/concept pages · per-prospect previews, not for search
+Disallow: /preview/
+
 Sitemap: https://agpixels.ca/sitemap.xml
