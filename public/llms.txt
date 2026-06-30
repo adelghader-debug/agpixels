@@ -1,0 +1,22 @@
+# AGPixels
+
+> AGPixels is a founder-led web design studio based in Ottawa, Canada. We build fast, custom websites for small and local businesses, and provide ongoing website maintenance, local SEO, and Google Ads management. We serve the Ottawa-Gatineau region and clients across Canada.
+
+AGPixels is run by Adel Ghader, who works directly with every client from the first call through launch and ongoing support. Every project is custom built, never templated. Pricing is fixed-scope and quoted in writing before any work starts, backed by a "love the design or you pay nothing" guarantee. Website packages start from $1,500 and ongoing maintenance starts from $150 per month. Response within one business day.
+
+## Pages
+- [Home](https://agpixels.ca/): Overview of services, process, pricing, portfolio, and contact form.
+- [About](https://agpixels.ca/about/): About founder Adel Ghader and how AGPixels works with clients.
+- [Web Design Ottawa](https://agpixels.ca/web-design-ottawa/): Ottawa-focused web design services, packages, pricing, and FAQ.
+- [Privacy Policy](https://agpixels.ca/privacy): How AGPixels collects and handles personal data.
+
+## Services
+- [Website design and development](https://agpixels.ca/#services): Custom, mobile-first websites built for speed and conversions, from $1,500.
+- [Website maintenance](https://agpixels.ca/#services): Updates, security patches, performance tuning, backups, and content edits, from $150 per month.
+- [Mobile app development](https://agpixels.ca/#services): Native iOS and Android apps from concept to App Store and Play Store.
+- [Local SEO and Google Ads](https://agpixels.ca/#pricing): The Complete Growth System bundles a custom site with SEO and Google Ads management, from $8,000.
+
+## Contact
+- Email: info@agpixels.ca
+- Phone and WhatsApp: +1 613 617 7233
+- Service area: Ottawa, Kanata, Orleans, Nepean, Barrhaven, Gatineau, and clients across Canada
