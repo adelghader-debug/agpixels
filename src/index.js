@@ -55,6 +55,13 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
 
+    // Canonicalize www -> apex. Both hostnames currently resolve to this Worker,
+    // which was serving identical 200s on each and splitting ranking signal.
+    if (url.hostname === "www.agpixels.ca") {
+      url.hostname = "agpixels.ca";
+      return Response.redirect(url.toString(), 301);
+    }
+
     if (url.pathname === "/api/contact" && request.method === "POST") {
       return withSecurityHeaders(await handleContact(request, env));
     }
