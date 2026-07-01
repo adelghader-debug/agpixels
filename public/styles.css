@@ -678,6 +678,8 @@ p  { margin: 0; }
   text-decoration: none;
   border: 1.5px solid #6B5DF7;
   transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .header-phone:hover {
   background: #6B5DF7;
