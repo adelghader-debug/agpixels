@@ -8,7 +8,14 @@ AGPixels is run by Adel Ghader, who works directly with every client from the fi
 - [Home](https://agpixels.ca/): Overview of services, process, pricing, portfolio, and contact form.
 - [About](https://agpixels.ca/about/): About founder Adel Ghader and how AGPixels works with clients.
 - [Web Design Ottawa](https://agpixels.ca/web-design-ottawa/): Ottawa-focused web design services, packages, pricing, and FAQ.
+- [Web Design Canada](https://agpixels.ca/web-design-canada/): Canada-wide web design services, packages, pricing, and FAQ.
+- [Blog](https://agpixels.ca/blog/): Articles on website redesigns, pricing, and WordPress for small businesses.
 - [Privacy Policy](https://agpixels.ca/privacy): How AGPixels collects and handles personal data.
+
+## Blog posts
+- [5 signs your website needs a redesign](https://agpixels.ca/blog/signs-your-website-needs-a-redesign/): How to tell an existing site has become a liability, and what a redesign involves.
+- [How much does a website cost in Ottawa?](https://agpixels.ca/blog/how-much-does-a-website-cost-in-ottawa/): A real breakdown of what changes website pricing and typical Ottawa price ranges.
+- [WordPress vs. Wix or Squarespace](https://agpixels.ca/blog/wordpress-vs-website-builders-small-business/): Honest tradeoffs between WordPress and drag-and-drop website builders.
 
 ## Services
 - [Website design and development](https://agpixels.ca/#services): Custom, mobile-first websites built for speed and conversions, from $1,500.

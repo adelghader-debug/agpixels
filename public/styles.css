@@ -1126,3 +1126,85 @@ p  { margin: 0; }
   line-height: 1.55;
 }
 .about-values li strong { display: block; color: var(--ink); font-weight: 600; margin-bottom: 6px; font-size: 1.02rem; }
+
+/* ==========================================================================
+   Blog index + article pages
+   ========================================================================== */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 900px) { .blog-grid { grid-template-columns: 1fr; } }
+
+.blog-card {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.blog-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: transparent;
+  color: inherit;
+}
+.blog-card-date {
+  display: block;
+  color: var(--ink-3);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+.blog-card h3 { margin-bottom: 8px; }
+.blog-card p { color: var(--ink-2); font-size: 0.96rem; }
+.blog-card-more { display: inline-block; margin-top: 16px; color: var(--brand); font-weight: 600; font-size: 0.9rem; }
+
+.article-meta {
+  color: var(--ink-3);
+  font-size: 0.92rem;
+  margin-bottom: 8px;
+}
+.article-meta a { color: var(--ink-3); text-decoration: underline; }
+
+.article-pullquote {
+  margin: 32px 0;
+  padding: 4px 0 4px 22px;
+  border-left: 3px solid var(--brand);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.article-cta {
+  margin: 40px 0;
+  padding: 28px 30px;
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  text-align: center;
+}
+.article-cta p { color: var(--ink-2); margin-bottom: 16px; }
+.article-cta .btn { margin: 0 6px; }
+
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+.article-tags span {
+  background: var(--brand-light);
+  color: var(--brand-dark);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
