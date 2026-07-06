@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://agpixels.ca/blog/</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -44,7 +44,13 @@
   </url>
   <url>
     <loc>https://agpixels.ca/blog/wordpress-vs-website-builders-small-business/</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://agpixels.ca/blog/compass-clinic-website-case-study/</loc>
+    <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

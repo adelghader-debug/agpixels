@@ -13,6 +13,7 @@ AGPixels is run by Adel Ghader, who works directly with every client from the fi
 - [Privacy Policy](https://agpixels.ca/privacy): How AGPixels collects and handles personal data.
 
 ## Blog posts
+- [Compass Clinic: a real website performance case study](https://agpixels.ca/blog/compass-clinic-website-case-study/): A real client project: PageSpeed fixes on an existing WordPress site, and actual before/after numbers.
 - [5 signs your website needs a redesign](https://agpixels.ca/blog/signs-your-website-needs-a-redesign/): How to tell an existing site has become a liability, and what a redesign involves.
 - [How much does a website cost in Ottawa?](https://agpixels.ca/blog/how-much-does-a-website-cost-in-ottawa/): A real breakdown of what changes website pricing and typical Ottawa price ranges.
 - [WordPress vs. Wix or Squarespace](https://agpixels.ca/blog/wordpress-vs-website-builders-small-business/): Honest tradeoffs between WordPress and drag-and-drop website builders.
