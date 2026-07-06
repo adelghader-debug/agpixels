@@ -131,8 +131,8 @@ p  { margin: 0; }
   padding-bottom: 14px;
 }
 
-.brand { display: inline-flex; align-items: center; }
-.brand-logo { height: 28px; width: auto; }
+.brand { display: inline-flex; align-items: center; flex-shrink: 0; }
+.brand-logo { height: 28px; width: auto; flex-shrink: 0; }
 .brand-logo-sm { height: 22px; }
 
 .nav {
