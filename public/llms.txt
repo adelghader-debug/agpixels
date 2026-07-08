@@ -9,6 +9,7 @@ AGPixels is run by Adel Ghader, who works directly with every client from the fi
 - [About](https://agpixels.ca/about/): About founder Adel Ghader and how AGPixels works with clients.
 - [Web Design Ottawa](https://agpixels.ca/web-design-ottawa/): Ottawa-focused web design services, packages, pricing, and FAQ.
 - [Web Design Canada](https://agpixels.ca/web-design-canada/): Canada-wide web design services, packages, pricing, and FAQ.
+- [Google Ads Management](https://agpixels.ca/google-ads-management/): Flat-fee Google Ads management for small businesses, no percentage-of-spend fees, pricing, and FAQ.
 - [Blog](https://agpixels.ca/blog/): Articles on website redesigns, pricing, and WordPress for small businesses.
 - [Privacy Policy](https://agpixels.ca/privacy): How AGPixels collects and handles personal data.
 
@@ -22,6 +23,7 @@ AGPixels is run by Adel Ghader, who works directly with every client from the fi
 - [Website design and development](https://agpixels.ca/#services): Custom, mobile-first websites built for speed and conversions, from $1,500.
 - [Website maintenance](https://agpixels.ca/#services): Updates, security patches, performance tuning, backups, and content edits, from $150 per month.
 - [Mobile app development](https://agpixels.ca/#services): Native iOS and Android apps from concept to App Store and Play Store.
+- [Google Ads management](https://agpixels.ca/google-ads-management/): Flat monthly fee, never a percentage of ad spend. Local Ads from $350/month, Growth Ads from $650/month.
 - [Local SEO and Google Ads](https://agpixels.ca/#pricing): The Complete Growth System bundles a custom site with SEO and Google Ads management, from $8,000.
 
 ## Contact
