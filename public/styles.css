@@ -141,6 +141,8 @@ p  { margin: 0; }
   margin-left: auto;
   margin-right: 8px;
 }
+/* Paid landing pages strip the nav; keep the phone/CTA cluster right-aligned. */
+.site-header-lp .header-phone { margin-left: auto; }
 .nav a {
   color: var(--ink-2);
   font-weight: 500;
@@ -260,6 +262,21 @@ p  { margin: 0; }
   display: inline-block;
   margin-right: 8px;
   color: var(--brand);
+}
+.hero-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: -8px 0 22px;
+  font-size: 0.95rem;
+  color: var(--ink-2);
+  font-weight: 600;
+}
+.hero-rating .stars {
+  color: #F5A623;
+  letter-spacing: 1px;
+  font-size: 1.05em;
+  line-height: 1;
 }
 
 /* Sticky CTA · appears after user scrolls past hero */
