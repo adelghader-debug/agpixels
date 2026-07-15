@@ -62,6 +62,13 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
 
+    // /contact is not a real page (the contact form lives at the homepage
+    // #contact anchor). Redirect any typed URL / stale listing link there
+    // instead of serving a 404.
+    if (url.pathname === "/contact" || url.pathname === "/contact/") {
+      return Response.redirect("https://agpixels.ca/#contact", 301);
+    }
+
     if (url.pathname === "/api/contact" && request.method === "POST") {
       return withSecurityHeaders(await handleContact(request, env));
     }
