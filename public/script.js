@@ -49,6 +49,37 @@
   const forms = document.querySelectorAll('form.contact-form');
   if (!forms.length) return;
 
+
+  // --- Lead attribution -------------------------------------------------
+  // Record how this visitor arrived (ad click id, UTMs, referring host,
+  // landing path) once per session, so it survives internal navigation
+  // between a landing page and the contact form further down the site.
+  function captureAttribution() {
+    try {
+      const KEY = 'agpx_attr';
+      const stored = sessionStorage.getItem(KEY);
+      if (stored) return stored;
+      const params = new URLSearchParams(location.search);
+      const bits = [];
+      const click = params.get('gclid') || params.get('wbraid') || params.get('gbraid');
+      if (click) bits.push('gclid=' + click.slice(0, 120));
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach((k) => {
+        const v = params.get(k);
+        if (v) bits.push(k + '=' + v.slice(0, 60));
+      });
+      let ref = '';
+      try { ref = document.referrer ? new URL(document.referrer).hostname : ''; } catch (_) {}
+      if (ref && ref !== location.hostname) bits.push('ref=' + ref);
+      else if (!ref) bits.push('ref=direct');
+      bits.push('landing=' + location.pathname.slice(0, 80));
+      const value = bits.join(' | ').slice(0, 400);
+      try { sessionStorage.setItem(KEY, value); } catch (_) {}
+      return value;
+    } catch (_) {
+      return '';
+    }
+  }
+
   forms.forEach((form) => {
     const status = form.querySelector('.form-status');
     const submit = form.querySelector('.form-submit');
@@ -61,6 +92,10 @@
     // unless they first GET and parse the page.
     const loadedAt = form.querySelector('input[name="form_loaded_at"]');
     if (loadedAt) loadedAt.value = String(Date.now());
+
+    // Stamp how the visitor got here so the notification email can report it.
+    const attrField = form.querySelector('input[name="attribution"]');
+    if (attrField) attrField.value = captureAttribution();
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();

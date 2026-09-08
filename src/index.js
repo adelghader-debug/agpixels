@@ -69,6 +69,55 @@ export default {
       return Response.redirect("https://agpixels.ca/#contact", 301);
     }
 
+    // Preview-stats poll endpoint for the lead engine (token-gated, read-only)
+    if (url.pathname === "/api/preview-stats" && request.method === "GET") {
+      if (url.searchParams.get("token") !== env.PREVIEW_STATS_TOKEN) {
+        return withSecurityHeaders(json({ error: "unauthorized" }, 401));
+      }
+      const out = {};
+      let cursor = undefined;
+      do {
+        const page = await env.PREVIEW_STATS.list({ cursor });
+        for (const key of page.keys) {
+          const v = await env.PREVIEW_STATS.get(key.name);
+          if (v) { try { out[key.name] = JSON.parse(v); } catch (e) { /* skip */ } }
+        }
+        cursor = page.list_complete ? undefined : page.cursor;
+      } while (cursor);
+      return withSecurityHeaders(json(out));
+    }
+
+    // Count mockup preview visits per slug (fire-and-forget; never blocks the page).
+    // ?me=1 sets a self-exclusion cookie (owner's own visits are never counted).
+    // ?e=1 marks the click as coming from an outreach email (counted separately
+    // as proof the recipient, not the owner, viewed the page).
+    let setSelfCookie = false;
+    const previewMatch = url.pathname.match(/^\/preview\/([a-z0-9-]+)\/?$/);
+    if (previewMatch && request.method === "GET") {
+      const cookies = request.headers.get("Cookie") || "";
+      const isSelf = cookies.includes("agp_self=1");
+      if (url.searchParams.get("me") === "1") setSelfCookie = true;
+      const ua = (request.headers.get("User-Agent") || "").toLowerCase();
+      const isBot = /bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp|telegram|curl|python-requests/.test(ua);
+      if (!isBot && !isSelf && !setSelfCookie) {
+        const slug = previewMatch[1];
+        const fromEmail = url.searchParams.get("e") === "1";
+        ctx.waitUntil((async () => {
+          try {
+            const cur = JSON.parse((await env.PREVIEW_STATS.get(slug)) || '{"count":0}');
+            cur.count = (cur.count || 0) + 1;
+            cur.last = new Date().toISOString();
+            if (!cur.first) cur.first = cur.last;
+            if (fromEmail) {
+              cur.ecount = (cur.ecount || 0) + 1;
+              cur.elast = cur.last;
+            }
+            await env.PREVIEW_STATS.put(slug, JSON.stringify(cur));
+          } catch (e) { /* stats must never break the page */ }
+        })());
+      }
+    }
+
     if (url.pathname === "/api/contact" && request.method === "POST") {
       return withSecurityHeaders(await handleContact(request, env));
     }
@@ -79,7 +128,13 @@ export default {
 
     // Fall through to static assets
     const assetResponse = await env.ASSETS.fetch(request);
-    return withSecurityHeaders(assetResponse);
+    let resp = withSecurityHeaders(assetResponse);
+    if (setSelfCookie) {
+      const h = new Headers(resp.headers);
+      h.append("Set-Cookie", "agp_self=1; Max-Age=31536000; Path=/; Secure; SameSite=Lax");
+      resp = new Response(resp.body, { status: resp.status, statusText: resp.statusText, headers: h });
+    }
+    return resp;
   },
 };
 
@@ -138,6 +193,7 @@ async function handleContact(request, env) {
   let   message = (data.message || "").trim();
   const projectType = (data.project_type || "Not specified").trim();
   const source  = (data.source  || "contact").trim();
+  const attribution = (data.attribution || "").toString().trim().slice(0, 400);
 
   if (!name || !email) {
     return json({ success: false, message: "Name and email are required" }, 400);
@@ -176,7 +232,7 @@ async function handleContact(request, env) {
       to: TO_EMAIL,
       reply_to: email,
       subject: `New project inquiry — ${name}${source === "hero-mini" ? " (hero mini-form)" : ""}`,
-      html: notificationEmail({ name, email, phone, projectType, message, source }),
+      html: notificationEmail({ name, email, phone, projectType, message, source, attribution }),
     }),
     sendEmail(env.RESEND_API_KEY, {
       from: FROM_EMAIL,
@@ -234,14 +290,25 @@ function escapeHtml(s) {
     .replace(/'/g, "&#39;");
 }
 
-function notificationEmail({ name, email, phone, projectType, message, source }) {
+function notificationEmail({ name, email, phone, projectType, message, source, attribution }) {
   const safeName    = escapeHtml(name);
   const safeEmail   = escapeHtml(email);
   const safePhone   = escapeHtml(phone || "");
   const safeType    = escapeHtml(projectType);
   const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
   const safeSource  = escapeHtml(source || "contact");
-  const sourceLabel = safeSource === "hero-mini" ? "Hero mini-form (quick quote)" : "Full contact form";
+  // Every form on the site stamps its own `source`. Report the real one so we
+  // know which page produces leads, instead of collapsing them all into one label.
+  const SOURCE_LABELS = {
+    "contact":               "Homepage contact form",
+    "hero-mini":             "Homepage hero mini-form (quick quote)",
+    "hero-mini-ottawa":      "Ottawa page hero mini-form (quick quote)",
+    "web-design-ottawa":     "Ottawa landing page contact form",
+    "web-design-canada":     "Canada landing page contact form",
+    "google-ads-management": "Google Ads management page form",
+  };
+  const sourceLabel = SOURCE_LABELS[safeSource] || `Contact form (${safeSource})`;
+  const safeAttribution = escapeHtml(attribution || "");
 
   return `<!DOCTYPE html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#0F0E1A;background:#fafafc;margin:0;padding:24px;">
 <div style="max-width:560px;margin:0 auto;background:#fff;border:1px solid #e6e5ee;border-radius:12px;padding:28px;">
@@ -252,6 +319,7 @@ function notificationEmail({ name, email, phone, projectType, message, source })
     ${safePhone ? `<tr><td style="padding:6px 0;color:#6B6A78;">Phone</td><td style="padding:6px 0;"><a href="tel:${safePhone}" style="color:#6B5DF7;">${safePhone}</a></td></tr>` : ""}
     <tr><td style="padding:6px 0;color:#6B6A78;">Project type</td><td style="padding:6px 0;">${safeType}</td></tr>
     <tr><td style="padding:6px 0;color:#6B6A78;">Source</td><td style="padding:6px 0;">${sourceLabel}</td></tr>
+    ${safeAttribution ? `<tr><td style="padding:6px 0;color:#6B6A78;vertical-align:top;">Came from</td><td style="padding:6px 0;font-size:13px;color:#3B3A49;">${safeAttribution}</td></tr>` : ""}
   </table>
   <h3 style="margin:24px 0 8px;font-size:14px;color:#6B6A78;text-transform:uppercase;letter-spacing:0.08em;">Message</h3>
   <div style="font-size:15px;line-height:1.55;white-space:pre-wrap;">${safeMessage}</div>
