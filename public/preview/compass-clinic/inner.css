@@ -112,8 +112,58 @@ nav .menu { display: none; }
   .roster li { flex-direction: column; gap: 2px; }
   .roster li span { text-align: left; }
   .faq summary { font-size: 19px; }
-  nav { position: relative; }
-  nav .menu { display: inline-block; margin-left: 10px; background: none; border: 1px solid rgba(255,255,255,.45); color: #fff; border-radius: 999px; padding: 10px 14px; font: inherit; font-weight: 600; font-size: 15px; }
-  nav.is-open .links { display: flex; flex-direction: column; gap: 0; position: absolute; left: 0; right: 0; top: 76px; background: var(--deep); padding: 8px 22px 16px; z-index: 5; }
-  nav.is-open .links a { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.15); font-size: 17px; }
+}
+
+/* ================= mobile header, menu, call bar ================= */
+nav .mphone, nav .menu, .menu-foot, .mcall { display: none; }
+@media (max-width: 767px) {
+  nav { height: 72px; gap: 10px; position: relative; z-index: 60; }
+  nav > a:first-child { transform: translateY(-4px); }
+  nav img { height: 30px; }
+  nav .phone { display: none; }
+  nav .mphone, nav .menu {
+    display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.45); color: #fff; background: transparent; padding: 0; cursor: pointer; text-decoration: none;
+  }
+  nav .mphone { margin-left: auto; }
+  nav > a:first-child, nav .mphone, nav .menu { position: relative; z-index: 70; }
+  nav .menu .ic-close { display: none; }
+  nav.is-open .menu .ic-open { display: none; }
+  nav.is-open .menu .ic-close { display: block; }
+  nav .links {
+    display: none; position: fixed; inset: 0; z-index: 50; background: var(--deep);
+    flex-direction: column; padding: 96px 28px 36px; margin: 0; overflow-y: auto;
+  }
+  nav.is-open .links { display: flex; }
+  nav .links a {
+    font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.2; letter-spacing: -0.01em;
+    padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,.14); opacity: 1;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  nav .links a::after { content: ""; width: 9px; height: 9px; border-right: 1.5px solid var(--sand); border-top: 1.5px solid var(--sand); transform: rotate(45deg); }
+  nav .links a:hover { text-decoration: none; }
+  .menu-foot { display: flex; flex-direction: column; gap: 14px; margin-top: auto; padding-top: 28px; }
+  nav .links .menu-foot a { font-family: var(--sans); font-weight: 600; font-size: 17px; letter-spacing: 0; padding: 17px 30px; border: 0; display: block; text-align: center; justify-content: center; }
+  nav .links .menu-foot a::after { display: none; }
+  .menu-foot .btn { text-align: center; }
+  .menu-foot span { color: rgba(255,255,255,.7); font-size: 14px; letter-spacing: .02em; }
+  body.menu-open { overflow: hidden; }
+  body.menu-open .mcall { display: none; }
+  .band nav, .hero nav { z-index: 60; }
+
+  /* ruled lists stack their descriptor under the name */
+  .list a { flex-direction: column; align-items: flex-start; gap: 3px; padding: 14px 0; }
+  .list a span { text-align: left; font-size: 15px; }
+  .also { flex-direction: column; gap: 0; }
+  .also b { margin-bottom: 4px; }
+  .also a { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .also a:last-child { border-bottom: 0; }
+  .hero .copy { padding: 44px 0 40px; }
+  .places { gap: 12px 18px; margin-top: 32px; }
+
+  /* sticky call bar */
+  body { padding-bottom: 76px; }
+  .mcall { display: flex; gap: 10px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--deep); padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); box-shadow: 0 -8px 24px rgba(12,38,48,.25); }
+  .mcall .btn { flex: 1 1 0; text-align: center; padding: 14px 10px; font-size: 15px; white-space: nowrap; }
+  .close { padding-bottom: 72px; }
 }
