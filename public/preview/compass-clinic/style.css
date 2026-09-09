@@ -40,6 +40,7 @@ p { margin: 0 0 1em; }
 .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(12,38,48,.88) 0%, rgba(12,38,48,.66) 42%, rgba(12,38,48,.18) 78%, rgba(12,38,48,.1) 100%); }
 .hero .wrap { position: relative; z-index: 1; }
 nav { height: 96px; display: flex; align-items: center; gap: 40px; }
+nav > a:first-child { display: flex; transform: translateY(-7px); } /* the wordmark sits in the lower half of the logo file; nudge so it aligns with the links */
 nav img { height: 40px; width: auto; }
 nav .links { display: flex; gap: 32px; margin-left: 8px; font-weight: 500; font-size: 16px; }
 nav .links a { color: #fff; text-decoration: none; opacity: .92; }
