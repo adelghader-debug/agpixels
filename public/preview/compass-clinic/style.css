@@ -154,8 +154,8 @@ footer .legal { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(
   body { font-size: 17px; }
   .wrap { padding: 0 22px; }
   nav { height: 76px; gap: 16px; }
-  nav .links { display: none; }
   nav img { height: 32px; }
+  nav .links { margin-left: 0; gap: 0; }
   nav .phone { padding: 10px 14px; font-size: 15px; }
   .hero { min-height: 0; }
   .hero::after { background: linear-gradient(180deg, rgba(12,38,48,.55) 0%, rgba(12,38,48,.85) 100%); }
