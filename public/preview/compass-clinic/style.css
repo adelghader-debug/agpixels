@@ -40,8 +40,8 @@ p { margin: 0 0 1em; }
 .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(12,38,48,.88) 0%, rgba(12,38,48,.66) 42%, rgba(12,38,48,.18) 78%, rgba(12,38,48,.1) 100%); }
 .hero .wrap { position: relative; z-index: 1; }
 nav { height: 96px; display: flex; align-items: center; gap: 40px; }
-nav > a:first-child { display: flex; transform: translateY(-7px); } /* the wordmark sits in the lower half of the logo file; nudge so it aligns with the links */
-nav img { height: 40px; width: auto; }
+nav > a:first-child { display: flex; } /* the -balanced logo files carry transparent padding so the wordmark sits on the image centre line */
+nav img { height: 62px; width: auto; }
 nav .links { display: flex; gap: 32px; margin-left: 8px; font-weight: 500; font-size: 16px; }
 nav .links a { color: #fff; text-decoration: none; opacity: .92; }
 nav .links a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 6px; }
@@ -135,7 +135,7 @@ h1 strong { font-weight: 500; }
 /* footer */
 footer { background: var(--deep-2); color: rgba(255,255,255,.78); padding: 48px 0 40px; font-size: 15px; }
 footer .row { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
-footer img { height: 32px; }
+footer img { height: 50px; }
 footer .links { display: flex; gap: 12px 24px; flex-wrap: wrap; }
 footer .links a { color: #fff; text-decoration: none; }
 footer .tag { margin-left: auto; color: var(--sand); font-weight: 600; letter-spacing: .04em; }
@@ -154,7 +154,7 @@ footer .legal { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(
   body { font-size: 17px; }
   .wrap { padding: 0 22px; }
   nav { height: 76px; gap: 16px; }
-  nav img { height: 32px; }
+  nav img { height: 46px; }
   nav .links { margin-left: 0; gap: 0; }
   nav .phone { padding: 10px 14px; font-size: 15px; }
   .hero { min-height: 0; }

@@ -118,8 +118,7 @@ nav .menu { display: none; }
 nav .mphone, nav .menu, .menu-foot, .mcall { display: none; }
 @media (max-width: 767px) {
   nav { height: 72px; gap: 10px; position: relative; z-index: 60; }
-  nav > a:first-child { transform: translateY(-4px); }
-  nav img { height: 30px; }
+  nav img { height: 46px; }
   nav .phone { display: none; }
   nav .mphone, nav .menu {
     display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 999px;
