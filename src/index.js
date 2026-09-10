@@ -43,6 +43,33 @@ function withSecurityHeaders(response) {
   });
 }
 
+// Private client documents behind HTTP Basic Auth, one credential per area.
+// Each secret holds "username:password" and is set with `wrangler secret put`,
+// never committed. Fails closed: a missing secret makes the area unreachable,
+// not public. run_worker_first guarantees assets can't be fetched around this.
+const PRIVATE_AREAS = [
+  { prefix: "/private/klinika", secret: "KLINIKA_BRIEF_AUTH", realm: "Klinika Recovery Brief" },
+];
+const PRIVATE_HEADERS = {
+  "Cache-Control": "private, no-store",
+  "X-Robots-Tag": "noindex, nofollow, noarchive",
+};
+
+async function hasValidBasicAuth(request, expected) {
+  if (!expected) return false;
+  const [scheme, encoded] = (request.headers.get("Authorization") || "").split(" ");
+  if (!scheme || scheme.toLowerCase() !== "basic" || !encoded) return false;
+  let supplied;
+  try { supplied = atob(encoded); } catch (e) { return false; }
+  // Hash both sides so timingSafeEqual always compares equal-length buffers.
+  const enc = new TextEncoder();
+  const [a, b] = await Promise.all([
+    crypto.subtle.digest("SHA-256", enc.encode(supplied)),
+    crypto.subtle.digest("SHA-256", enc.encode(expected)),
+  ]);
+  return crypto.subtle.timingSafeEqual(a, b);
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -60,6 +87,31 @@ export default {
     if (url.hostname === "www.agpixels.ca") {
       url.hostname = "agpixels.ca";
       return Response.redirect(url.toString(), 301);
+    }
+
+    // Private areas: authenticate before anything else can serve the path.
+    const privateArea = PRIVATE_AREAS.find(
+      (a) => url.pathname === a.prefix || url.pathname.startsWith(a.prefix + "/")
+    );
+    if (privateArea) {
+      if (!(await hasValidBasicAuth(request, env[privateArea.secret]))) {
+        return withSecurityHeaders(new Response("Authentication required.", {
+          status: 401,
+          headers: {
+            "WWW-Authenticate": `Basic realm="${privateArea.realm}", charset="UTF-8"`,
+            "Content-Type": "text/plain; charset=utf-8",
+            ...PRIVATE_HEADERS,
+          },
+        }));
+      }
+      const asset = await env.ASSETS.fetch(request);
+      const h = new Headers(asset.headers);
+      for (const [k, v] of Object.entries(PRIVATE_HEADERS)) h.set(k, v);
+      return withSecurityHeaders(new Response(asset.body, {
+        status: asset.status,
+        statusText: asset.statusText,
+        headers: h,
+      }));
     }
 
     // /contact is not a real page (the contact form lives at the homepage
