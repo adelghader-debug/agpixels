@@ -202,6 +202,51 @@ footer{
   display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;
 }
 
+/* ---------- progress bar ---------- */
+.progress{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.progress-inner{max-width:var(--maxw);margin:0 auto;padding:10px 24px 11px;display:flex;flex-direction:column;gap:8px}
+.progress-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px}
+.progress-label{font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.progress-now{font-size:13px;font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:7px}
+.progress-count{margin-left:auto;font-family:var(--f-mono);font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;animation:beat 2.2s ease-in-out infinite}
+@keyframes beat{0%,100%{opacity:1}50%{opacity:.3}}
+.segments{list-style:none;margin:0;padding:0;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px}
+.seg{display:flex;flex-direction:column;gap:4px;min-width:0}
+.seg-track{position:relative;display:block;height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden}
+.seg-fill{position:absolute;top:0;bottom:0;left:0;width:calc(var(--fill,0) * 100%);background:var(--accent)}
+.seg.done .seg-fill{background:var(--ok)}
+.seg-name{font-family:var(--f-mono);font-size:10px;letter-spacing:.03em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg.current .seg-name{color:var(--ink);font-weight:600}
+
+/* ---------- roadmap ---------- */
+.roadmap{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.phase{display:grid;grid-template-columns:210px 1fr;gap:6px 20px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.phase:last-child{border-bottom:none}
+.phase.current{background:var(--accent-soft)}
+.phase-head{display:grid;grid-template-columns:22px 1fr auto;align-items:baseline;column-gap:8px;row-gap:1px}
+.phase-no,.phase-count{font-family:var(--f-mono);font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.phase-name{font-weight:600;font-size:14px;color:var(--ink)}
+.phase-state{grid-column:2 / 4;font-family:var(--f-mono);font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.phase.done .phase-state{color:var(--ok)}
+.phase.active .phase-state{color:var(--accent)}
+.phase.todo .phase-state{color:var(--muted)}
+.steps{list-style:none;margin:0;padding:2px 0 0;display:flex;flex-wrap:wrap;gap:5px 18px;align-content:start}
+.step{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--ink-2)}
+.step::before{content:"";width:8px;height:8px;border-radius:50%;border:1.5px solid var(--line-strong);box-sizing:border-box;flex:none}
+.step.done{color:var(--muted)}
+.step.done::before{background:var(--ok);border-color:var(--ok)}
+.step.active{color:var(--ink);font-weight:500}
+.step.active::before{background:var(--accent);border-color:var(--accent)}
+
+@media (max-width:700px){
+  .seg-name{display:none}
+  .phase{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .live-dot{animation:none}
+}
+
 @media (max-width:560px){
   .cell{border-right:none;border-bottom:1px solid var(--line)}
   .cell:last-child{border-bottom:none}
@@ -211,13 +256,24 @@ footer{
 </head>
 <body>
 
+<div class="progress">
+  <div class="progress-inner">
+    <div class="progress-head">
+      <span class="progress-label">Recovery progress</span>
+      <span class="progress-now"><span class="live-dot" aria-hidden="true"></span><span id="progress-now">Phase 2 of 6 &middot; Data recovery</span></span>
+      <span class="progress-count" id="progress-count">7 of 26 steps done</span>
+    </div>
+    <ol class="segments" id="segments" role="progressbar" aria-label="Recovery progress" aria-valuemin="0"></ol>
+  </div>
+</div>
+
 <div class="wrap">
 
   <header class="mast">
     <div class="kicker">
       <span>Klinikatech</span><span class="dot"></span>
       <span>SCCC me-central-1 &rarr; OCI me-riyadh-1</span><span class="dot"></span>
-      <span>Rev. 1 &middot; 10 Sep 2026</span>
+      <span id="rev">Rev. 2 &middot; 10 Sep 2026</span>
     </div>
     <h1>Klinika Recovery Brief</h1>
     <p class="standfirst">The doctor portal is down and its Alibaba tenancy is suspended for non-payment. This is the current picture: what we have established, the Oracle Riyadh build it points to, and what is still blocking the rebuild.</p>
@@ -231,12 +287,12 @@ footer{
     </div>
     <div class="cell">
       <span class="lab">Target spend</span>
-      <span class="val good">~$228</span>
+      <span class="val good">~$167</span>
       <span class="sub">pre-VAT &middot; 3 servers</span>
     </div>
     <div class="cell">
       <span class="lab">Reduction</span>
-      <span class="val">87%</span>
+      <span class="val">90%</span>
       <span class="sub">with backups and DR added</span>
     </div>
     <div class="cell">
@@ -247,13 +303,109 @@ footer{
   </div>
 
   <section>
+    <h2>Roadmap <span class="count">6 phases</span></h2>
+    <ol class="roadmap" id="roadmap"></ol>
+  </section>
+
+  <script>
+  // Recovery progress: change step states here ("done" | "active" | "todo").
+  // The top bar, roadmap, revision stamp and footer all render from this list.
+  const REVISION = { rev: 2, updated: "10 September 2026", short: "10 Sep 2026" };
+  const PHASES = [
+    { name: "Discovery", steps: [
+      ["Billing and fleet inventory", "done"],
+      ["DNS and certificate reconstruction", "done"],
+      ["Tenancy status confirmed", "done"],
+      ["Stack and environments mapped", "done"],
+      ["Target architecture costed", "done"],
+    ]},
+    { name: "Data recovery", steps: [
+      ["Backup handoff, round one", "done"],
+      ["Backup handoff, round two", "done"],
+      ["Record review of round-two files", "active"],
+      ["Inventory and export OSS buckets", "todo"],
+      ["Pull ActionTrail", "todo"],
+      ["Check for disk snapshots", "todo"],
+      ["Confirm signing for both mobile apps", "todo"],
+    ]},
+    { name: "Agreements", steps: [
+      ["Decide on Alibaba balance", "todo"],
+      ["DPA and PDPL counsel", "todo"],
+      ["Confirm services that handled patient data", "todo"],
+      ["Oracle quote naming me-riyadh-1", "todo"],
+    ]},
+    { name: "Oracle build", steps: [
+      ["Tenancy and service limits", "todo"],
+      ["VCN, subnets, gateways, Bastion", "todo"],
+      ["db-01, app-01, jitsi-01", "todo"],
+    ]},
+    { name: "Restore", steps: [
+      ["Restore safety runbook", "todo"],
+      ["Restore klinika_back and verify", "todo"],
+      ["Deploy app from snapshot lockfiles", "todo"],
+      ["Migrate media to Object Storage", "todo"],
+    ]},
+    { name: "Cutover", steps: [
+      ["Validate both apps on new API", "todo"],
+      ["DNS cutover in Cloudflare", "todo"],
+      ["Hold two weeks, release Alibaba", "todo"],
+    ]},
+  ];
+
+  function renderProgress() {
+    const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const LABEL = { done: "Complete", active: "In progress", todo: "Not started" };
+    let done = 0, total = 0, current = -1;
+    PHASES.forEach((p, i) => {
+      p.done = p.steps.filter((s) => s[1] === "done").length;
+      p.active = p.steps.filter((s) => s[1] === "active").length;
+      p.state = p.done === p.steps.length ? "done" : (p.done || p.active) ? "active" : "todo";
+      if (current < 0 && p.state !== "done") current = i;
+      done += p.done;
+      total += p.steps.length;
+    });
+    if (current < 0) current = PHASES.length - 1;
+    const cur = PHASES[current];
+
+    const seg = document.getElementById("segments");
+    seg.innerHTML = PHASES.map((p, i) => {
+      const fill = (p.done + p.active * 0.5) / p.steps.length;
+      return `<li class="seg ${p.state}${i === current ? " current" : ""}" style="--fill:${fill.toFixed(3)}"><span class="seg-track"><span class="seg-fill"></span></span><span class="seg-name">${esc(p.name)}</span></li>`;
+    }).join("");
+    seg.setAttribute("aria-valuemax", total);
+    seg.setAttribute("aria-valuenow", done);
+    seg.setAttribute("aria-valuetext", `Phase ${current + 1} of ${PHASES.length}, ${cur.name}: ${done} of ${total} steps done`);
+    document.getElementById("progress-now").textContent = `Phase ${current + 1} of ${PHASES.length} · ${cur.name}`;
+    document.getElementById("progress-count").textContent = `${done} of ${total} steps done · updated ${REVISION.short}`;
+
+    document.getElementById("roadmap").innerHTML = PHASES.map((p, i) => `
+      <li class="phase ${p.state}${i === current ? " current" : ""}">
+        <div class="phase-head">
+          <span class="phase-no">${String(i + 1).padStart(2, "0")}</span>
+          <span class="phase-name">${esc(p.name)}</span>
+          <span class="phase-count">${p.done}/${p.steps.length}</span>
+          <span class="phase-state">${LABEL[p.state]}</span>
+        </div>
+        <ul class="steps">${p.steps.map(([t, s]) => `<li class="step ${s}">${esc(t)}</li>`).join("")}</ul>
+      </li>`).join("");
+
+    document.getElementById("rev").textContent = `Rev. ${REVISION.rev} · ${REVISION.short}`;
+    const foot = document.querySelectorAll("footer span");
+    if (foot[0]) foot[0].textContent = `Klinika Recovery Brief · Rev. ${REVISION.rev}`;
+    if (foot[1]) foot[1].textContent = `Last updated ${REVISION.updated}`;
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", renderProgress);
+  else renderProgress();
+  </script>
+
+  <section>
     <h2>What happened</h2>
-    <p>Certificate Transparency records show TLS renewals stopped around <strong>late May 2026</strong>; the last certificates expired 11&ndash;18 August. The 28 May &ndash; 27 Jun billing cycle still charged the full &#65020;6,508.60, so the tenancy was paying full rate for infrastructure that had already stopped maintaining itself. The account is now suspended with the credit limit exhausted, and both directly-addressable origins are unreachable.</p>
-    <p>Two explanations remain open: deliberate deletion by the departed freelancer, or automatic resource release following non-payment. <strong>ActionTrail distinguishes them</strong> &mdash; a deliberate wipe carries API calls signed by a RAM user, an automatic release does not. That log ages out at 90 days and the clock started in May.</p>
+    <p>The application was still running in late July: development was last deployed on 28 July, production backups ran every four hours through <strong>30 July</strong>, and every GitLab project was exported on 31 July. The last TLS certificates were issued in mid-May, alongside the last production release, and expired 11&ndash;18 August &mdash; a plausible trigger for the public outage. The tenancy is now suspended with its credit limit exhausted, and both directly-addressable origins are unreachable.</p>
+    <p>Two explanations for the loss remain open: deliberate deletion by the departed freelancer, or automatic resource release after non-payment. <strong>ActionTrail distinguishes them</strong> &mdash; a deliberate wipe carries API calls signed by a RAM user, an automatic release does not. Retention is 90 days, so events around the 31 July export age out near the end of October.</p>
   </section>
 
   <section>
-    <h2>Findings <span class="count">11</span></h2>
+    <h2>Findings <span class="count">13</span></h2>
     <div class="scroll">
       <table>
         <thead>
@@ -281,6 +433,16 @@ footer{
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
+            <td class="k">Production data is small</td>
+            <td><span class="m">281 MB</span> across 108 tables, and 84% of it is 25,678 failed background jobs. Everything else totals about <span class="m">44 MB</span>: 1,828 user accounts and 106 clinics</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
+            <td class="k">The system was live until at least 30 July</td>
+            <td>Development release 28 July, four-hourly production backups 30 July, all GitLab projects exported 31 July</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
             <td class="k">Both exposed origins are offline</td>
             <td><span class="m">8.213.21.170</span> and <span class="m">8.213.33.26</span> &mdash; connection timeout, no TCP handshake</td>
             <td><span class="tag t-ver">Verified</span></td>
@@ -291,28 +453,28 @@ footer{
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
-            <td class="k">~320 GB of media exists only in OSS</td>
-            <td>Billing shows 233,167 GB-hours in the IA tier. The local backup contains code and database only</td>
-            <td><span class="tag t-ver">Verified</span></td>
-          </tr>
-          <tr>
-            <td class="k">Stack is Laravel 12 / PHP 8.4 / MySQL 8</td>
-            <td>Plus Redis, Laravel Reverb websockets, Supervisor workers, Node 20 frontend, Flutter mobile, Firebase push</td>
-            <td><span class="tag t-ver">Verified</span></td>
-          </tr>
-          <tr>
-            <td class="k">Server configuration was never backed up</td>
-            <td>No nginx vhosts, systemd units, TLS or firewall config found &mdash; but nested archives were not recursively unpacked</td>
+            <td class="k">The ~320 GB in OSS is probably mostly backups</td>
+            <td>Backups ran every four hours in three environments with no cleanup job scheduled, and the app has a dedicated backup bucket. The 2,998 media records roughly match 2,910 files already in the local backup</td>
             <td><span class="tag t-inf">Inferred</span></td>
           </tr>
           <tr>
-            <td class="k">Flutter release signing may be unrecoverable</td>
-            <td>Current branches lack verified signing material. If Play App Signing was never enabled, the Android listing cannot be updated</td>
+            <td class="k">Scheduled jobs would damage a straight restore</td>
+            <td>Appointment cleanup runs every minute, patient reminders every five minutes, media cleanup daily. Retrying the failed jobs would resend thousands of stale notifications</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
+            <td class="k">Server configuration must be rebuilt</td>
+            <td>A recursive search of 27,631 archives found no nginx, systemd, PHP-FPM, MySQL or Redis configuration</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
+            <td class="k">Two mobile apps may have unrecoverable signing</td>
+            <td><code>klinika-app-2</code> and <code>patient-app</code>, both Flutter. If Play App Signing was never enabled, a lost keystore freezes that listing</td>
             <td><span class="tag t-unc">Unconfirmed</span></td>
           </tr>
           <tr>
-            <td class="k">Transactional email routes through AWS SES</td>
-            <td><code>amazonses</code> verification record on the domain. If those messages carry patient data it is a cross-border transfer under PDPL</td>
+            <td class="k">Patient data may reach services outside the Kingdom</td>
+            <td>Production config wires up Twilio, OneSignal, Firebase, Sentry, Mailgun, Branch and AWS, alongside Saudi providers Taqnyat, Unifonic, Moyasar and Tap</td>
             <td><span class="tag t-unc">Unconfirmed</span></td>
           </tr>
         </tbody>
@@ -322,7 +484,7 @@ footer{
 
   <section>
     <h2>Target &middot; Oracle Cloud Riyadh</h2>
-    <p>Three servers replace ten. Everything except Jitsi loses its public IP and sits in a private subnet behind a Cloudflare Tunnel; Jitsi stays directly addressable because WebRTC media is UDP and will not traverse an HTTP proxy.</p>
+    <p>Three servers replace ten. The stack is Laravel 12.58 on PHP 8.4 with MySQL, Redis and Reverb, plus FFmpeg and headless Chromium for recordings and PDFs. Everything except Jitsi sits in a private subnet behind a Cloudflare Tunnel; Jitsi stays directly addressable because WebRTC media is UDP and will not traverse an HTTP proxy.</p>
     <div class="scroll">
       <table>
         <thead>
@@ -332,14 +494,14 @@ footer{
           <tr>
             <td class="k"><span class="m">app-01</span></td>
             <td><span class="m">E5.Flex 2 OCPU / 16 GB</span></td>
-            <td>Laravel 12, Reverb, Supervisor queues, Redis, search</td>
+            <td>API, Reverb, three queue workers, Redis, FFmpeg, Chromium</td>
             <td class="num">61.32</td>
           </tr>
           <tr>
             <td class="k"><span class="m">db-01</span></td>
-            <td><span class="m">E5.Flex 2 OCPU / 32 GB</span></td>
-            <td>MySQL 8, private subnet, no internet route</td>
-            <td class="num">78.84</td>
+            <td><span class="m">E5.Flex 1 OCPU / 8 GB</span></td>
+            <td>MySQL, private subnet &middot; 281 MB today</td>
+            <td class="num">30.66</td>
           </tr>
           <tr>
             <td class="k"><span class="m">jitsi-01</span></td>
@@ -349,14 +511,14 @@ footer{
           </tr>
           <tr>
             <td class="k">Storage</td>
-            <td><span class="m">~450 GB block + 320 GB object</span></td>
-            <td>Balanced volumes, Object Storage on Standard tier</td>
-            <td class="num">~35.00</td>
+            <td><span class="m">~250 GB block + object</span></td>
+            <td>Balanced volumes; object storage sized after the bucket inventory</td>
+            <td class="num">~22.00</td>
           </tr>
           <tr>
             <td class="k">Frontend</td>
             <td><span class="m">Cloudflare Pages</span></td>
-            <td>Static Node 20 build &mdash; needs no server</td>
+            <td>Static dashboard build &mdash; needs no server</td>
             <td class="num">0.00</td>
           </tr>
           <tr>
@@ -367,7 +529,7 @@ footer{
           </tr>
         </tbody>
         <tfoot>
-          <tr><td colspan="3">Monthly, pre-VAT &middot; ~$262 with 15% Saudi VAT</td><td class="num">~227.72</td></tr>
+          <tr><td colspan="3">Monthly, pre-VAT &middot; ~$192 with 15% Saudi VAT</td><td class="num">~166.54</td></tr>
         </tfoot>
       </table>
     </div>
@@ -375,18 +537,18 @@ footer{
       <span class="nt">Why Oracle rather than staying put</span>
       <p>Oracle runs <strong>two Saudi regions</strong> &mdash; Riyadh and Jeddah &mdash; so block volume backups can replicate cross-region without leaving the Kingdom. SCCC has only <code>me-central-1</code>. Given this incident began as an unrecoverable data loss, that DR path is arguably worth more than the price difference.</p>
     </div>
-    <p>Adding a second app node and a database standby for real HA brings the total to roughly <strong>$370/mo pre-VAT</strong> &mdash; still 79% below current spend. For a system clinicians depend on, that is the tier worth buying.</p>
+    <p>Record counts do not measure load, so these shapes are a starting point: Flex shapes resize with a reboot, not a rebuild. A second app node and a database standby for real HA bring the total to roughly <strong>$267/mo pre-VAT</strong> &mdash; still 85% below current spend, and the tier worth buying for a system clinicians depend on.</p>
   </section>
 
   <section>
-    <h2>Pending <span class="count">9 open</span></h2>
+    <h2>Pending <span class="count">10 open</span></h2>
     <div class="tasks">
 
       <div class="task crit">
         <span class="sev">Critical</span>
         <div class="body">
-          <span class="ttl">Export the ~320 GB OSS media bucket</span>
-          <span class="det">The only copy in existence, sitting on a suspended tenancy that may be released. Check the IA/Archive storage-class split first &mdash; true Archive objects need a restore operation before they can be read. Verify with <code>rclone check</code>.</span>
+          <span class="ttl">Inventory and export the OSS buckets</span>
+          <span class="det">Separate main, public and backup buckets are configured. The ~320 GB may hold backups newer than the 30 July local copy, plus any media missing from it. Check the IA/Archive split first &mdash; Archive objects need a restore before they can be read. Verify with <code>rclone check</code>.</span>
           <span class="who">&rarr; Saudi colleague, in-Kingdom</span>
         </div>
       </div>
@@ -394,8 +556,8 @@ footer{
       <div class="task crit">
         <span class="sev">Critical</span>
         <div class="body">
-          <span class="ttl">Confirm the Play Store signing key</span>
-          <span class="det">If Play App Signing is enabled, Google can reset the upload key. If not, and the archived keystore does not match, the Android listing can never be updated &mdash; a new package name means losing every install and review. Five-minute check, no workaround if the answer is bad.</span>
+          <span class="ttl">Confirm signing for both mobile apps</span>
+          <span class="det">Applies to <code>klinika-app-2</code> and <code>patient-app</code>. If Play App Signing is enabled, Google can reset the upload key. If not, and no matching keystore exists, that listing can never be updated &mdash; a new package name loses every install and review.</span>
           <span class="who">&rarr; Adel</span>
         </div>
       </div>
@@ -404,7 +566,7 @@ footer{
         <span class="sev">Critical</span>
         <div class="body">
           <span class="ttl">Decide on the outstanding Alibaba balance</span>
-          <span class="det">No longer a hosting decision. Suspension likely blocks OSS API access, so settling the arrears may be the only way to extract the media. Price it as data recovery, then leave.</span>
+          <span class="det">No longer a hosting decision. Suspension likely blocks OSS API access, so settling the arrears may be the only way to run the bucket export. Price it as data recovery, then leave.</span>
           <span class="who">&rarr; Klinikatech finance</span>
         </div>
       </div>
@@ -413,7 +575,7 @@ footer{
         <span class="sev">High</span>
         <div class="body">
           <span class="ttl">Pull ActionTrail before it expires</span>
-          <span class="det">Distinguishes deliberate deletion from automatic release, and forms the record for any PDPL breach assessment. 90-day retention, started in May.</span>
+          <span class="det">Distinguishes deliberate deletion from automatic release, and forms the record for any PDPL breach assessment. With 90-day retention, events around the 31 July export age out near the end of October.</span>
           <span class="who">&rarr; Saudi colleague</span>
         </div>
       </div>
@@ -421,18 +583,27 @@ footer{
       <div class="task high">
         <span class="sev">High</span>
         <div class="body">
-          <span class="ttl">Codex round-two outputs</span>
-          <span class="det">Table sizes to size <code>db-01</code> from data rather than estimate; dependency manifests for the exact PHP extension list; <code>.env</code> key names to reveal any external service not yet accounted for; queue and Reverb worker counts for CPU sizing.</span>
-          <span class="who">&rarr; Saudi colleague</span>
+          <span class="ttl">Record the review of the round-two files</span>
+          <span class="det">The bundle is marked as not cleared for international transfer until a human reviews it, and it has already reached Canada. Record that review and the approval, and confirm where the AI tool that inspected the backup processed its data.</span>
+          <span class="who">&rarr; Saudi colleague + klinikatech DPO</span>
         </div>
       </div>
 
       <div class="task high">
         <span class="sev">High</span>
         <div class="body">
-          <span class="ttl">Recursive search for server configuration</span>
-          <span class="det">Nested archives were never fully unpacked, so nginx vhosts and systemd units may still be in the backup. Determines whether the server tier is a restore or a rebuild &mdash; the last real unknown in migration scope.</span>
-          <span class="who">&rarr; Saudi colleague</span>
+          <span class="ttl">Write the restore safety runbook</span>
+          <span class="det">Keep the scheduler, queue workers and outbound SMS, push, mail and payments switched off until validation. Never retry the 25,678 failed jobs; archive that table rather than migrating it.</span>
+          <span class="who">&rarr; Adel</span>
+        </div>
+      </div>
+
+      <div class="task high">
+        <span class="sev">High</span>
+        <div class="body">
+          <span class="ttl">Confirm which services handled patient data</span>
+          <span class="det">Production config includes Twilio, OneSignal, Firebase, Sentry, Mailgun, Branch and AWS. Each that received patient data needs a PDPL transfer basis or a Saudi-hosted replacement.</span>
+          <span class="who">&rarr; Adel + klinikatech DPO</span>
         </div>
       </div>
 
@@ -468,11 +639,11 @@ footer{
 
   <section>
     <h2>Fix during the rebuild</h2>
-    <p>A greenfield build corrects things a restore would have carried forward: <strong>rename the databases</strong> so staging stops being called <code>prod_back</code>; <strong>split credentials per environment</strong>, since the handoff found them shared; <strong>build on PHP 8.4</strong> to match the lockfiles rather than the stale server notes, preserving the archived <code>composer.lock</code>; <strong>enable backup policies on day one</strong> with cross-region replication to Jeddah; and <strong>remove the <code>10.0.0.5</code> record</strong> currently publishing internal addressing in public DNS.</p>
+    <p>A greenfield build corrects things a restore would have carried forward: <strong>rename the databases</strong> so staging stops being called <code>prod_back</code>; <strong>split credentials per environment</strong>, since the handoff found them shared; <strong>build on PHP 8.4</strong> from the <code>composer.lock</code> in the 30 July snapshots, since the Git branches lack it; <strong>archive <code>failed_jobs</code></strong> instead of migrating 237 MB of dead payloads; <strong>schedule backup cleanup</strong> so archives stop piling up; <strong>enable backup policies on day one</strong> with cross-region replication to Jeddah; and <strong>remove the <code>10.0.0.5</code> record</strong> currently publishing internal addressing in public DNS.</p>
   </section>
 
   <footer>
-    <span>Klinika Recovery Brief &middot; Rev. 1</span>
+    <span>Klinika Recovery Brief &middot; Rev. 2</span>
     <span>Last updated 10 September 2026</span>
     <span>Contains no patient data</span>
   </footer>
