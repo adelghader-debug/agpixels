@@ -130,7 +130,7 @@ nav .mphone, nav .menu, .menu-foot, .mcall { display: none; }
   nav.is-open .menu .ic-open { display: none; }
   nav.is-open .menu .ic-close { display: block; }
   nav .links {
-    display: flex; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; z-index: 50; background: var(--deep);
+    display: flex; position: fixed; top: 0; right: 0; bottom: 0; left: 0; width: auto; height: auto; min-height: 100vh; min-height: 100dvh; z-index: 50; background: var(--deep);
     flex-direction: column; padding: 92px 28px 32px; margin: 0; overflow-y: auto;
     visibility: hidden; opacity: 0; transform: translateY(-6px);
     transition: opacity .22s var(--ease), transform .22s var(--ease), visibility 0s linear .22s;
@@ -161,6 +161,7 @@ nav .mphone, nav .menu, .menu-foot, .mcall { display: none; }
   body.menu-open { overflow: hidden; }
   /* the open menu lives inside the hero/band stacking context; lift that section above the rest of the page (the intro sheet has its own z-index) */
   body.menu-open .hero, body.menu-open .band { z-index: 100; }
+  body.menu-open .intro .sheet, body.menu-open .intro { z-index: 0; }
   body.menu-open .mcall { display: none; }
   .band nav, .hero nav { z-index: 60; }
 
