@@ -261,7 +261,7 @@ footer{
     <div class="progress-head">
       <span class="progress-label">Recovery progress</span>
       <span class="progress-now"><span class="live-dot" aria-hidden="true"></span><span id="progress-now">Phase 2 of 6 &middot; Data recovery</span></span>
-      <span class="progress-count" id="progress-count">7 of 26 steps done</span>
+      <span class="progress-count" id="progress-count">8 of 28 steps done</span>
     </div>
     <ol class="segments" id="segments" role="progressbar" aria-label="Recovery progress" aria-valuemin="0"></ol>
   </div>
@@ -273,7 +273,7 @@ footer{
     <div class="kicker">
       <span>Klinikatech</span><span class="dot"></span>
       <span>SCCC me-central-1 &rarr; OCI me-riyadh-1</span><span class="dot"></span>
-      <span id="rev">Rev. 2 &middot; 10 Sep 2026</span>
+      <span id="rev">Rev. 3 &middot; 11 Sep 2026</span>
     </div>
     <h1>Klinika Recovery Brief</h1>
     <p class="standfirst">The doctor portal is down and its Alibaba tenancy is suspended for non-payment. This is the current picture: what we have established, the Oracle Riyadh build it points to, and what is still blocking the rebuild.</p>
@@ -310,7 +310,7 @@ footer{
   <script>
   // Recovery progress: change step states here ("done" | "active" | "todo").
   // The top bar, roadmap, revision stamp and footer all render from this list.
-  const REVISION = { rev: 2, updated: "10 September 2026", short: "10 Sep 2026" };
+  const REVISION = { rev: 3, updated: "11 September 2026", short: "11 Sep 2026" };
   const PHASES = [
     { name: "Discovery", steps: [
       ["Billing and fleet inventory", "done"],
@@ -318,6 +318,7 @@ footer{
       ["Tenancy status confirmed", "done"],
       ["Stack and environments mapped", "done"],
       ["Target architecture costed", "done"],
+      ["Source code architecture review", "done"],
     ]},
     { name: "Data recovery", steps: [
       ["Backup handoff, round one", "done"],
@@ -326,7 +327,7 @@ footer{
       ["Inventory and export OSS buckets", "todo"],
       ["Pull ActionTrail", "todo"],
       ["Check for disk snapshots", "todo"],
-      ["Confirm signing for both mobile apps", "todo"],
+      ["Confirm mobile app signing", "todo"],
     ]},
     { name: "Agreements", steps: [
       ["Decide on Alibaba balance", "todo"],
@@ -340,13 +341,14 @@ footer{
       ["db-01, app-01, jitsi-01", "todo"],
     ]},
     { name: "Restore", steps: [
+      ["Fix go-live security blockers in code", "todo"],
       ["Restore safety runbook", "todo"],
       ["Restore klinika_back and verify", "todo"],
       ["Deploy app from snapshot lockfiles", "todo"],
       ["Migrate media to Object Storage", "todo"],
     ]},
     { name: "Cutover", steps: [
-      ["Validate both apps on new API", "todo"],
+      ["Validate web, findy and mobile on api-new", "todo"],
       ["DNS cutover in Cloudflare", "todo"],
       ["Hold two weeks, release Alibaba", "todo"],
     ]},
@@ -405,7 +407,7 @@ footer{
   </section>
 
   <section>
-    <h2>Findings <span class="count">13</span></h2>
+    <h2>Findings <span class="count">17</span></h2>
     <div class="scroll">
       <table>
         <thead>
@@ -423,8 +425,8 @@ footer{
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
-            <td class="k">Production is <code>api-new</code>, not <code>api</code></td>
-            <td>Handoff environment map. <code>api.klinikatech.com</code> is staging</td>
+            <td class="k">Production must stay on <code>api-new</code></td>
+            <td>The mobile app has <code>api-new.klinikatech.com</code> compiled in, and payment gateway webhooks point at it. <code>api.klinikatech.com</code> is staging</td>
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
@@ -443,6 +445,11 @@ footer{
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
+            <td class="k">Production ran on two app servers</td>
+            <td>Each deploy copied the whole app, uploads included, to a second node at <span class="m">10.0.0.9</span>. Files uploaded between deploys existed on one node only</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
             <td class="k">Both exposed origins are offline</td>
             <td><span class="m">8.213.21.170</span> and <span class="m">8.213.33.26</span> &mdash; connection timeout, no TCP handshake</td>
             <td><span class="tag t-ver">Verified</span></td>
@@ -453,13 +460,28 @@ footer{
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
-            <td class="k">The ~320 GB in OSS is probably mostly backups</td>
-            <td>Backups ran every four hours in three environments with no cleanup job scheduled, and the app has a dedicated backup bucket. The 2,998 media records roughly match 2,910 files already in the local backup</td>
+            <td class="k">OSS holds the backups and likely patient media</td>
+            <td>Backups of the full app, uploads and secrets went to OSS every four hours with no cleanup. A deploy step moved media records onto OSS, and consultation recordings are stored there</td>
             <td><span class="tag t-inf">Inferred</span></td>
           </tr>
           <tr>
             <td class="k">Scheduled jobs would damage a straight restore</td>
-            <td>Appointment cleanup runs every minute, patient reminders every five minutes, media cleanup daily. Retrying the failed jobs would resend thousands of stale notifications</td>
+            <td>Every minute, telehealth cleanup voids live Moyasar payments and deletes consultation files, and appointment cleanup revokes new bookings. Retrying the failed jobs would resend stale notifications</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
+            <td class="k">Moyasar payment webhooks can be forged</td>
+            <td>A webhook with an invalid token is logged and emailed, then processed anyway. Tap webhooks are correctly signature-checked</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
+            <td class="k">Patient media may be public by URL</td>
+            <td>Media lives on the bucket configured as public and is served by permanent links, never signed ones. The bucket's actual permissions are unconfirmed</td>
+            <td><span class="tag t-inf">Inferred</span></td>
+          </tr>
+          <tr>
+            <td class="k">Production has an OTP bypass list</td>
+            <td>Listed phone numbers log in with any code, in every environment. Two of the five entries were redacted as sensitive</td>
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
@@ -468,13 +490,13 @@ footer{
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
-            <td class="k">Two mobile apps may have unrecoverable signing</td>
-            <td><code>klinika-app-2</code> and <code>patient-app</code>, both Flutter. If Play App Signing was never enabled, a lost keystore freezes that listing</td>
+            <td class="k">Mobile app signing is unconfirmed</td>
+            <td>The current app is <code>com.klinikatech.klinika2</code> on Android and <code>com.klinikatech.klinika</code> on iOS. If Play App Signing was never enabled, a lost keystore freezes the Android listing</td>
             <td><span class="tag t-unc">Unconfirmed</span></td>
           </tr>
           <tr>
             <td class="k">Patient data may reach services outside the Kingdom</td>
-            <td>Production config wires up Twilio, OneSignal, Firebase, Sentry, Mailgun, Branch and AWS, alongside Saudi providers Taqnyat, Unifonic, Moyasar and Tap</td>
+            <td>Production config wires up Twilio, OneSignal, Firebase, Sentry, Mailgun, Branch and AWS, and Sentry is set to include SQL query values in error reports</td>
             <td><span class="tag t-unc">Unconfirmed</span></td>
           </tr>
         </tbody>
@@ -484,7 +506,7 @@ footer{
 
   <section>
     <h2>Target &middot; Oracle Cloud Riyadh</h2>
-    <p>Three servers replace ten. The stack is Laravel 12.58 on PHP 8.4 with MySQL, Redis and Reverb, plus FFmpeg and headless Chromium for recordings and PDFs. Everything except Jitsi sits in a private subnet behind a Cloudflare Tunnel; Jitsi stays directly addressable because WebRTC media is UDP and will not traverse an HTTP proxy.</p>
+    <p>Three servers replace ten. The stack is Laravel 12.58 on PHP 8.4 with MySQL, Redis and Reverb, plus FFmpeg and headless Chromium for recordings and PDFs, and two static frontends: the clinic dashboard and the findy patient web app. Everything except Jitsi sits in a private subnet behind a Cloudflare Tunnel; Jitsi stays directly addressable because WebRTC media is UDP and will not traverse an HTTP proxy.</p>
     <div class="scroll">
       <table>
         <thead>
@@ -494,7 +516,7 @@ footer{
           <tr>
             <td class="k"><span class="m">app-01</span></td>
             <td><span class="m">E5.Flex 2 OCPU / 16 GB</span></td>
-            <td>API, Reverb, three queue workers, Redis, FFmpeg, Chromium</td>
+            <td>API, Reverb, queue workers, Redis, FFmpeg, Chromium</td>
             <td class="num">61.32</td>
           </tr>
           <tr>
@@ -506,19 +528,19 @@ footer{
           <tr>
             <td class="k"><span class="m">jitsi-01</span></td>
             <td><span class="m">E5.Flex 2 OCPU / 8 GB</span></td>
-            <td>Video consults &middot; public IP, UDP 10000</td>
+            <td>Video consults &middot; public IP, UDP 10000 &middot; no recording server needed</td>
             <td class="num">52.56</td>
           </tr>
           <tr>
             <td class="k">Storage</td>
             <td><span class="m">~250 GB block + object</span></td>
-            <td>Balanced volumes; object storage sized after the bucket inventory</td>
+            <td>Balanced volumes; private object storage buckets sized after the OSS inventory</td>
             <td class="num">~22.00</td>
           </tr>
           <tr>
-            <td class="k">Frontend</td>
+            <td class="k">Frontends</td>
             <td><span class="m">Cloudflare Pages</span></td>
-            <td>Static dashboard build &mdash; needs no server</td>
+            <td>Dashboard and findy static builds &mdash; no server</td>
             <td class="num">0.00</td>
           </tr>
           <tr>
@@ -541,14 +563,14 @@ footer{
   </section>
 
   <section>
-    <h2>Pending <span class="count">10 open</span></h2>
+    <h2>Pending <span class="count">12 open</span></h2>
     <div class="tasks">
 
       <div class="task crit">
         <span class="sev">Critical</span>
         <div class="body">
           <span class="ttl">Inventory and export the OSS buckets</span>
-          <span class="det">Separate main, public and backup buckets are configured. The ~320 GB may hold backups newer than the 30 July local copy, plus any media missing from it. Check the IA/Archive split first &mdash; Archive objects need a restore before they can be read. Verify with <code>rclone check</code>.</span>
+          <span class="det">They hold the four-hourly backups and, likely, patient media and consultation recordings. Check each bucket's access setting as well: if the public bucket allows anonymous reads, patient files are exposed right now. Archive objects need a restore before they can be read; verify the copy with <code>rclone check</code>.</span>
           <span class="who">&rarr; Saudi colleague, in-Kingdom</span>
         </div>
       </div>
@@ -556,8 +578,8 @@ footer{
       <div class="task crit">
         <span class="sev">Critical</span>
         <div class="body">
-          <span class="ttl">Confirm signing for both mobile apps</span>
-          <span class="det">Applies to <code>klinika-app-2</code> and <code>patient-app</code>. If Play App Signing is enabled, Google can reset the upload key. If not, and no matching keystore exists, that listing can never be updated &mdash; a new package name loses every install and review.</span>
+          <span class="ttl">Confirm mobile app signing</span>
+          <span class="det">For <code>com.klinikatech.klinika2</code> on Google Play and <code>com.klinikatech.klinika</code> on the App Store. If Play App Signing is enabled, Google can reset the upload key; if not, and no matching keystore exists, the Android listing can never be updated. The older <code>com.klinika.app.patient</code> matters only if it is still live.</span>
           <span class="who">&rarr; Adel</span>
         </div>
       </div>
@@ -592,9 +614,27 @@ footer{
       <div class="task high">
         <span class="sev">High</span>
         <div class="body">
-          <span class="ttl">Write the restore safety runbook</span>
-          <span class="det">Keep the scheduler, queue workers and outbound SMS, push, mail and payments switched off until validation. Never retry the 25,678 failed jobs; archive that table rather than migrating it.</span>
+          <span class="ttl">Fix the go-live security blockers in code</span>
+          <span class="det">Reject Moyasar webhooks with a bad token and confirm payments with the gateway; move media to a private bucket with signed URLs; remove the production OTP bypass list; drop the hard-coded Jitsi secret; stop sending SQL values to Sentry; take the public API docs offline.</span>
           <span class="who">&rarr; Adel</span>
+        </div>
+      </div>
+
+      <div class="task high">
+        <span class="sev">High</span>
+        <div class="body">
+          <span class="ttl">Write the restore safety runbook</span>
+          <span class="det">Keep the scheduler, queue workers, outbound SMS, push and mail, and live payment keys off until validation. The telehealth cleanup would void real payments on restored data. Never retry the 25,678 failed jobs; archive that table instead.</span>
+          <span class="who">&rarr; Adel</span>
+        </div>
+      </div>
+
+      <div class="task high">
+        <span class="sev">High</span>
+        <div class="body">
+          <span class="ttl">Confirm who controls Cloudflare and the service accounts</span>
+          <span class="det">DNS, the Tunnel and both frontends depend on the klinikatech.com Cloudflare account. Rotating every secret needs access to Apple, Google Play, Firebase, OneSignal, Branch, Mailgun, Moyasar, Tap, Taqnyat, Unifonic and Sentry.</span>
+          <span class="who">&rarr; Klinikatech</span>
         </div>
       </div>
 
@@ -639,12 +679,12 @@ footer{
 
   <section>
     <h2>Fix during the rebuild</h2>
-    <p>A greenfield build corrects things a restore would have carried forward: <strong>rename the databases</strong> so staging stops being called <code>prod_back</code>; <strong>split credentials per environment</strong>, since the handoff found them shared; <strong>build on PHP 8.4</strong> from the <code>composer.lock</code> in the 30 July snapshots, since the Git branches lack it; <strong>archive <code>failed_jobs</code></strong> instead of migrating 237 MB of dead payloads; <strong>schedule backup cleanup</strong> so archives stop piling up; <strong>enable backup policies on day one</strong> with cross-region replication to Jeddah; and <strong>remove the <code>10.0.0.5</code> record</strong> currently publishing internal addressing in public DNS.</p>
+    <p>A greenfield build corrects things a restore would have carried forward: <strong>keep <code>api-new.klinikatech.com</code></strong> as the production API host until a forced app update ships; <strong>rename the databases</strong> so staging stops being called <code>prod_back</code>; <strong>split credentials per environment</strong>, since the handoff found them shared; <strong>build on PHP 8.4</strong> from the <code>composer.lock</code> in the 30 July snapshots, without ignoring platform requirements; <strong>archive <code>failed_jobs</code></strong> instead of migrating 237 MB of dead payloads; <strong>back up only the database and storage</strong>, never the secrets file, and schedule cleanup; <strong>run tests in CI</strong>, not on servers; <strong>enable backup policies on day one</strong> with cross-region replication to Jeddah; and <strong>remove the <code>10.0.0.5</code> record</strong> currently publishing internal addressing in public DNS.</p>
   </section>
 
   <footer>
-    <span>Klinika Recovery Brief &middot; Rev. 2</span>
-    <span>Last updated 10 September 2026</span>
+    <span>Klinika Recovery Brief &middot; Rev. 3</span>
+    <span>Last updated 11 September 2026</span>
     <span>Contains no patient data</span>
   </footer>
 
