@@ -159,6 +159,8 @@ nav .mphone, nav .menu, .menu-foot, .mcall { display: none; }
   .menu-foot .btn { text-align: center; }
   .menu-foot span { color: rgba(255,255,255,.65); font-size: 13px; letter-spacing: .02em; }
   body.menu-open { overflow: hidden; }
+  /* the open menu lives inside the hero/band stacking context; lift that section above the rest of the page (the intro sheet has its own z-index) */
+  body.menu-open .hero, body.menu-open .band { z-index: 100; }
   body.menu-open .mcall { display: none; }
   .band nav, .hero nav { z-index: 60; }
 
