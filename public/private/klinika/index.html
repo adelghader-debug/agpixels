@@ -273,10 +273,10 @@ footer{
     <div class="kicker">
       <span>Klinikatech</span><span class="dot"></span>
       <span>SCCC me-central-1 &rarr; OCI me-riyadh-1</span><span class="dot"></span>
-      <span id="rev">Rev. 3 &middot; 11 Sep 2026</span>
+      <span id="rev">Rev. 4 &middot; 15 Sep 2026</span>
     </div>
     <h1>Klinika Recovery Brief</h1>
-    <p class="standfirst">The doctor portal is down and its Alibaba tenancy is suspended for non-payment. This is the current picture: what we have established, the Oracle Riyadh build it points to, and what is still blocking the rebuild.</p>
+    <p class="standfirst">The doctor portal is down and its Alibaba tenancy is suspended for non-payment. The Oracle Riyadh servers are now built and reachable, but no application is installed yet. This is the current picture: what we have established, what is built, and what still blocks the restore.</p>
   </header>
 
   <div class="strip">
@@ -288,7 +288,7 @@ footer{
     <div class="cell">
       <span class="lab">Target spend</span>
       <span class="val good">~$167</span>
-      <span class="sub">pre-VAT &middot; 3 servers</span>
+      <span class="sub">pre-VAT &middot; 3 paid servers</span>
     </div>
     <div class="cell">
       <span class="lab">Reduction</span>
@@ -296,9 +296,9 @@ footer{
       <span class="sub">with backups and DR added</span>
     </div>
     <div class="cell">
-      <span class="lab">Tenancy status</span>
-      <span class="val bad">Suspended</span>
-      <span class="sub">&#65020;0.00 of &#65020;10,000 limit</span>
+      <span class="lab">Oracle Riyadh</span>
+      <span class="val good">Built</span>
+      <span class="sub">4 servers up &middot; no app yet</span>
     </div>
   </div>
 
@@ -310,7 +310,7 @@ footer{
   <script>
   // Recovery progress: change step states here ("done" | "active" | "todo").
   // The top bar, roadmap, revision stamp and footer all render from this list.
-  const REVISION = { rev: 3, updated: "11 September 2026", short: "11 Sep 2026" };
+  const REVISION = { rev: 4, updated: "15 September 2026", short: "15 Sep 2026" };
   const PHASES = [
     { name: "Discovery", steps: [
       ["Billing and fleet inventory", "done"],
@@ -319,6 +319,7 @@ footer{
       ["Stack and environments mapped", "done"],
       ["Target architecture costed", "done"],
       ["Source code architecture review", "done"],
+      ["Dangling DNS contained", "done"],
     ]},
     { name: "Data recovery", steps: [
       ["Backup handoff, round one", "done"],
@@ -336,9 +337,12 @@ footer{
       ["Oracle quote naming me-riyadh-1", "todo"],
     ]},
     { name: "Oracle build", steps: [
-      ["Tenancy and service limits", "todo"],
-      ["VCN, subnets, gateways, Bastion", "todo"],
-      ["db-01, app-01, jitsi-01", "todo"],
+      ["Tenancy, admin group and MFA", "done"],
+      ["VCN, subnets, gateways, Bastion", "done"],
+      ["app-01, db-01, jitsi-01, nonprod-01", "done"],
+      ["Engineer access verified", "done"],
+      ["Shared Terraform state with locking", "active"],
+      ["Server software build", "todo"],
     ]},
     { name: "Restore", steps: [
       ["Fix go-live security blockers in code", "todo"],
@@ -362,7 +366,7 @@ footer{
       p.done = p.steps.filter((s) => s[1] === "done").length;
       p.active = p.steps.filter((s) => s[1] === "active").length;
       p.state = p.done === p.steps.length ? "done" : (p.done || p.active) ? "active" : "todo";
-      if (current < 0 && p.state !== "done") current = i;
+      if (p.state === "active") current = i; // latest phase with work under way
       done += p.done;
       total += p.steps.length;
     });
@@ -402,18 +406,38 @@ footer{
 
   <section>
     <h2>What happened</h2>
-    <p>The application was still running in late July: development was last deployed on 28 July, production backups ran every four hours through <strong>30 July</strong>, and every GitLab project was exported on 31 July. The last TLS certificates were issued in mid-May, alongside the last production release, and expired 11&ndash;18 August &mdash; a plausible trigger for the public outage. The tenancy is now suspended with its credit limit exhausted, and both directly-addressable origins are unreachable.</p>
+    <p>The application was still running in late July: development was last deployed on 28 July, production backups ran every four hours through <strong>30 July</strong>, and every GitLab project was exported on 31 July. Certificate transparency logs show the servers still obtaining certificates until 30&ndash;31 July, and none of them had expired when the platform went dark, so certificate expiry did not cause the outage (Rev. 3 said it might; that was wrong). The tenancy is now suspended with its credit limit exhausted, and both directly-addressable origins are unreachable.</p>
     <p>Two explanations for the loss remain open: deliberate deletion by the departed freelancer, or automatic resource release after non-payment. <strong>ActionTrail distinguishes them</strong> &mdash; a deliberate wipe carries API calls signed by a RAM user, an automatic release does not. Retention is 90 days, so events around the 31 July export age out near the end of October.</p>
   </section>
 
   <section>
-    <h2>Findings <span class="count">17</span></h2>
+    <h2>Findings <span class="count">21</span></h2>
     <div class="scroll">
       <table>
         <thead>
           <tr><th>Finding</th><th>Evidence</th><th>Status</th></tr>
         </thead>
         <tbody>
+          <tr>
+            <td class="k">Dangling DNS allowed subdomain takeover</td>
+            <td>25 Cloudflare records still pointed at released Alibaba addresses that anyone could be assigned. Contained 15 Sep: 22 parked at <span class="m">192.0.2.1</span>, <code>meet</code> moved to Oracle, both GitLab records deleted, three former Cloudflare members removed. Checked externally: proxied hosts return 522, email records intact</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
+            <td class="k">Oracle Riyadh stack is built and locked down</td>
+            <td>Four private Ubuntu 24.04 servers; only Jitsi has a public address. SSH only through the Bastion from two allowlisted addresses; logins tested on all four with host keys matched against Oracle's boot logs. MySQL, Redis and SSH ports unreachable from the internet</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
+            <td class="k">Old servers were stuck in a certificate loop</td>
+            <td>Certificates for <code>front</code> and <code>api</code> were issued dozens of times a day on 18 June, 2 July and 22&ndash;28 July, which points to a broken renewal job. The rebuild keeps public certificates off the app servers entirely</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
+            <td class="k">A wildcard certificate was issued after the outage</td>
+            <td>Let's Encrypt <code>*.klinikatech.com</code> on 19 August, and two new validation tokens have since appeared in DNS. Most likely Cloudflare's own backup certificate; to be confirmed in Cloudflare's edge certificate list and audit log</td>
+            <td><span class="tag t-unc">Unconfirmed</span></td>
+          </tr>
           <tr>
             <td class="k">Fleet was 10 servers, not 3</td>
             <td>Billing export names every instance: prod, prod-slave-01, proxy-vpn, dev, stage, gitlab-server, gitlab-runner, zabbix, jitsi, jitsi-meet</td>
@@ -496,7 +520,7 @@ footer{
           </tr>
           <tr>
             <td class="k">Patient data may reach services outside the Kingdom</td>
-            <td>Production config wires up Twilio, OneSignal, Firebase, Sentry, Mailgun, Branch and AWS, and Sentry is set to include SQL query values in error reports</td>
+            <td>Klinikatech reports the services now in use as Cloudflare, Mailgun, Firebase, Moyasar and Taqnyat, with OneSignal, Branch, Tap, Unifonic and Sentry retired. The shipped app registers for push with OneSignal only, which conflicts with Firebase handling notifications</td>
             <td><span class="tag t-unc">Unconfirmed</span></td>
           </tr>
         </tbody>
@@ -506,7 +530,7 @@ footer{
 
   <section>
     <h2>Target &middot; Oracle Cloud Riyadh</h2>
-    <p>Three servers replace ten. The stack is Laravel 12.58 on PHP 8.4 with MySQL, Redis and Reverb, plus FFmpeg and headless Chromium for recordings and PDFs, and two static frontends: the clinic dashboard and the findy patient web app. Everything except Jitsi sits in a private subnet behind a Cloudflare Tunnel; Jitsi stays directly addressable because WebRTC media is UDP and will not traverse an HTTP proxy.</p>
+    <p><strong>Built 15 September</strong> with Terraform: three production servers plus a free non-production server replace ten. Costs below are estimates until the first Oracle invoice; a budget alert fires at &euro;250 a month. The stack is Laravel 12.58 on PHP 8.4 with MySQL, Redis and Reverb, plus FFmpeg and headless Chromium for recordings and PDFs, and two static frontends: the clinic dashboard and the findy patient web app. Everything except Jitsi sits in a private subnet behind a Cloudflare Tunnel; Jitsi stays directly addressable because WebRTC media is UDP and will not traverse an HTTP proxy.</p>
     <div class="scroll">
       <table>
         <thead>
@@ -532,9 +556,15 @@ footer{
             <td class="num">52.56</td>
           </tr>
           <tr>
+            <td class="k"><span class="m">nonprod-01</span></td>
+            <td><span class="m">A1.Flex 2 OCPU / 12 GB</span></td>
+            <td>Staging and development &middot; Always Free allowance, whose terms Oracle says have changed; confirm on the first invoice</td>
+            <td class="num">0.00</td>
+          </tr>
+          <tr>
             <td class="k">Storage</td>
-            <td><span class="m">~250 GB block + object</span></td>
-            <td>Balanced volumes; private object storage buckets sized after the OSS inventory</td>
+            <td><span class="m">~400 GB block + object</span></td>
+            <td>Boot volumes, a 100 GB database volume with daily backups, four private buckets</td>
             <td class="num">~22.00</td>
           </tr>
           <tr>
@@ -544,9 +574,9 @@ footer{
             <td class="num">0.00</td>
           </tr>
           <tr>
-            <td class="k">Bastion, Tunnel, Monitoring</td>
+            <td class="k">Bastion, Vault, Tunnel, Monitoring</td>
             <td><span class="m">10 TB egress included</span></td>
-            <td>Replaces proxy-vpn and Zabbix outright</td>
+            <td>Replaces proxy-vpn and Zabbix outright &middot; Tunnel not yet set up</td>
             <td class="num">0.00</td>
           </tr>
         </tbody>
@@ -563,8 +593,26 @@ footer{
   </section>
 
   <section>
-    <h2>Pending <span class="count">12 open</span></h2>
+    <h2>Pending <span class="count">15 open</span></h2>
     <div class="tasks">
+
+      <div class="task high">
+        <span class="sev">High</span>
+        <div class="body">
+          <span class="ttl">Build the server software</span>
+          <span class="det">Mount the database volume and install MySQL on db-01; PHP 8.4, Redis, Reverb, queue workers, FFmpeg and Chromium on app-01; Jitsi and its host firewall on jitsi-01; staging on nonprod-01; Cloudflare Tunnel in front of the app. No data is restored in this step.</span>
+          <span class="who">&rarr; Adel</span>
+        </div>
+      </div>
+
+      <div class="task high">
+        <span class="sev">High</span>
+        <div class="body">
+          <span class="ttl">Move Terraform state to shared, locked storage</span>
+          <span class="det">The only state file is on one laptop, so a second operator would overwrite production. Instructions sent: remote state in the private Riyadh bucket with locking, one GitHub repository, committed inputs, and a guard script that refuses stale or unmerged code.</span>
+          <span class="who">&rarr; Saudi colleague, then Adel verifies</span>
+        </div>
+      </div>
 
       <div class="task crit">
         <span class="sev">Critical</span>
@@ -632,9 +680,9 @@ footer{
       <div class="task high">
         <span class="sev">High</span>
         <div class="body">
-          <span class="ttl">Confirm who controls Cloudflare and the service accounts</span>
-          <span class="det">DNS, the Tunnel and both frontends depend on the klinikatech.com Cloudflare account. Rotating every secret needs access to Apple, Google Play, Firebase, OneSignal, Branch, Mailgun, Moyasar, Tap, Taqnyat, Unifonic and Sentry.</span>
-          <span class="who">&rarr; Klinikatech</span>
+          <span class="ttl">Secure the Cloudflare account and check the August certificate</span>
+          <span class="det">The owner is now the only member. If his login was ever shared, change the password and confirm two-factor. Check SSL/TLS edge certificates and the audit log for the 19 August wildcard certificate and the two new validation tokens.</span>
+          <span class="who">&rarr; Mohammed</span>
         </div>
       </div>
 
@@ -642,7 +690,16 @@ footer{
         <span class="sev">High</span>
         <div class="body">
           <span class="ttl">Confirm which services handled patient data</span>
-          <span class="det">Production config includes Twilio, OneSignal, Firebase, Sentry, Mailgun, Branch and AWS. Each that received patient data needs a PDPL transfer basis or a Saudi-hosted replacement.</span>
+          <span class="det">Services in use: Cloudflare, Mailgun, Firebase, Moyasar and Taqnyat. Each that receives patient data needs a PDPL transfer basis or a Saudi-hosted replacement. Also decide push: the shipped app uses OneSignal, not Firebase.</span>
+          <span class="who">&rarr; Adel + klinikatech DPO</span>
+        </div>
+      </div>
+
+      <div class="task high">
+        <span class="sev">High</span>
+        <div class="body">
+          <span class="ttl">Data processing agreement and PDPL counsel</span>
+          <span class="det">Remote administration from Canada is now live on empty servers. SDAIA has published no adequacy list, so this needs a written DPA and a ruling on whether that access counts as a transfer, before any patient data is restored.</span>
           <span class="who">&rarr; Adel + klinikatech DPO</span>
         </div>
       </div>
@@ -650,8 +707,8 @@ footer{
       <div class="task med">
         <span class="sev">Medium</span>
         <div class="body">
-          <span class="ttl">Request OCI service limit increases</span>
-          <span class="det">New tenancies ship with low or zero shape quotas per region. This blocks people on build day. Raise them weeks ahead.</span>
+          <span class="ttl">Put a holding page and privacy policy on klinikatech.com</span>
+          <span class="det">The site is dark, so the privacy policy links in the App Store and Google Play listings are broken. Store reviews can flag that. A static page on Cloudflare Pages fixes it without touching the servers.</span>
           <span class="who">&rarr; Adel</span>
         </div>
       </div>
@@ -659,9 +716,9 @@ footer{
       <div class="task med">
         <span class="sev">Medium</span>
         <div class="body">
-          <span class="ttl">Data processing agreement and PDPL counsel</span>
-          <span class="det">SDAIA has published no adequacy list, so no country qualifies by determination. Needs a written DPA plus a ruling on whether remote administration from Canada counts as a transfer.</span>
-          <span class="who">&rarr; Adel + klinikatech DPO</span>
+          <span class="ttl">Add SPF and DMARC for klinikatech.com</span>
+          <span class="det">Google Workspace mail on the main domain has neither, so anyone can send mail that appears to come from it. The Mailgun subdomain is already covered.</span>
+          <span class="who">&rarr; Klinikatech</span>
         </div>
       </div>
 
@@ -679,12 +736,12 @@ footer{
 
   <section>
     <h2>Fix during the rebuild</h2>
-    <p>A greenfield build corrects things a restore would have carried forward: <strong>keep <code>api-new.klinikatech.com</code></strong> as the production API host until a forced app update ships; <strong>rename the databases</strong> so staging stops being called <code>prod_back</code>; <strong>split credentials per environment</strong>, since the handoff found them shared; <strong>build on PHP 8.4</strong> from the <code>composer.lock</code> in the 30 July snapshots, without ignoring platform requirements; <strong>archive <code>failed_jobs</code></strong> instead of migrating 237 MB of dead payloads; <strong>back up only the database and storage</strong>, never the secrets file, and schedule cleanup; <strong>run tests in CI</strong>, not on servers; <strong>enable backup policies on day one</strong> with cross-region replication to Jeddah; and <strong>remove the <code>10.0.0.5</code> record</strong> currently publishing internal addressing in public DNS.</p>
+    <p>A greenfield build corrects things a restore would have carried forward: <strong>keep <code>api-new.klinikatech.com</code></strong> as the production API host until a forced app update ships; <strong>rename the databases</strong> so staging stops being called <code>prod_back</code>; <strong>split credentials per environment</strong>, since the handoff found them shared; <strong>build on PHP 8.4</strong> from the <code>composer.lock</code> in the 30 July snapshots, without ignoring platform requirements; <strong>archive <code>failed_jobs</code></strong> instead of migrating 237 MB of dead payloads; <strong>back up only the database and storage</strong>, never the secrets file, and schedule cleanup; <strong>run tests in CI</strong>, not on servers; <strong>enable backup policies on day one</strong> with cross-region replication to Jeddah; and <strong>keep the parked DNS records at <code>192.0.2.1</code></strong> until each host is rebuilt, deleting any that will not return.</p>
   </section>
 
   <footer>
-    <span>Klinika Recovery Brief &middot; Rev. 3</span>
-    <span>Last updated 11 September 2026</span>
+    <span>Klinika Recovery Brief &middot; Rev. 4</span>
+    <span>Last updated 15 September 2026</span>
     <span>Contains no patient data</span>
   </footer>
 
