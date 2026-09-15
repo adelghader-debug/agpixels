@@ -420,7 +420,7 @@ footer{
         <tbody>
           <tr>
             <td class="k">Dangling DNS allowed subdomain takeover</td>
-            <td>25 Cloudflare records still pointed at released Alibaba addresses that anyone could be assigned. Contained 15 Sep: 22 parked at <span class="m">192.0.2.1</span>, <code>meet</code> moved to Oracle, both GitLab records deleted, three former Cloudflare members removed. Checked externally: proxied hosts return 522, email records intact</td>
+            <td>25 Cloudflare records still pointed at old servers: 19 at released Alibaba addresses anyone could be assigned, <code>www</code> at the retired web host, and five at internal addresses. Contained 15 Sep: 22 parked at <span class="m">192.0.2.1</span>, <code>meet</code> moved to Oracle, both GitLab records deleted. All 25 checked externally the same day: the 18 proxied hosts return 522, the others resolve as intended, email records unchanged. Removal of three former Cloudflare members is reported by the operator; it cannot be checked from outside</td>
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
@@ -681,7 +681,7 @@ footer{
         <span class="sev">High</span>
         <div class="body">
           <span class="ttl">Secure the Cloudflare account and check the August certificate</span>
-          <span class="det">The owner is now the only member. If his login was ever shared, change the password and confirm two-factor. Check SSL/TLS edge certificates and the audit log for the 19 August wildcard certificate and the two new validation tokens.</span>
+          <span class="det">The owner is now the only member. If his login was ever shared, change the password and confirm two-factor. Check SSL/TLS edge certificates and the audit log for the 19 August wildcard certificate and the two new validation tokens. Find out whose AWS account the leftover <code>_amazonses</code> verification record belongs to, then delete it; AWS is no longer used.</span>
           <span class="who">&rarr; Mohammed</span>
         </div>
       </div>
