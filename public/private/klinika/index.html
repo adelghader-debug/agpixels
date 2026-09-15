@@ -609,7 +609,7 @@ footer{
         <span class="sev">High</span>
         <div class="body">
           <span class="ttl">Move Terraform state to shared, locked storage</span>
-          <span class="det">The only state file is on one laptop, so a second operator would overwrite production. Instructions sent: remote state in the private Riyadh bucket with locking, one GitHub repository, committed inputs, and a guard script that refuses stale or unmerged code.</span>
+          <span class="det">The only state file is on one laptop, so a second operator would overwrite production. The plan is remote state in the private Riyadh bucket with locking, one GitHub repository, committed inputs, and a guard script that refuses stale or locally modified code. Reviewed by both sides over six revisions and cleared for testing; three real bugs were found and fixed in the process. Next: the operator migrates the state, then we test locking from both laptops.</span>
           <span class="who">&rarr; Saudi colleague, then Adel verifies</span>
         </div>
       </div>
