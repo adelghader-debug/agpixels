@@ -273,7 +273,7 @@ footer{
     <div class="kicker">
       <span>Klinikatech</span><span class="dot"></span>
       <span>SCCC me-central-1 &rarr; OCI me-riyadh-1</span><span class="dot"></span>
-      <span id="rev">Rev. 5 &middot; 17 Sep 2026</span>
+      <span id="rev">Rev. 6 &middot; 17 Sep 2026</span>
     </div>
     <h1>Klinika Recovery Brief</h1>
     <p class="standfirst">The doctor portal is down and its Alibaba tenancy is suspended for non-payment. The Oracle Riyadh servers are now built and reachable, but no application is installed yet. This is the current picture: what we have established, what is built, and what still blocks the restore.</p>
@@ -310,7 +310,7 @@ footer{
   <script>
   // Recovery progress: change step states here ("done" | "active" | "todo").
   // The top bar, roadmap, revision stamp and footer all render from this list.
-  const REVISION = { rev: 5, updated: "17 September 2026", short: "17 Sep 2026" };
+  const REVISION = { rev: 6, updated: "17 September 2026", short: "17 Sep 2026" };
   const PHASES = [
     { name: "Discovery", steps: [
       ["Billing and fleet inventory", "done"],
@@ -343,6 +343,7 @@ footer{
       ["Engineer access verified", "done"],
       ["Shared Terraform state with locking", "done"],
       ["Server software build", "active"],
+      ["Staging running verified source", "done"],
     ]},
     { name: "Restore", steps: [
       ["Fix go-live security blockers in code", "todo"],
@@ -411,7 +412,7 @@ footer{
   </section>
 
   <section>
-    <h2>Findings <span class="count">22</span></h2>
+    <h2>Findings <span class="count">23</span></h2>
     <div class="scroll">
       <table>
         <thead>
@@ -496,6 +497,11 @@ footer{
           <tr>
             <td class="k">Scheduled jobs would damage a straight restore</td>
             <td>Every minute, telehealth cleanup voids live Moyasar payments and deletes consultation files, and appointment cleanup revokes new bookings. Retrying the failed jobs would resend stale notifications</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
+            <td class="k">A hidden debug route exposes every production secret</td>
+            <td><code>/api/env</code> returns the whole <code>.env</code> file, and sibling routes run <code>phpinfo</code>, clear caches and send SMS. They are gated by a token computed in code from a hard-coded string, a specific user's password hash and the date, so anyone holding the source can derive it. They answer 404 without it, so scanners never see them</td>
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
@@ -659,7 +665,7 @@ footer{
         <span class="sev">High</span>
         <div class="body">
           <span class="ttl">Fix the go-live security blockers in code</span>
-          <span class="det">Reject Moyasar webhooks with a bad token and confirm payments with the gateway; move media to a private bucket with signed URLs; remove the production OTP bypass list; drop the hard-coded Jitsi secret; stop sending SQL values to Sentry; take the public API docs offline.</span>
+          <span class="det">Remove the <code>/api/env</code>, <code>phpinfo</code>, <code>clear-cache</code> and <code>test-sms</code> debug routes and their in-code token. Reject Moyasar webhooks with a bad token and confirm payments with the gateway. Validate appointment prices server-side, not by disabling an input. Move media to a private bucket with signed URLs; remove the production OTP bypass list; drop the hard-coded Jitsi secret; stop sending SQL values to Sentry; take the public API docs offline. Each one is verified on staging before production is exposed.</span>
           <span class="who">&rarr; Adel</span>
         </div>
       </div>
@@ -736,7 +742,7 @@ footer{
   </section>
 
   <footer>
-    <span>Klinika Recovery Brief &middot; Rev. 5</span>
+    <span>Klinika Recovery Brief &middot; Rev. 6</span>
     <span>Last updated 17 September 2026</span>
     <span>Contains no patient data</span>
   </footer>
