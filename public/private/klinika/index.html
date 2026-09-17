@@ -273,7 +273,7 @@ footer{
     <div class="kicker">
       <span>Klinikatech</span><span class="dot"></span>
       <span>SCCC me-central-1 &rarr; OCI me-riyadh-1</span><span class="dot"></span>
-      <span id="rev">Rev. 4 &middot; 15 Sep 2026</span>
+      <span id="rev">Rev. 5 &middot; 17 Sep 2026</span>
     </div>
     <h1>Klinika Recovery Brief</h1>
     <p class="standfirst">The doctor portal is down and its Alibaba tenancy is suspended for non-payment. The Oracle Riyadh servers are now built and reachable, but no application is installed yet. This is the current picture: what we have established, what is built, and what still blocks the restore.</p>
@@ -310,7 +310,7 @@ footer{
   <script>
   // Recovery progress: change step states here ("done" | "active" | "todo").
   // The top bar, roadmap, revision stamp and footer all render from this list.
-  const REVISION = { rev: 4, updated: "15 September 2026", short: "15 Sep 2026" };
+  const REVISION = { rev: 5, updated: "17 September 2026", short: "17 Sep 2026" };
   const PHASES = [
     { name: "Discovery", steps: [
       ["Billing and fleet inventory", "done"],
@@ -341,8 +341,8 @@ footer{
       ["VCN, subnets, gateways, Bastion", "done"],
       ["app-01, db-01, jitsi-01, nonprod-01", "done"],
       ["Engineer access verified", "done"],
-      ["Shared Terraform state with locking", "active"],
-      ["Server software build", "todo"],
+      ["Shared Terraform state with locking", "done"],
+      ["Server software build", "active"],
     ]},
     { name: "Restore", steps: [
       ["Fix go-live security blockers in code", "todo"],
@@ -411,7 +411,7 @@ footer{
   </section>
 
   <section>
-    <h2>Findings <span class="count">21</span></h2>
+    <h2>Findings <span class="count">22</span></h2>
     <div class="scroll">
       <table>
         <thead>
@@ -421,6 +421,11 @@ footer{
           <tr>
             <td class="k">Dangling DNS allowed subdomain takeover</td>
             <td>25 Cloudflare records still pointed at old servers: 19 at released Alibaba addresses anyone could be assigned, <code>www</code> at the retired web host, and five at internal addresses. Contained 15 Sep: 22 parked at <span class="m">192.0.2.1</span>, <code>meet</code> moved to Oracle, both GitLab records deleted. All 25 checked externally the same day: the 18 proxied hosts return 522, the others resolve as intended, email records unchanged. Removal of three former Cloudflare members is reported by the operator; it cannot be checked from outside</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
+            <td class="k">Two people can now operate the infrastructure safely</td>
+            <td>State moved to the private Riyadh bucket with locking, one private repository, shared inputs. Tested 16 Sep from both laptops: each operator's run blocked the other's with a matching lock ID, and stale branches, uncommitted edits, injected options and stray settings files were all refused. 71 resources, no differences from either side</td>
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
@@ -593,7 +598,7 @@ footer{
   </section>
 
   <section>
-    <h2>Pending <span class="count">15 open</span></h2>
+    <h2>Pending <span class="count">14 open</span></h2>
     <div class="tasks">
 
       <div class="task high">
@@ -602,15 +607,6 @@ footer{
           <span class="ttl">Build the server software</span>
           <span class="det">Mount the database volume and install MySQL on db-01; PHP 8.4, Redis, Reverb, queue workers, FFmpeg and Chromium on app-01; Jitsi and its host firewall on jitsi-01; staging on nonprod-01; Cloudflare Tunnel in front of the app. No data is restored in this step.</span>
           <span class="who">&rarr; Adel</span>
-        </div>
-      </div>
-
-      <div class="task high">
-        <span class="sev">High</span>
-        <div class="body">
-          <span class="ttl">Move Terraform state to shared, locked storage</span>
-          <span class="det">The only state file is on one laptop, so a second operator would overwrite production. The plan is remote state in the private Riyadh bucket with locking, one GitHub repository, committed inputs, and a guard script that refuses stale or locally modified code. Reviewed by both sides over six revisions and cleared for testing; three real bugs were found and fixed in the process. Next: the operator migrates the state, then we test locking from both laptops.</span>
-          <span class="who">&rarr; Saudi colleague, then Adel verifies</span>
         </div>
       </div>
 
@@ -740,8 +736,8 @@ footer{
   </section>
 
   <footer>
-    <span>Klinika Recovery Brief &middot; Rev. 4</span>
-    <span>Last updated 15 September 2026</span>
+    <span>Klinika Recovery Brief &middot; Rev. 5</span>
+    <span>Last updated 17 September 2026</span>
     <span>Contains no patient data</span>
   </footer>
 
