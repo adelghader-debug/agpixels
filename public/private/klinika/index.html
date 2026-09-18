@@ -273,7 +273,7 @@ footer{
     <div class="kicker">
       <span>Klinikatech</span><span class="dot"></span>
       <span>SCCC me-central-1 &rarr; OCI me-riyadh-1</span><span class="dot"></span>
-      <span id="rev">Rev. 8 &middot; 18 Sep 2026</span>
+      <span id="rev">Rev. 9 &middot; 18 Sep 2026</span>
     </div>
     <h1>Klinika Recovery Brief</h1>
     <p class="standfirst">The doctor portal is down and its Alibaba tenancy is suspended for non-payment. The Oracle Riyadh servers are now built and reachable, but no application is installed yet. This is the current picture: what we have established, what is built, and what still blocks the restore.</p>
@@ -310,7 +310,7 @@ footer{
   <script>
   // Recovery progress: change step states here ("done" | "active" | "todo").
   // The top bar, roadmap, revision stamp and footer all render from this list.
-  const REVISION = { rev: 8, updated: "18 September 2026", short: "18 Sep 2026" };
+  const REVISION = { rev: 9, updated: "18 September 2026", short: "18 Sep 2026" };
   const PHASES = [
     { name: "Discovery", steps: [
       ["Billing and fleet inventory", "done"],
@@ -345,7 +345,7 @@ footer{
       ["Server software build", "active"],
       ["Staging running verified source", "done"],
       ["Staging dashboard usable (login, roles)", "done"],
-      ["Verified source restored to GitHub (draft PR)", "done"],
+      ["Verified source restored to GitHub main", "done"],
     ]},
     { name: "Restore", steps: [
       ["Fix go-live security blockers in code", "todo"],
@@ -422,8 +422,8 @@ footer{
         </thead>
         <tbody>
           <tr>
-            <td class="k">Verified source is back in GitHub, on a branch</td>
-            <td>18 Sep: the sanitized import in <code>main</code> did not run. It had <code>REDACTED</code> literals in 193 files, a re-hashed payment SDK that Composer rejected, and missing dashboard assets. The verified backend, dashboard and findy source is now on branch <code>restore/verified-source-20260730</code>, open as draft <a href="https://github.com/Muath-R/Klinika/pull/1">pull request 1</a>, waiting for Adel's review and merge. Secrets, the OTP bypass list and personal identifiers were moved to environment variables before the first commit, so none entered Git history. Result: the branch ran on staging (install, login, roles and the dashboard build all pass) and findy compiles after a one-line import fix. The mobile app is still the sanitized copy; a verified mobile drop has been requested</td>
+            <td class="k">Verified source is back in GitHub <code>main</code></td>
+            <td>18 Sep: the sanitized import in <code>main</code> did not run. It had <code>REDACTED</code> literals in 193 files, a re-hashed payment SDK that Composer rejected, and missing dashboard assets. The verified backend, dashboard and findy source was merged into <code>main</code> the same day through <a href="https://github.com/Muath-R/Klinika/pull/1">pull request 1</a>, so the repository now holds code that runs. Secrets, the OTP bypass list and personal identifiers were moved to environment variables before the first commit, so none entered Git history. Before the merge the branch ran on staging (install, login, roles and the dashboard build all pass) and findy compiles after a one-line import fix. The mobile app is still the sanitized copy; a verified mobile drop has been requested</td>
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
@@ -749,7 +749,7 @@ footer{
   </section>
 
   <footer>
-    <span>Klinika Recovery Brief &middot; Rev. 8</span>
+    <span>Klinika Recovery Brief &middot; Rev. 9</span>
     <span>Last updated 18 September 2026</span>
     <span>Contains no patient data</span>
   </footer>
