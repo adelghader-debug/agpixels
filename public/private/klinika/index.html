@@ -273,7 +273,7 @@ footer{
     <div class="kicker">
       <span>Klinikatech</span><span class="dot"></span>
       <span>SCCC me-central-1 &rarr; OCI me-riyadh-1</span><span class="dot"></span>
-      <span id="rev">Rev. 9 &middot; 18 Sep 2026</span>
+      <span id="rev">Rev. 10 &middot; 18 Sep 2026</span>
     </div>
     <h1>Klinika Recovery Brief</h1>
     <p class="standfirst">The doctor portal is down and its Alibaba tenancy is suspended for non-payment. The Oracle Riyadh servers are now built and reachable, but no application is installed yet. This is the current picture: what we have established, what is built, and what still blocks the restore.</p>
@@ -310,7 +310,7 @@ footer{
   <script>
   // Recovery progress: change step states here ("done" | "active" | "todo").
   // The top bar, roadmap, revision stamp and footer all render from this list.
-  const REVISION = { rev: 9, updated: "18 September 2026", short: "18 Sep 2026" };
+  const REVISION = { rev: 10, updated: "18 September 2026", short: "18 Sep 2026" };
   const PHASES = [
     { name: "Discovery", steps: [
       ["Billing and fleet inventory", "done"],
@@ -348,7 +348,7 @@ footer{
       ["Verified source restored to GitHub main", "done"],
     ]},
     { name: "Restore", steps: [
-      ["Fix go-live security blockers in code", "todo"],
+      ["Fix go-live security blockers in code", "active"],
       ["Restore safety runbook", "todo"],
       ["Restore klinika_back and verify", "todo"],
       ["Deploy app from snapshot lockfiles", "todo"],
@@ -414,7 +414,7 @@ footer{
   </section>
 
   <section>
-    <h2>Findings <span class="count">24</span></h2>
+    <h2>Findings <span class="count">26</span></h2>
     <div class="scroll">
       <table>
         <thead>
@@ -424,6 +424,16 @@ footer{
           <tr>
             <td class="k">Verified source is back in GitHub <code>main</code></td>
             <td>18 Sep: the sanitized import in <code>main</code> did not run. It had <code>REDACTED</code> literals in 193 files, a re-hashed payment SDK that Composer rejected, and missing dashboard assets. The verified backend, dashboard and findy source was merged into <code>main</code> the same day through <a href="https://github.com/Muath-R/Klinika/pull/1">pull request 1</a>, so the repository now holds code that runs. Secrets, the OTP bypass list and personal identifiers were moved to environment variables before the first commit, so none entered Git history. Before the merge the branch ran on staging (install, login, roles and the dashboard build all pass) and findy compiles after a one-line import fix. The mobile app is still the sanitized copy; a verified mobile drop has been requested</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
+            <td class="k">Payments can be settled without paying, or for one riyal</td>
+            <td>Found 18 Sep while fixing the webhook. The Moyasar secret is compared loosely against a setting that defaults to empty, so a notification with no secret passes when it is unset. Invoice payment callbacks carry no secret and were trusted on a known invoice id. The amount actually collected is never compared with the invoice total, while the dashboard computes the amount in the browser. Item prices are safe (the server takes them from the price list), but quantity and discount were unbounded, and a zero invoice is marked paid. Fixes are in draft pull requests 3 and 4, with tests run on staging</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
+            <td class="k">Old passwords are in the GitHub history</td>
+            <td>The first sanitized import (commit <span class="m">6fe4737</span>) still contains the production super-administrator password, the shared developer password and the Jitsi signing secret; the sanitizer missed them. The current code no longer has them, but history keeps them. Treat all three as compromised and never reuse them. Also open: one-time codes are four digits with no attempt counter, staff sign-in has no lockout, and tokens last 30 days</td>
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
@@ -672,7 +682,7 @@ footer{
         <span class="sev">High</span>
         <div class="body">
           <span class="ttl">Fix the go-live security blockers in code</span>
-          <span class="det">Remove the <code>/api/env</code>, <code>phpinfo</code>, <code>clear-cache</code> and <code>test-sms</code> debug routes and their in-code token. Reject Moyasar webhooks with a bad token and confirm payments with the gateway. Validate appointment prices server-side, not by disabling an input. Move media to a private bucket with signed URLs; remove the production OTP bypass list; drop the hard-coded Jitsi secret; stop sending SQL values to Sentry; take the public API docs offline. Each one is verified on staging before production is exposed.</span>
+          <span class="det">In review since 18 Sep as draft pull requests: 2 removes the debug routes and their in-code token, 3 verifies Moyasar webhooks (secret, gateway confirmation, amount), 4 bounds invoice quantity and discount, 5 stops SQL values going to Sentry and takes the API docs offline, 6 stops appointment responses failing when the Jitsi secret is unset. The OTP bypass list and the hard-coded Jitsi secret went out with pull request 1. Still to do: private media with signed URLs, one-time code guessing limits, sign-in lockout. A findings report for Muath is in <code>CaludWork/audits</code>. Each fix is verified on staging before production is exposed.</span>
           <span class="who">&rarr; Adel</span>
         </div>
       </div>
@@ -749,7 +759,7 @@ footer{
   </section>
 
   <footer>
-    <span>Klinika Recovery Brief &middot; Rev. 9</span>
+    <span>Klinika Recovery Brief &middot; Rev. 10</span>
     <span>Last updated 18 September 2026</span>
     <span>Contains no patient data</span>
   </footer>
