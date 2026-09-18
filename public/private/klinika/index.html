@@ -428,6 +428,11 @@ footer{
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
+            <td class="k">Mobile source recovered for review</td>
+            <td>18 Sep: <a href="https://github.com/Muath-R/Klinika/pull/7">pull request 7</a> (draft) restores <code>apps/mobile</code> from the original GitLab export, branch <code>02-07-prod</code>, version 1.5.4 build 625. That build was TestFlight only; the public App Store version is 1.5.3, and its commits are ancestors of 625. The byte-identical files contain no <code>REDACTED</code> and no signing files. Only client-side keys are present (a live Moyasar publishable key, plus OneSignal and Firebase app IDs), no server secrets. Four wallet commits on a parallel branch are not included. One folder name ends in a space, so the branch cannot be checked out on Windows</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
             <td class="k">Staging is reachable without a bridge, for two people only</td>
             <td>18 Sep: <code>staging.klinikatech.com</code> runs through a Cloudflare Tunnel from <code>nonprod-01</code>. The server stays private with no inbound port; the connector dials out. A Cloudflare Access application (Zero Trust Free, on the Klinika account) allows two named email addresses by one-time code. Checked from outside before and after the tunnel started: every address, including the debug routes, redirects to the Cloudflare sign-in page. The gate was created and proven first, because staging still runs with debug on. This is also a rehearsal of the production design</td>
             <td><span class="tag t-ver">Verified</span></td>
@@ -479,7 +484,7 @@ footer{
           </tr>
           <tr>
             <td class="k">Production must stay on <code>api-new</code></td>
-            <td>The mobile app has <code>api-new.klinikatech.com</code> compiled in, and payment gateway webhooks point at it. <code>api.klinikatech.com</code> is staging</td>
+            <td>The mobile app has <code>api-new.klinikatech.com</code> and the websocket host <code>swarm.klinikatech.com</code> compiled in, and payment gateway webhooks point at it. <code>api.klinikatech.com</code> is staging</td>
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
