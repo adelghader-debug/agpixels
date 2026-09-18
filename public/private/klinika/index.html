@@ -273,7 +273,7 @@ footer{
     <div class="kicker">
       <span>Klinikatech</span><span class="dot"></span>
       <span>SCCC me-central-1 &rarr; OCI me-riyadh-1</span><span class="dot"></span>
-      <span id="rev">Rev. 7 &middot; 17 Sep 2026</span>
+      <span id="rev">Rev. 8 &middot; 18 Sep 2026</span>
     </div>
     <h1>Klinika Recovery Brief</h1>
     <p class="standfirst">The doctor portal is down and its Alibaba tenancy is suspended for non-payment. The Oracle Riyadh servers are now built and reachable, but no application is installed yet. This is the current picture: what we have established, what is built, and what still blocks the restore.</p>
@@ -310,7 +310,7 @@ footer{
   <script>
   // Recovery progress: change step states here ("done" | "active" | "todo").
   // The top bar, roadmap, revision stamp and footer all render from this list.
-  const REVISION = { rev: 7, updated: "17 September 2026", short: "17 Sep 2026" };
+  const REVISION = { rev: 8, updated: "18 September 2026", short: "18 Sep 2026" };
   const PHASES = [
     { name: "Discovery", steps: [
       ["Billing and fleet inventory", "done"],
@@ -345,6 +345,7 @@ footer{
       ["Server software build", "active"],
       ["Staging running verified source", "done"],
       ["Staging dashboard usable (login, roles)", "done"],
+      ["Verified source restored to GitHub (draft PR)", "done"],
     ]},
     { name: "Restore", steps: [
       ["Fix go-live security blockers in code", "todo"],
@@ -413,13 +414,18 @@ footer{
   </section>
 
   <section>
-    <h2>Findings <span class="count">23</span></h2>
+    <h2>Findings <span class="count">24</span></h2>
     <div class="scroll">
       <table>
         <thead>
           <tr><th>Finding</th><th>Evidence</th><th>Status</th></tr>
         </thead>
         <tbody>
+          <tr>
+            <td class="k">Verified source is back in GitHub, on a branch</td>
+            <td>18 Sep: the sanitized import in <code>main</code> did not run. It had <code>REDACTED</code> literals in 193 files, a re-hashed payment SDK that Composer rejected, and missing dashboard assets. The verified backend, dashboard and findy source is now on branch <code>restore/verified-source-20260730</code>, open as draft <a href="https://github.com/Muath-R/Klinika/pull/1">pull request 1</a>, waiting for Adel's review and merge. Secrets, the OTP bypass list and personal identifiers were moved to environment variables before the first commit, so none entered Git history. Result: the branch ran on staging (install, login, roles and the dashboard build all pass) and findy compiles after a one-line import fix. The mobile app is still the sanitized copy; a verified mobile drop has been requested</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
           <tr>
             <td class="k">Dangling DNS allowed subdomain takeover</td>
             <td>25 Cloudflare records still pointed at old servers: 19 at released Alibaba addresses anyone could be assigned, <code>www</code> at the retired web host, and five at internal addresses. Contained 15 Sep: 22 parked at <span class="m">192.0.2.1</span>, <code>meet</code> moved to Oracle, both GitLab records deleted. All 25 checked externally the same day: the 18 proxied hosts return 522, the others resolve as intended, email records unchanged. Removal of three former Cloudflare members is reported by the operator; it cannot be checked from outside</td>
@@ -743,8 +749,8 @@ footer{
   </section>
 
   <footer>
-    <span>Klinika Recovery Brief &middot; Rev. 7</span>
-    <span>Last updated 17 September 2026</span>
+    <span>Klinika Recovery Brief &middot; Rev. 8</span>
+    <span>Last updated 18 September 2026</span>
     <span>Contains no patient data</span>
   </footer>
 
