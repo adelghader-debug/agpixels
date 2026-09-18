@@ -273,7 +273,7 @@ footer{
     <div class="kicker">
       <span>Klinikatech</span><span class="dot"></span>
       <span>SCCC me-central-1 &rarr; OCI me-riyadh-1</span><span class="dot"></span>
-      <span id="rev">Rev. 6 &middot; 17 Sep 2026</span>
+      <span id="rev">Rev. 7 &middot; 17 Sep 2026</span>
     </div>
     <h1>Klinika Recovery Brief</h1>
     <p class="standfirst">The doctor portal is down and its Alibaba tenancy is suspended for non-payment. The Oracle Riyadh servers are now built and reachable, but no application is installed yet. This is the current picture: what we have established, what is built, and what still blocks the restore.</p>
@@ -310,7 +310,7 @@ footer{
   <script>
   // Recovery progress: change step states here ("done" | "active" | "todo").
   // The top bar, roadmap, revision stamp and footer all render from this list.
-  const REVISION = { rev: 6, updated: "17 September 2026", short: "17 Sep 2026" };
+  const REVISION = { rev: 7, updated: "17 September 2026", short: "17 Sep 2026" };
   const PHASES = [
     { name: "Discovery", steps: [
       ["Billing and fleet inventory", "done"],
@@ -344,6 +344,7 @@ footer{
       ["Shared Terraform state with locking", "done"],
       ["Server software build", "active"],
       ["Staging running verified source", "done"],
+      ["Staging dashboard usable (login, roles)", "done"],
     ]},
     { name: "Restore", steps: [
       ["Fix go-live security blockers in code", "todo"],
@@ -742,7 +743,7 @@ footer{
   </section>
 
   <footer>
-    <span>Klinika Recovery Brief &middot; Rev. 6</span>
+    <span>Klinika Recovery Brief &middot; Rev. 7</span>
     <span>Last updated 17 September 2026</span>
     <span>Contains no patient data</span>
   </footer>
