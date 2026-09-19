@@ -433,8 +433,8 @@ footer{
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
-            <td class="k">Staging has the real clinic catalog, no patient data</td>
-            <td>18 Sep: Muath sent full dumps of the old staging and development databases (30 July). Muath says they hold only test data. That hasn't been verified, so they are handled as if they could hold personal data: the extraction script (<code>build/klinika_catalog_extract.py</code>) keeps only 51 reference tables: 106 clinics, their doctors and working hours, 325 offers, services, specialties, lab tests, medications, cities and the 47 app settings. It drops users, appointments, invoices, prescriptions, and home and appointment addresses. It also replaces clinic contact details with placeholders. The 968 doctors, owners and staff the clinics refer to are placeholder accounts with no real details. Images are not included, because the dump holds only file references. The development dump also has wallet tables (<code>wallets</code>, <code>wallet_transactions</code>, <code>invoice_additional_payments</code>), which matches the unreleased wallet work on the mobile side branch. The original zip is still on Adel's PC</td>
+            <td class="k">Staging runs on the full old staging database</td>
+            <td>19 Sep: Muath reports that the old staging dump (30 July) holds only test data, and Adel decided to load it whole. It went into its own database, <code>klinika_import</code>: 108 tables, 1,827 users, 106 clinics, 735 appointments and 743 invoices, with no pending migrations. Old login tokens, push tokens, one-time codes and queued jobs from the dump were deleted. The staging admin login is unchanged. <strong>The scheduler is off</strong>, so no reminders or automatic payment clean-ups run. The catalog-only build is kept as <code>klinika_stage</code> for fallback. Images are still missing, because the dump holds only file references. The development dump adds wallet tables, which belong to the unreleased wallet feature</td>
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
