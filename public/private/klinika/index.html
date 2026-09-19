@@ -549,7 +549,12 @@ footer{
           </tr>
           <tr>
             <td class="k">Production has an OTP bypass list</td>
-            <td>Listed phone numbers log in with any code, in every environment. Two of the five entries were redacted as sensitive</td>
+            <td>Listed phone numbers log in with any code, in every environment. Two of the five entries were redacted as sensitive. Fixed in <code>main</code> by pull request 1: the list now comes from <code>OTP_BYPASS_NUMBERS</code> and is empty by default. Staging still runs the original archived code, so it still has the list until staging is moved to <code>main</code></td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
+            <td class="k">Code <code>1111</code> logs in to any account outside production</td>
+            <td>19 Sep: <code>OtpCode::shouldBypassValidation</code> accepts <code>config('otp.test_code')</code>, hard-coded as <code>1111</code>, for any phone number whenever <code>APP_ENV</code> is not exactly <code>production</code>. This is still in <code>main</code>. On staging that means anyone past Cloudflare Access can sign in as any patient. On production, any environment value other than <code>production</code> would open every real account. Fix: the test code is off unless explicitly set, and production must run with <code>APP_ENV=production</code>. Rule: no patient ever logs in to staging</td>
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
