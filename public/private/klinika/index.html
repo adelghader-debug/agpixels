@@ -553,8 +553,13 @@ footer{
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
+            <td class="k">Tap webhook can be forged when its keys are unset</td>
+            <td>19 Sep: <code>TapPayments::verify</code> signs with <code>TAP_PAYMENTS_SECRET_KEY</code>. The caller picks, through <code>metadata.platform</code>, whether the iOS or Android key is used instead. All three keys default to an empty string, and an HMAC with an empty key can be computed by anyone. A forged <code>CAPTURED</code> webhook for any invoice id would pass and record a charge. Tap is still in <code>payment_methods</code> (id 2) and the webhook address accepts it regardless of status. There is no amount check, and the comparison is loose <code>==</code>. Pull request 3 covered Moyasar only. Fix: refuse Tap webhooks when the chosen key is empty, compare with <code>hash_equals</code>, and check the amount against the invoice, or remove Tap if it is no longer used</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
             <td class="k">Code <code>1111</code> logs in to any account outside production</td>
-            <td>19 Sep: <code>OtpCode::shouldBypassValidation</code> accepts <code>config('otp.test_code')</code>, hard-coded as <code>1111</code>, for any phone number whenever <code>APP_ENV</code> is not exactly <code>production</code>. This is still in <code>main</code>. On staging that means anyone past Cloudflare Access can sign in as any patient. On production, any environment value other than <code>production</code> would open every real account. Fix: the test code is off unless explicitly set, and production must run with <code>APP_ENV=production</code>. Rule: no patient ever logs in to staging</td>
+            <td>19 Sep: <code>OtpCode::shouldBypassValidation</code> accepts <code>config('otp.test_code')</code>, hard-coded as <code>1111</code>, for any phone number whenever <code>APP_ENV</code> is not exactly <code>production</code>. This is still in <code>main</code>. On staging that means anyone past Cloudflare Access can sign in as any patient. On production, any environment value other than <code>production</code> would open every real account. Fixed in <a href="https://github.com/Muath-R/Klinika/pull/8">pull request 8</a> (draft): the test code comes from <code>OTP_TEST_CODE</code>, is unset by default and is compared strictly. Production must still run with <code>APP_ENV=production</code>. Rule: no patient ever logs in to staging</td>
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
