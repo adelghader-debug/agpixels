@@ -438,6 +438,11 @@ footer{
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
+            <td class="k">Findy runs on staging behind the same login</td>
+            <td>19 Sep: findy, the patient web app, is built from <code>main</code> and served at <code>findy-staging.klinikatech.com</code> by the same staging server. That hostname also passes <code>/api</code> to the backend, so findy calls the API on its own address. The hostname was added to the "Klinika staging" Cloudflare Access app before its DNS record, and a check from the internet confirms that both hostnames, and findy's API, stop at the Cloudflare login. Browsing clinics, doctors and offers works. Nothing that needs a patient login is tested, because no patient logs in to staging. Payment stays off until Moyasar test keys exist, live updates (websockets) are not wired, and the maps key is empty. Build script: <code>build/72-frontend-findy.sh</code></td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
             <td class="k">Staging is reachable without a bridge, for two people only</td>
             <td>18 Sep: <code>staging.klinikatech.com</code> runs through a Cloudflare Tunnel from <code>nonprod-01</code>. The server stays private with no inbound port; the connector dials out. A Cloudflare Access application (Zero Trust Free, on the Klinika account) allows two named email addresses by one-time code. Checked from outside before and after the tunnel started: every address, including the debug routes, redirects to the Cloudflare sign-in page. The gate was created and proven first, because staging still runs with debug on. This is also a rehearsal of the production design</td>
             <td><span class="tag t-ver">Verified</span></td>
