@@ -325,7 +325,7 @@ footer{
       ["Backup handoff, round one", "done"],
       ["Backup handoff, round two", "done"],
       ["Record review of round-two files", "active"],
-      ["Inventory and export OSS buckets", "todo"],
+      ["Recover uploaded files from the backups", "active"],
       ["Pull ActionTrail", "todo"],
       ["Check for disk snapshots", "todo"],
       ["Confirm mobile app signing", "todo"],
@@ -353,7 +353,7 @@ footer{
       ["Restore safety runbook", "todo"],
       ["Restore klinika_back and verify", "todo"],
       ["Deploy app from snapshot lockfiles", "todo"],
-      ["Migrate media to Object Storage", "todo"],
+      ["Place recovered files on production (private and public)", "todo"],
     ]},
     { name: "Cutover", steps: [
       ["Validate web, findy and mobile on api-new", "todo"],
@@ -549,7 +549,7 @@ footer{
           </tr>
           <tr>
             <td class="k">Patient media may be public by URL</td>
-            <td>Media lives on the bucket configured as public and is served by permanent links, never signed ones. The bucket's actual permissions are unconfirmed. Paths are guessable (<code>uploads/{type}/{record id}/{file}</code>), and the electronic prescription page was open to anyone with an appointment number. <a href="https://github.com/Muath-R/Klinika/pull/9">Pull request 9</a> (merged 19 Sep) makes every collection except logos, covers, galleries and doctor photos private: it moves them to a private disk served only through signed links that expire after 30 minutes, and requires a signed link for the prescription page, keeping printed QR codes working. The <code>media:move-private</code> command moves existing files; run it after the Alibaba files are imported</td>
+            <td>Media lives on the bucket configured as public and is served by permanent links, never signed ones. The bucket's actual permissions are unconfirmed. Paths are guessable (<code>uploads/{type}/{record id}/{file}</code>), and the electronic prescription page was open to anyone with an appointment number. <a href="https://github.com/Muath-R/Klinika/pull/9">Pull request 9</a> (merged 19 Sep) makes every collection except logos, covers, galleries and doctor photos private: it moves them to a private disk served only through signed links that expire after 30 minutes, and requires a signed link for the prescription page, keeping printed QR codes working. The <code>media:move-private</code> command moves existing files; run it after the recovered files are placed on the server</td>
             <td><span class="tag t-inf">Inferred</span></td>
           </tr>
           <tr>
@@ -667,9 +667,9 @@ footer{
       <div class="task crit">
         <span class="sev">Critical</span>
         <div class="body">
-          <span class="ttl">Inventory and export the OSS buckets</span>
-          <span class="det">They hold the four-hourly backups and, likely, patient media and consultation recordings. Check each bucket's access setting as well: if the public bucket allows anonymous reads, patient files are exposed right now. Archive objects need a restore before they can be read; verify the copy with <code>rclone check</code>.</span>
-          <span class="who">&rarr; Saudi colleague, in-Kingdom</span>
+          <span class="ttl">Recover the uploaded files from the backups</span>
+          <span class="det">19 Sep: Adel confirmed nothing can be recovered from the old cloud storage. The images and documents that the database refers to (about 2,960) must come from the backups Codex holds. Codex has <code>Klinika-images-from-backup.md</code>. It finds every <code>uploads/</code> copy in the backups and matches it, by path only, against the <code>media</code> tables of the old staging dump and the production backup. It reports counts and missing ids without opening any file, and copies the staging matches onto the staging server. Production files wait for the production server.</span>
+          <span class="who">&rarr; Codex (Muath), in-Kingdom</span>
         </div>
       </div>
 
