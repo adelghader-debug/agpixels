@@ -574,8 +574,8 @@ footer{
           </tr>
           <tr>
             <td class="k">Patient data may reach services outside the Kingdom</td>
-            <td>Klinikatech reports the services now in use as Cloudflare, Mailgun, Firebase, Moyasar and Taqnyat, with OneSignal, Branch, Tap, Unifonic and Sentry retired. The shipped app registers for push with OneSignal only, which conflicts with Firebase handling notifications</td>
-            <td><span class="tag t-unc">Unconfirmed</span></td>
+            <td>Klinikatech reports the services now in use as Cloudflare, Mailgun, Firebase, Moyasar and Taqnyat. <strong>Muath confirmed on 19 Sep that Tap, Sentry, OneSignal, Branch and Unifonic are retired.</strong> The code still called two of them. Branch received the <strong>whole appointment record</strong> (<code>json_encode($appointment)</code>) on every appointment created or updated whenever the <code>branch_enabled</code> preference was on, even with no key set. The Tap webhook could be forged to mark invoices paid. Both are closed in the retired-services pull request. SMS goes through the in-house package; production needs <code>SMS_DRIVER=taqnyat</code> and the Taqnyat token, and the default is <code>log</code>, which sends nothing. The shipped app registers for push with OneSignal only, so with OneSignal retired, patients likely get no push notifications until an app release moves them to Firebase</td>
+            <td><span class="tag t-ver">Verified</span></td>
           </tr>
         </tbody>
       </table>
