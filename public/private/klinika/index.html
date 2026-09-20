@@ -438,6 +438,11 @@ footer{
             <td><span class="tag t-ver">Verified</span></td>
           </tr>
           <tr>
+            <td class="k">Interface translations were read from the retired storage</td>
+            <td>20 Sep: the dashboard showed a red "access key id is empty" notification, 27 times in one day. The <code>languages</code> disk was configured as the old object storage, and translations are read from it on every request that returns them, so with no credentials the driver threw. Fixed in <a href="https://github.com/Muath-R/Klinika/pull/12">pull request 12</a> (draft): translations now live on the server's own disk, written by <code>translations:init</code>. Verified on staging; the error no longer occurs. This affected production too</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
             <td class="k">Service type went into SQL, and crashed five valid services</td>
             <td>20 Sep, found while testing findy as the test patient: <code>service_type</code> is read in 70+ places and built into column names, twice inside raw SQL, so <code>service_type=1</code> answered 500 and a crafted value could change the query. Separately, five valid services (laboratory home and clinic, nursing, radiology, radiology home visit) crashed the doctor and specialty lists, because they belong to medical staff and <code>clinic_doctors</code> has no columns for them: four places built the column name without the check the rest of the code already makes. Both are fixed in <a href="https://github.com/Muath-R/Klinika/pull/11">pull request 11</a> (draft): one middleware refuses unknown values with a 422, and the four places now match nobody instead of failing. Verified on staging: all ten services answer 200, bad values answer 422, and 66 tests pass. The second half affected production too</td>
             <td><span class="tag t-ver">Verified</span></td>
