@@ -310,7 +310,7 @@ footer{
   <script>
   // Recovery progress: change step states here ("done" | "active" | "todo").
   // The top bar, roadmap, revision stamp and footer all render from this list.
-  const REVISION = { rev: 11, updated: "18 September 2026", short: "18 Sep 2026" };
+  const REVISION = { rev: 12, updated: "22 September 2026", short: "22 Sep 2026" };
   const PHASES = [
     { name: "Discovery", steps: [
       ["Billing and fleet inventory", "done"],
@@ -347,6 +347,7 @@ footer{
       ["Staging dashboard usable (login, roles)", "done"],
       ["Verified source restored to GitHub main", "done"],
       ["Staging reachable behind Cloudflare Access", "done"],
+      ["Staging database backed up, restore rehearsed", "done"],
     ]},
     { name: "Restore", steps: [
       ["Fix go-live security blockers in code", "active"],
@@ -737,7 +738,7 @@ footer{
         <span class="sev">High</span>
         <div class="body">
           <span class="ttl">Write the restore safety runbook</span>
-          <span class="det">Keep the scheduler, queue workers, outbound SMS, push and mail, and live payment keys off until validation. The telehealth cleanup would void real payments on restored data. Never retry the 25,678 failed jobs; archive that table instead.</span>
+          <span class="det">Keep the scheduler, queue workers, outbound SMS, push and mail, and live payment keys off until validation. The telehealth cleanup would void real payments on restored data. Never retry the 25,678 failed jobs; archive that table instead. <strong>22 Sep, backups:</strong> db-01 has been backed up nightly since 16 Sep, but it holds no application database yet. The staging server, which holds the only working copy of the recovered data, had <strong>no backup of any kind</strong>. It now gets a nightly database dump and daily off-server volume backups (14 days, plus weekly fulls kept 8 weeks). <strong>First restore rehearsed:</strong> 108 tables and 149,315 rows came back identical in 16 seconds. Still open: copies to Jeddah are off, and the app's own backup job still points at the old storage driver, so production needs its storage moved to Oracle Object Storage before go-live (infra PR 1).</span>
           <span class="who">&rarr; Adel</span>
         </div>
       </div>
@@ -806,7 +807,7 @@ footer{
 
   <footer>
     <span>Klinika Recovery Brief &middot; Rev. 11</span>
-    <span>Last updated 18 September 2026</span>
+    <span>Last updated 22 September 2026</span>
     <span>Contains no patient data</span>
   </footer>
 
