@@ -424,6 +424,11 @@ footer{
         </thead>
         <tbody>
           <tr>
+            <td class="k">"Delete account" deletes nothing</td>
+            <td>23 Sep: in the patient app, deleting an account only marks it inactive and logs the patient out, while telling them "The user has been deleted". Records and files stay. An admin delete only hides the row (soft delete). No patient files are attached to user records at all: they hang off appointments, results, consultations, visits and reports, so no cleanup job touches them. What deletion should remove, given PDPL's right to erasure and health-record retention rules, is a decision for Adel and the DPO, not a code fix. Apple also requires in-app account deletion to delete. Separately, the daily media clean-up removed rows but left files; fixed in <a href="https://github.com/Muath-R/Klinika/pull/22">PR 22</a>, which also stops it deleting all media if its model list ever came back empty</td>
+            <td><span class="tag t-ver">Verified</span></td>
+          </tr>
+          <tr>
             <td class="k">Verified source is back in GitHub <code>main</code></td>
             <td>18 Sep: the sanitized import in <code>main</code> did not run. It had <code>REDACTED</code> literals in 193 files, a re-hashed payment SDK that Composer rejected, and missing dashboard assets. The verified backend, dashboard and findy source was merged into <code>main</code> the same day through <a href="https://github.com/Muath-R/Klinika/pull/1">pull request 1</a>, so the repository now holds code that runs. Secrets, the OTP bypass list and personal identifiers were moved to environment variables before the first commit, so none entered Git history. Before the merge the branch ran on staging (install, login, roles and the dashboard build all pass) and findy compiles after a one-line import fix. The mobile app is still the sanitized copy; a verified mobile drop has been requested</td>
             <td><span class="tag t-ver">Verified</span></td>
