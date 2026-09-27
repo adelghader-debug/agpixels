@@ -310,7 +310,7 @@ footer{
   <script>
   // Recovery progress: change step states here ("done" | "active" | "todo").
   // The top bar, roadmap, revision stamp and footer all render from this list.
-  const REVISION = { rev: 30, updated: "27 September 2026", short: "27 Sep 2026" };
+  const REVISION = { rev: 31, updated: "28 September 2026", short: "28 Sep 2026" };
   const PHASES = [
     { name: "Discovery", steps: [
       ["Billing and fleet inventory", "done"],
@@ -760,8 +760,8 @@ footer{
         <span class="sev">High</span>
         <div class="body">
           <span class="ttl">Connect push notifications and live payments</span>
-          <span class="det"><strong>24 Sep, push:</strong> the app does use Firebase (project <code>klinika-2</code>), and production holds 263 registered phones. The server has no Firebase login yet, so no push goes out. <strong>27 Sep:</strong> Codex found the original key file in Muath&rsquo;s preserved production files, and Google confirms that exact key is still active, so nothing in Google Cloud changes. Codex has an upload-only link (expires 30 Sep); Adel&rsquo;s side then moves the file straight to the production server only, deletes the temporary bucket, and sends a test notification. <strong>Payments:</strong> production has no Moyasar keys yet, and Adel&rsquo;s browser isn&rsquo;t signed in to the Moyasar dashboard. Once someone signs in, Adel&rsquo;s side sets the webhook and Apple Pay domain and moves the live secret key to the server without it showing on screen.</span>
-          <span class="who">&rarr; Codex (Firebase) + Adel (Moyasar)</span>
+          <span class="det"><strong>24 Sep, push:</strong> the app does use Firebase (project <code>klinika-2</code>), and production holds 263 registered phones. The server has no Firebase login yet, so no push goes out. <strong>27 Sep:</strong> Codex found the original key file in Muath&rsquo;s preserved production files, and Google confirms that exact key is still active, so nothing in Google Cloud changes. <strong>28 Sep, push is on in production:</strong> Codex uploaded the file through a one-time link; its checksum matched, it went straight to the production server into a folder only the app can read, and the temporary bucket was deleted. Firebase accepted the login in a dry run (nothing sent). Staging has no key. A real notification on a Klinika team member&rsquo;s phone is checked on cutover day. <strong>Payments:</strong> production has no Moyasar keys yet, and Adel&rsquo;s browser isn&rsquo;t signed in to the Moyasar dashboard. Once someone signs in, Adel&rsquo;s side sets the webhook and Apple Pay domain and moves the live secret key to the server without it showing on screen.</span>
+          <span class="who">&rarr; Adel (Moyasar)</span>
         </div>
       </div>
       <div class="task med">
