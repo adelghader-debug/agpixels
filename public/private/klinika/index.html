@@ -310,7 +310,7 @@ footer{
   <script>
   // Recovery progress: change step states here ("done" | "active" | "todo").
   // The top bar, roadmap, revision stamp and footer all render from this list.
-  const REVISION = { rev: 36, updated: "28 September 2026", short: "28 Sep 2026" };
+  const REVISION = { rev: 37, updated: "28 September 2026", short: "28 Sep 2026" };
   const PHASES = [
     { name: "Discovery", steps: [
       ["Billing and fleet inventory", "done"],
@@ -358,7 +358,7 @@ footer{
     { name: "Cutover", steps: [
       ["Validate web, findy and mobile on api-new", "done"],
       ["DNS cutover in Cloudflare", "done"],
-      ["Switch on live payments (Moyasar)", "todo"],
+      ["Switch on live payments (Moyasar)", "active"],
       ["Watch the first two weeks", "active"],
     ]},
   ];
@@ -761,7 +761,7 @@ footer{
         <span class="sev">High</span>
         <div class="body">
           <span class="ttl">Connect push notifications and live payments</span>
-          <span class="det"><strong>24 Sep, push:</strong> the app does use Firebase (project <code>klinika-2</code>), and production holds 263 registered phones. The server has no Firebase login yet, so no push goes out. <strong>27 Sep:</strong> Codex found the original key file in Muath&rsquo;s preserved production files, and Google confirms that exact key is still active, so nothing in Google Cloud changes. <strong>28 Sep, push is on in production:</strong> Codex uploaded the file through a one-time link; its checksum matched, it went straight to the production server into a folder only the app can read, and the temporary bucket was deleted. Firebase accepted the login in a dry run (nothing sent). Staging has no key. A real notification on a Klinika team member&rsquo;s phone is checked on cutover day. <strong>Payments:</strong> production has no Moyasar keys yet. <strong>28 Sep:</strong> Codex has a request to recover the three settings from the old server&rsquo;s preserved settings file (or the live dashboard if they&rsquo;re missing), confirm the webhook to <code>api-new.klinikatech.com/api/v2/payment-webhook/3</code>, and send Apple Pay&rsquo;s domain verification file for the web booking page, all through one-time upload links. Then one small real payment and refund.</span>
+          <span class="det"><strong>24 Sep, push:</strong> the app does use Firebase (project <code>klinika-2</code>), and production holds 263 registered phones. The server has no Firebase login yet, so no push goes out. <strong>27 Sep:</strong> Codex found the original key file in Muath&rsquo;s preserved production files, and Google confirms that exact key is still active, so nothing in Google Cloud changes. <strong>28 Sep, push is on in production:</strong> Codex uploaded the file through a one-time link; its checksum matched, it went straight to the production server into a folder only the app can read, and the temporary bucket was deleted. Firebase accepted the login in a dry run (nothing sent). Staging has no key. A real notification on a Klinika team member&rsquo;s phone is checked on cutover day. <strong>Payments:</strong> production has no Moyasar keys yet. <strong>28 Sep:</strong> Codex has a request to recover the three settings from the old server&rsquo;s preserved settings file (or the live dashboard if they&rsquo;re missing), confirm the webhook to <code>api-new.klinikatech.com/api/v2/payment-webhook/3</code>, and send Apple Pay&rsquo;s domain verification file for the web booking page, all through one-time upload links. Then one small real payment and refund. <strong>28 Sep, installed:</strong> the original live keys and token are on production (they carried a trailing space from the old file, now trimmed), and Moyasar accepts the key. Codex created the production webhook. The Apple Pay verification file is live on klinikatech.com and www. <strong>Found:</strong> a live-mode webhook also sends every real payment notification to <em>staging</em>, whose webhook address is open to the internet; Codex&rsquo;s follow-up deletes it, registers www for Apple Pay and re-saves the token without the space. Then one small real payment and refund.</span>
           <span class="who">&rarr; Adel (Moyasar)</span>
         </div>
       </div>
