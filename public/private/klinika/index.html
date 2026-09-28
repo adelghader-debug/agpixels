@@ -276,7 +276,7 @@ footer{
       <span id="rev">Rev. 11 &middot; 18 Sep 2026</span>
     </div>
     <h1>Klinika Recovery Brief</h1>
-    <p class="standfirst">The doctor portal is down and its Alibaba tenancy is suspended for non-payment. The Oracle Riyadh servers are now built and reachable, but no application is installed yet. This is the current picture: what we have established, what is built, and what still blocks the restore.</p>
+    <p class="standfirst"><strong>Klinika is live again on Oracle Riyadh since 28 September 2026.</strong> klinikatech.com, www and front.klinikatech.com serve the patient site and the clinic dashboard, and the mobile app works against api-new.klinikatech.com with SMS sign-in, email, push notifications and the scheduler on. Online payments are the one service still off. This brief keeps the record: what we established, what was built, and what remains.</p>
   </header>
 
   <div class="strip">
@@ -297,8 +297,8 @@ footer{
     </div>
     <div class="cell">
       <span class="lab">Oracle Riyadh</span>
-      <span class="val good">Built</span>
-      <span class="sub">4 servers up &middot; no app yet</span>
+      <span class="val good">Live</span>
+      <span class="sub">since 28 Sep &middot; payments still off</span>
     </div>
   </div>
 
@@ -310,7 +310,7 @@ footer{
   <script>
   // Recovery progress: change step states here ("done" | "active" | "todo").
   // The top bar, roadmap, revision stamp and footer all render from this list.
-  const REVISION = { rev: 33, updated: "28 September 2026", short: "28 Sep 2026" };
+  const REVISION = { rev: 34, updated: "28 September 2026", short: "28 Sep 2026" };
   const PHASES = [
     { name: "Discovery", steps: [
       ["Billing and fleet inventory", "done"],
@@ -349,16 +349,17 @@ footer{
       ["Staging database backed up, restore rehearsed", "done"],
     ]},
     { name: "Restore", steps: [
-      ["Fix go-live security blockers in code", "active"],
-      ["Restore safety runbook", "todo"],
-      ["Restore klinika_back and verify", "todo"],
-      ["Deploy app from snapshot lockfiles", "todo"],
-      ["Place recovered files on production (private and public)", "todo"],
+      ["Fix go-live security blockers in code", "done"],
+      ["Restore safety runbook", "done"],
+      ["Restore klinika_back and verify", "done"],
+      ["Deploy app from snapshot lockfiles", "done"],
+      ["Place recovered files on production (private and public)", "done"],
     ]},
     { name: "Cutover", steps: [
-      ["Validate web, findy and mobile on api-new", "todo"],
-      ["DNS cutover in Cloudflare", "todo"],
-      ["Hold two weeks, release Alibaba", "todo"],
+      ["Validate web, findy and mobile on api-new", "done"],
+      ["DNS cutover in Cloudflare", "done"],
+      ["Switch on live payments (Moyasar)", "todo"],
+      ["Watch the first two weeks", "active"],
     ]},
   ];
 
