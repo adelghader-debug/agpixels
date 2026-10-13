@@ -310,7 +310,7 @@ footer{
   <script>
   // Recovery progress: change step states here ("done" | "active" | "todo").
   // The top bar, roadmap, revision stamp and footer all render from this list.
-  const REVISION = { rev: 50, updated: "12 October 2026", short: "12 Oct 2026" };
+  const REVISION = { rev: 51, updated: "13 October 2026", short: "13 Oct 2026" };
   const PHASES = [
     { name: "Discovery", steps: [
       ["Billing and fleet inventory", "done"],
@@ -680,7 +680,7 @@ footer{
         <span class="sev">Medium</span>
         <div class="body">
           <span class="ttl">Improve the staff experience from the Figma designs</span>
-          <span class="det">12 Oct: Muath sent the two Figma files (the main Klinika file and the patient website file) with one brief: improve the experience for doctors, nurses and admins, without replacing what exists. Both files are decoded locally. Checked against the live code: staff work in the web dashboard and the mobile app is for patients only. Most staff areas in the designs are already built (doctor screen, clinic manager, lab, radiology, nursing, day off, invoices, offers, feedback, roles). Designed but not live: <strong>Medication</strong> (the mobile screens were started but nothing opens them) and <strong>Describe your problem</strong> (the admin list exists, the patient screen does not). Designed with no code at all: chat, wallet, pharmacy, medical metrics. Next: review the real staff screens on staging against the designs and propose a short, ranked list of improvements with pictures.</span>
+          <span class="det">12 Oct: Muath sent the two Figma files (the main Klinika file and the patient website file) with one brief: improve the experience for doctors, nurses and admins, without replacing what exists. Both files are decoded locally. Checked against the live code: staff work in the web dashboard and the mobile app is for patients only. Most staff areas in the designs are already built (doctor screen, clinic manager, lab, radiology, nursing, day off, invoices, offers, feedback, roles). Designed but not live: <strong>Medication</strong> (the mobile screens were started but nothing opens them). <strong>Correction, 13 Oct:</strong> <strong>Describe your problem</strong> is in the app code: the step opens from the doctor lists and from offers, and the tracker records it closed for doctor bookings on 18 Jul 2025. What the designs add beyond it is a pre-visit quiz, which is design only. No code was found for chat, pharmacy or the designed health metrics. <strong>13 Oct:</strong> Muath also sent the project archive (3,938 tracker tasks, 56 documentation pages, Figma comment threads, Miro boards). The archive and both Figma files have been read in full and merged into a local knowledge base: seven staff registers by role holding 3,019 experience points, the staff dashboard as specified and as designed, the patient side, money, unbuilt features and a list of the 749 open tasks. A test of 80 questions drawn from the sources scored 77 correct and 3 partly correct. It is historical record and design only: nothing in it has been checked against the live system yet, and it holds no pictures of screens. One documentation page in the archive holds credentials in plain text and should be treated as exposed. Next: review the real staff screens on staging against the registers and the designs, and propose a short, ranked list of improvements with pictures.</span>
           <span class="who">&rarr; Adel</span>
         </div>
       </div>
