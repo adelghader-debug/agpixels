@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AGPixels · Ottawa websites, apps and Google Ads</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="/assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Doto:wght@500..900&display=swap">
+<link rel="stylesheet" href="redesign.css">
+<script>
+  /* Hide the hero screenshots until pixels.js pours them in; show them anyway after 5s. */
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('px-intro');
+    setTimeout(function () { document.documentElement.classList.remove('px-intro'); }, 5000);
+  }
+</script>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap bar-inner">
+    <a href="#top" class="brand" aria-label="AGPixels home">
+      <img src="/assets/logo.png" alt="AGPixels" width="140" height="23">
+    </a>
+    <nav class="bar-nav" aria-label="Main">
+      <a href="#services" data-sign="WEBSITES · APPS · ADS">Services</a>
+      <a href="#work" data-sign="SEE THE WORK">Work</a>
+      <a href="#process">Process</a>
+      <a href="/about/">About</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+    <div class="bar-actions">
+      <a class="bar-phone" href="tel:+16136177233">(613) 617-7233</a>
+      <a class="btn btn-solid" href="#contact" data-sign="FREE QUOTE">Get my free quote</a>
+    </div>
+    <details class="bar-menu">
+      <summary aria-label="Menu"><span></span></summary>
+      <nav aria-label="Mobile">
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#process">Process</a>
+        <a href="/about/">About</a>
+        <a href="/blog/">Blog</a>
+        <a href="tel:+16136177233">Call (613) 617-7233</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <figure class="sign" aria-hidden="true">
+        <canvas class="sign-canvas"></canvas>
+        <p class="sign-fallback">Ottawa websites</p>
+        <ol class="sign-ticks"></ol>
+      </figure>
+
+      <h1 id="hero-title" class="hero-title">AGPixels builds websites, apps and Google&nbsp;Ads for Ottawa businesses.</h1>
+
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="hero-sub">I design and code every project myself, at a fixed price you get in writing. You see your homepage first, and you only pay if you love it.</p>
+          <div class="hero-actions">
+            <a class="btn btn-solid btn-lg" href="#contact" data-sign="FREE QUOTE">Get my free quote</a>
+            <a class="btn btn-line btn-lg" href="tel:+16136177233">Call (613) 617-7233</a>
+          </div>
+          <p class="hero-proof">
+            <span class="stars" aria-hidden="true">
+              <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 15l-5.2 2.7 1-5.9L1.5 7.7l5.9-.8z"/></svg>
+            </span>
+            <span><strong>5.0</strong> on Google</span>
+          </p>
+        </div>
+
+        <ul class="shelf" aria-label="Recent projects">
+          <li class="shelf-item shelf-wide">
+            <a href="https://centredcanine.ca" target="_blank" rel="noopener" data-sign="CENTRED CANINE">
+              <span class="screen"><picture>
+                <source media="(max-width: 680px)" srcset="assets/work/centredcanine-mobile.jpg" width="780" height="1688">
+                <img src="assets/work/centredcanine-desktop.jpg" alt="Centred Canine homepage" width="1600" height="1000">
+              </picture></span>
+              <span class="cap"><strong>Centred Canine</strong> Shopify site and Google Ads, Ottawa-Gatineau</span>
+            </a>
+          </li>
+          <li class="shelf-item shelf-phone">
+            <a href="https://apps.apple.com/sa/app/klinika/id6450057463" target="_blank" rel="noopener" data-sign="iOS + ANDROID APPS">
+              <span class="screen screen-phone"><img src="assets/work/klinika-app-screen.jpg" alt="Klinika app services screen" width="548" height="1208"></span>
+              <span class="cap"><strong>Klinika</strong> iOS and Android app</span>
+            </a>
+          </li>
+          <li class="shelf-item shelf-mid">
+            <a href="https://canuckcanada.ca" target="_blank" rel="noopener" data-sign="CANUCK">
+              <span class="screen"><img src="assets/work/canuck-desktop.jpg" alt="Canuck homepage" width="1600" height="1000"></span>
+              <span class="cap"><strong>Canuck</strong> Online store</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="work" aria-labelledby="work-title">
+    <div class="wrap">
+      <div class="work-head">
+        <h2 id="work-title">Every project here is live. Go look.</h2>
+        <p>Real businesses, real sites and apps you can open right now. No mockups, no stock templates.</p>
+      </div>
+
+      <article class="case" data-sign="COMPASS CLINIC">
+        <a class="case-shot" href="https://compassclinic.ca" target="_blank" rel="noopener">
+          <img src="assets/work/compass-desktop.jpg" alt="Compass Clinic homepage" width="1600" height="1000" loading="lazy">
+        </a>
+        <div class="case-text">
+          <h3>Compass Clinic</h3>
+          <p class="case-what">Website</p>
+          <p>Psychological and support services for children, youth and parents in Vancouver. Built so parents can find the right service and reach the clinic quickly.</p>
+          <p><a class="case-link" href="/blog/compass-clinic-website-case-study/">Read the case study</a> <a class="case-link" href="https://compassclinic.ca" target="_blank" rel="noopener">compassclinic.ca</a></p>
+        </div>
+      </article>
+
+      <article class="case case-flip" data-sign="KLINIKA">
+        <a class="case-shot" href="https://klinikatech.com/" target="_blank" rel="noopener">
+          <img src="assets/work/klinika-desktop.jpg" alt="Klinika website" width="1600" height="1000" loading="lazy">
+        </a>
+        <div class="case-text">
+          <h3>Klinika</h3>
+          <p class="case-what">Website, iOS app, Android app</p>
+          <p>A medical booking and telehealth platform in Riyadh: patients find a specialist, pick a time, and pay, on the web or in the app.</p>
+          <p><a class="case-link" href="https://apps.apple.com/sa/app/klinika/id6450057463" target="_blank" rel="noopener">App Store</a> <a class="case-link" href="https://play.google.com/store/apps/details?id=com.klinikatech.klinika2" target="_blank" rel="noopener">Google Play</a></p>
+        </div>
+      </article>
+
+      <article class="case" data-sign="AGEPRO">
+        <a class="case-shot" href="https://agepro.ca" target="_blank" rel="noopener">
+          <img src="assets/work/agepro-desktop.jpg" alt="AgePro homepage" width="1600" height="1000" loading="lazy">
+        </a>
+        <div class="case-text">
+          <h3>AgePro</h3>
+          <p class="case-what">Website</p>
+          <p>Senior home care in Cambridge, Kitchener and Brantford. Built so families can find the right care and call in one tap.</p>
+          <p><a class="case-link" href="https://agepro.ca" target="_blank" rel="noopener">agepro.ca</a></p>
+        </div>
+      </article>
+
+      <ul class="more-work" aria-label="More projects">
+        <li><a href="https://in-linek9.ca" target="_blank" rel="noopener"><strong>In-Line K9</strong><span>Dog training, Ottawa</span></a></li>
+        <li><a href="https://msbusyfit.com" target="_blank" rel="noopener"><strong>Ms Busy Fit</strong><span>Website and app</span></a></li>
+        <li><a href="https://car-fellas.ca" target="_blank" rel="noopener"><strong>Carfellas</strong><span>Auto repair</span></a></li>
+        <li><a href="https://vikingk9canada.com" target="_blank" rel="noopener"><strong>Viking K9 Canada</strong><span>K9 training</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="services" class="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <h2 id="services-title">Priced up front, in writing.</h2>
+      <div class="board" role="list">
+        <a class="board-row" role="listitem" href="#contact" data-sign="OTTAWA WEBSITES">
+          <span class="board-name">Websites</span>
+          <span class="board-what">Custom design and code, fast on phones, built to get calls. From a 3-page site to an 8-page build.</span>
+          <span class="board-price"><small>from</small> $1,500</span>
+        </a>
+        <a class="board-row" role="listitem" href="#contact" data-sign="iOS + ANDROID APPS">
+          <span class="board-name">Apps</span>
+          <span class="board-what">iOS and Android apps for booking, ordering or members, like Klinika. Scoped and quoted in writing.</span>
+          <span class="board-price board-price-text">Quoted per project</span>
+        </a>
+        <a class="board-row" role="listitem" href="/google-ads-management/" data-sign="GOOGLE ADS, FLAT FEE">
+          <span class="board-name">Google Ads</span>
+          <span class="board-what">Campaigns set up and managed for a flat monthly fee, never a percentage of your ad spend.</span>
+          <span class="board-price"><small>from</small> $350<small>/mo</small></span>
+        </a>
+        <a class="board-row board-row-minor" role="listitem" href="#contact" data-sign="WORDPRESS CARE">
+          <span class="board-name">WordPress care</span>
+          <span class="board-what">Updates, backups, security and small edits, handled each month.</span>
+          <span class="board-price"><small>from</small> $150<small>/mo</small></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="promise" aria-labelledby="promise-title" data-sign="LOVE IT OR PAY $0">
+    <div class="wrap promise-inner">
+      <h2 id="promise-title">Love the design, or you pay nothing.</h2>
+      <p>I design your homepage first. If you don't love where it's going, you walk away and owe nothing. That goes for every project, websites and apps alike.</p>
+      <a class="btn btn-solid btn-lg" href="#contact">Start with a free quote</a>
+    </div>
+  </section>
+
+  <div id="process"></div>
+  <div id="contact"></div>
+</main>
+
+<script src="sign.js" defer></script>
+<script src="pixels.js" defer></script>
+</body>
+</html>
