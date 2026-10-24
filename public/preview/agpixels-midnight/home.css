@@ -124,6 +124,11 @@ h2 em { color: #fff; }
 }
 .deck-btn:hover { box-shadow: inset 0 0 0 1px var(--ink); background: rgba(242, 238, 232, .05); }
 .deck-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+/* In a narrow deck (small laptops, phones) the name sits above its description. */
+@container (max-width: 640px) {
+  .deck-cap { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .deck-count { display: none; }
+}
 .deck-cap.swap b, .deck-cap.swap span { animation: cap-in .6s var(--ease); }
 @keyframes cap-in { from { opacity: 0; transform: translateY(8px); } }
 .phone {
