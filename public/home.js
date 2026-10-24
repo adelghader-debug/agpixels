@@ -173,8 +173,10 @@
     wrapWords(title);
   }
 
+  /* Wait briefly for the real fonts, but not long: the width-matched fallbacks look the same
+     size, and holding the headline back would delay the page's first meaningful paint. */
   const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
-  Promise.race([fontsReady, new Promise(r => setTimeout(r, 1200))]).then(() => {
+  Promise.race([fontsReady, new Promise(r => setTimeout(r, 250))]).then(() => {
     requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add('ready')));
   });
 
