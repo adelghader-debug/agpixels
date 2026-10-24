@@ -20,6 +20,20 @@
     const count = document.querySelector('.deck-count');
     const N = cards.length;
     const motion = root.classList.contains('motion');
+
+    /* Cards at the back and the other phone screens load once the page has, or on first use. */
+    let loadedRest = false;
+    const loadRest = () => {
+      if (loadedRest) return;
+      loadedRest = true;
+      stageEl.querySelectorAll('img[data-src]').forEach(img => {
+        if (img.dataset.srcset) img.srcset = img.dataset.srcset;
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src'); img.removeAttribute('data-srcset');
+      });
+    };
+    if (document.readyState === 'complete') setTimeout(loadRest, 800);
+    else window.addEventListener('load', () => setTimeout(loadRest, 800), { once: true });
     let active = 0, timer = 0, userDriven = false, visible = true, hovering = false;
 
     const slotOf = i => { const s = (i - active + N) % N; return s < 3 ? String(s) : 'back'; };
@@ -42,6 +56,7 @@
     /* Next: the front card leaves to the left and rejoins at the back once it is out of sight.
        Previous: the card at the back is placed at the left edge, then flies in to the front. */
     const go = dir => {
+      loadRest();
       const leaving = cards[active];
       active = (active + dir + N) % N;
       if (dir > 0) {

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AGPixels · Custom Web Design for Trades, Clinics &amp; Service Businesses</title>
 <meta name="description" content="Custom websites for trades, clinics, and service businesses across Canada. Fixed-scope proposals from $1,500. Ottawa-based, reply within one business day.">
-<meta name="theme-color" content="#6B5DF7">
+<meta name="theme-color" content="#0D0C11">
 <link rel="canonical" href="https://agpixels.ca/">
 
 <!-- Open Graph -->
@@ -29,10 +29,18 @@
 <link rel="icon" type="image/png" sizes="any" href="/assets/icon.png">
 <link rel="icon" href="/assets/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="styles.css">
+<link rel="preload" href="/assets/fonts/instrument-serif-normal-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-serif-italic-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/geist-normal-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/home.css">
+<script>
+  /* Motion only when the visitor hasn't asked for less of it; content never waits on it. */
+  document.documentElement.classList.add('js');
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('motion');
+    setTimeout(function () { document.documentElement.classList.add('ready'); }, 2500);
+  }
+</script>
 
 <!-- Schema.org structured data -->
 <script type="application/ld+json">
@@ -140,30 +148,20 @@
 <body>
 
 <header class="site-header">
-  <div class="container header-inner">
-    <a href="#top" class="brand">
-      <img src="assets/logo.png" alt="AGPixels" class="brand-logo">
-    </a>
-    <nav class="nav">
-      <a href="#services">Services</a>
-      <a href="#process">Process</a>
+  <div class="wrap header-inner">
+    <a href="#top" class="brand"><img src="/assets/logo.png" alt="AGPixels" width="280" height="46"></a>
+    <nav class="nav" aria-label="Main">
       <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#process">Process</a>
       <a href="/about/">About</a>
       <a href="/blog/">Blog</a>
-      <a href="#contact">Contact</a>
+      <a class="nav-only-mobile" href="tel:+16136177233">Call (613) 617-7233</a>
     </nav>
-    <a href="tel:+16136177233" class="header-phone" aria-label="Call AGPixels">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      <span>(613) 617-7233</span>
-    </a>
-    <a href="https://wa.me/16136177233" target="_blank" rel="noopener" class="header-whatsapp" aria-label="Message us on WhatsApp">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.464 3.488"/></svg>
-      <span>WhatsApp</span>
-    </a>
-    <a href="#contact" class="btn btn-primary nav-cta">Get my free quote</a>
-    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <a class="header-phone" href="tel:+16136177233">(613) 617-7233</a>
+    <a class="btn btn-cream btn-sm" href="#contact">Start a project</a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span></button>
   </div>
 </header>
 
@@ -171,201 +169,241 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="container hero-inner">
-      <h1 class="hero-title">
-        Custom websites that get trades, clinics,<br>
-        and service businesses <span class="accent">more calls</span>.
-      </h1>
-      <p class="hero-sub">
-        Fast, mobile-ready websites built for Canadian small businesses. Fixed-scope proposals, starting from $1,500. Response within one business day.
-      </p>
-      <p class="hero-rating" aria-label="Rated 5.0 out of 5 on Google">
-        <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <span><strong>5.0</strong> on Google</span>
-      </p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn btn-primary btn-lg">Get my free quote</a>
-        <a href="tel:+16136177233" class="btn btn-ghost btn-lg">Call (613) 617-7233</a>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1 class="hero-title">Websites and apps, <em>beautifully</em> built in Ottawa.</h1>
+        <p class="sub rise" style="--d: .35s">AGPixels is a design and development studio. I design and build every project myself, at a fixed price you see in writing before we start.</p>
+        <div class="actions rise" style="--d: .45s">
+          <a class="btn btn-cream" href="#contact">Get a free quote</a>
+          <a class="btn btn-ghost" href="#work">See the work</a>
+        </div>
+        <div class="proof rise" style="--d: .55s">
+          <img src="/assets/work/adel-96.jpg" alt="" width="44" height="44">
+          <span><b>Adel Ghader</b>Founder, AGPixels</span>
+          <span class="sep" aria-hidden="true"></span>
+          <span><span class="stars" aria-hidden="true">★★★★★</span><br>5.0 on Google</span>
+        </div>
       </div>
-      <p class="hero-trust">Love the design or you pay nothing. Based in Ottawa, serving the GTA, Montreal, and across Canada.</p>
-    </div>
-    <div class="hero-bg" aria-hidden="true"></div>
-  </section>
 
-  <!-- QUICK QUOTE · inline mini-form, right after hero, so the path to action
-       is one screen-scroll away on mobile (the full contact form lives at the
-       bottom of the page; both submit to /api/contact and fire the same
-       Google Ads conversion). -->
-  <section id="quote" class="quote-section">
-    <div class="container quote-inner">
-      <div class="quote-copy">
-        <p class="eyebrow">Get started in 60 seconds</p>
-        <h2>Tell us a bit about your project.</h2>
-        <p class="quote-sub">Send us 4 quick details and we will reply within one business day with a written proposal. No obligation, no pressure.</p>
-        <ul class="quote-bullets">
-          <li>Love the design or you pay nothing</li>
-          <li>Free quote with a homepage mockup</li>
-          <li>Fixed-scope proposal, no surprise invoices</li>
-          <li>Reply within one business day</li>
-        </ul>
-      </div>
-      <form id="quick-quote-form" class="contact-form quote-form" novalidate>
-        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
-        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" value="">
-        <input type="hidden" name="form_loaded_at" value="">
-        <input type="hidden" name="attribution" value="">
-        <input type="hidden" name="source" value="hero-mini">
-        <input type="hidden" name="project_type" value="Not sure yet">
-
-        <div class="quote-grid">
-          <div class="field">
-            <label for="qq-name">Your name</label>
-            <input type="text" id="qq-name" name="name" required autocomplete="name">
-          </div>
-          <div class="field">
-            <label for="qq-email">Email</label>
-            <input type="email" id="qq-email" name="email" required autocomplete="email">
-          </div>
-          <div class="field">
-            <label for="qq-phone">Phone</label>
-            <input type="tel" id="qq-phone" name="phone" required autocomplete="tel" placeholder="Best number to reach you">
-          </div>
-          <div class="field">
-            <label for="qq-type">What do you need?</label>
-            <select id="qq-type" name="project_type">
-              <option value="New website">New website</option>
-              <option value="Website redesign">Website redesign</option>
-              <option value="WordPress maintenance">WordPress maintenance</option>
-              <option value="Mobile app">Mobile app</option>
-              <option value="Google Ads management">Google Ads management</option>
-              <option value="Not sure yet">Not sure yet</option>
-            </select>
+      <div class="deck">
+        <div class="stage" role="region" aria-roledescription="carousel" aria-label="Recent projects. Swipe or use the arrow keys." tabindex="0">
+          <div class="stage-inner">
+            <figure class="win deck-card" data-slot="0" data-url="https://centredcanine.ca" data-kind="Shopify site and Google Ads"><div class="chrome"><i></i><i></i><i></i><span>centredcanine.ca</span></div><img src="/assets/work/centredcanine-hero-700.jpg" srcset="/assets/work/centredcanine-hero-700.jpg 700w, /assets/work/centredcanine-hero.jpg 1200w" sizes="(max-width: 600px) 52vw, (max-width: 900px) 80vw, 40vw" fetchpriority="high" alt="Centred Canine website" width="1200" height="750" draggable="false"><figcaption>Centred Canine</figcaption></figure>
+            <figure class="win deck-card" data-slot="1" data-url="https://klinikatech.com/" data-kind="Website, iOS and Android app"><div class="chrome"><i></i><i></i><i></i><span>klinikatech.com</span></div><img src="/assets/work/klinika-hero-700.jpg" srcset="/assets/work/klinika-hero-700.jpg 700w, /assets/work/klinika-hero.jpg 1200w" sizes="(max-width: 600px) 52vw, (max-width: 900px) 80vw, 40vw" alt="Klinika website" width="1200" height="750" draggable="false"><figcaption>Klinika</figcaption></figure>
+            <figure class="win deck-card" data-slot="2" data-url="https://compassclinic.ca" data-kind="Clinic website and Google Ads"><div class="chrome"><i></i><i></i><i></i><span>compassclinic.ca</span></div><img src="/assets/work/compass-hero-700.jpg" srcset="/assets/work/compass-hero-700.jpg 700w, /assets/work/compass-hero.jpg 1200w" sizes="(max-width: 600px) 52vw, (max-width: 900px) 80vw, 40vw" alt="Compass Clinic website" width="1200" height="750" draggable="false"><figcaption>Compass Clinic</figcaption></figure>
+            <figure class="win deck-card" data-slot="back" data-url="https://agepro.ca" data-kind="Home care website"><div class="chrome"><i></i><i></i><i></i><span>agepro.ca</span></div><img data-src="/assets/work/agepro-hero-700.jpg" data-srcset="/assets/work/agepro-hero-700.jpg 700w, /assets/work/agepro-hero.jpg 1200w" sizes="(max-width: 600px) 52vw, (max-width: 900px) 80vw, 40vw" alt="AgePro website" width="1200" height="750" draggable="false"><figcaption>AgePro</figcaption></figure>
+            <figure class="win deck-card" data-slot="back" data-url="https://msbusyfit.com" data-kind="Website and app"><div class="chrome"><i></i><i></i><i></i><span>msbusyfit.com</span></div><img data-src="/assets/work/msbusyfit-hero-700.jpg" data-srcset="/assets/work/msbusyfit-hero-700.jpg 700w, /assets/work/msbusyfit-hero.jpg 1200w" sizes="(max-width: 600px) 52vw, (max-width: 900px) 80vw, 40vw" alt="Ms Busy Fit website" width="1200" height="750" draggable="false"><figcaption>Ms Busy Fit</figcaption></figure>
+            <figure class="win deck-card" data-slot="back" data-url="https://canuckcanada.ca" data-kind="Online store"><div class="chrome"><i></i><i></i><i></i><span>canuckcanada.ca</span></div><img data-src="/assets/work/canuck-hero-700.jpg" data-srcset="/assets/work/canuck-hero-700.jpg 700w, /assets/work/canuck-hero.jpg 1200w" sizes="(max-width: 600px) 52vw, (max-width: 900px) 80vw, 40vw" alt="Canuck online store" width="1200" height="750" draggable="false"><figcaption>Canuck</figcaption></figure>
+            <figure class="win deck-card" data-slot="back" data-url="https://in-linek9.ca" data-kind="Dog training website"><div class="chrome"><i></i><i></i><i></i><span>in-linek9.ca</span></div><img data-src="/assets/work/inlinek9-hero-700.jpg" data-srcset="/assets/work/inlinek9-hero-700.jpg 700w, /assets/work/inlinek9-hero.jpg 1200w" sizes="(max-width: 600px) 52vw, (max-width: 900px) 80vw, 40vw" alt="In-Line K9 website" width="1200" height="750" draggable="false"><figcaption>In-Line K9</figcaption></figure>
+            <div class="phone hero-phone" aria-hidden="true">
+              <img class="on" src="/assets/work/centredcanine-phone-280.jpg" srcset="/assets/work/centredcanine-phone-280.jpg 280w, /assets/work/centredcanine-phone.jpg 420w" sizes="(max-width: 600px) 20vw, (max-width: 900px) 28vw, 10vw" alt="" width="420" height="909" draggable="false">
+              <img data-src="/assets/work/klinika-phone-280.jpg" data-srcset="/assets/work/klinika-phone-280.jpg 280w, /assets/work/klinika-phone.jpg 420w" sizes="(max-width: 600px) 20vw, (max-width: 900px) 28vw, 10vw" alt="" width="420" height="909" draggable="false">
+              <img data-src="/assets/work/compass-phone-280.jpg" data-srcset="/assets/work/compass-phone-280.jpg 280w, /assets/work/compass-phone.jpg 420w" sizes="(max-width: 600px) 20vw, (max-width: 900px) 28vw, 10vw" alt="" width="420" height="909" draggable="false">
+              <img data-src="/assets/work/agepro-phone-280.jpg" data-srcset="/assets/work/agepro-phone-280.jpg 280w, /assets/work/agepro-phone.jpg 420w" sizes="(max-width: 600px) 20vw, (max-width: 900px) 28vw, 10vw" alt="" width="420" height="909" draggable="false">
+              <img data-src="/assets/work/msbusyfit-phone-280.jpg" data-srcset="/assets/work/msbusyfit-phone-280.jpg 280w, /assets/work/msbusyfit-phone.jpg 420w" sizes="(max-width: 600px) 20vw, (max-width: 900px) 28vw, 10vw" alt="" width="420" height="909" draggable="false">
+              <img data-src="/assets/work/canuck-phone-280.jpg" data-srcset="/assets/work/canuck-phone-280.jpg 280w, /assets/work/canuck-phone.jpg 420w" sizes="(max-width: 600px) 20vw, (max-width: 900px) 28vw, 10vw" alt="" width="420" height="909" draggable="false">
+              <img data-src="/assets/work/inlinek9-phone-280.jpg" data-srcset="/assets/work/inlinek9-phone-280.jpg 280w, /assets/work/inlinek9-phone.jpg 420w" sizes="(max-width: 600px) 20vw, (max-width: 900px) 28vw, 10vw" alt="" width="420" height="909" draggable="false">
+            </div>
           </div>
         </div>
+        <div class="deck-bar">
+          <p class="deck-cap"><b>Centred Canine</b><span>Shopify site and Google Ads</span></p>
+          <a class="deck-link" href="https://centredcanine.ca" target="_blank" rel="noopener">Visit site <span aria-hidden="true">↗</span></a>
+          <div class="deck-ctrl">
+            <span class="deck-count" aria-hidden="true">1 / 7</span>
+            <button class="deck-btn" type="button" data-dir="-1" aria-label="Previous project"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button class="deck-btn" type="button" data-dir="1" aria-label="Next project"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <button type="submit" class="btn btn-primary btn-lg form-submit">Get my free quote</button>
-        <p class="form-status" role="status" aria-live="polite"></p>
-        <p class="form-fineprint">Prefer to call? <a href="tel:+16136177233">(613) 617-7233</a></p>
-      </form>
+    <div class="wrap">
+      <div class="clients rise" style="--d: .8s">
+        <small>Recent work</small>
+        <div class="marquee" aria-label="Recent clients">
+          <div class="marquee-track">
+            <span>Centred Canine</span><span>Compass Clinic</span><span>AgePro</span><span>Klinika</span><span>Canuck</span><span>Ms Busy Fit</span><span>In-Line K9</span><span>Carfellas</span><span>Viking K9 Canada</span>
+            <span aria-hidden="true">Centred Canine</span><span aria-hidden="true">Compass Clinic</span><span aria-hidden="true">AgePro</span><span aria-hidden="true">Klinika</span><span aria-hidden="true">Canuck</span><span aria-hidden="true">Ms Busy Fit</span><span aria-hidden="true">In-Line K9</span><span aria-hidden="true">Carfellas</span><span aria-hidden="true">Viking K9 Canada</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" class="section work">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <h2>Work you can <em>open</em> right now.</h2>
+        <p>Every project here is live. Real businesses, with sites and apps their customers use.</p>
+      </div>
+
+      <article class="plate" style="--glow: 127, 176, 105">
+        <div class="plate-text" data-reveal>
+          <h3>Centred Canine</h3>
+          <p class="plate-kind">Shopify website and Google Ads · Ottawa-Gatineau</p>
+          <p>A dog training and behaviour business. A site that explains the training clearly and brings in enquiries, with the ads that send people to it.</p>
+          <blockquote>
+            <p>“Adel developed my website, built a client portal, and set up my Google Ads, and the outcome has been amazing for my small business.”</p>
+            <cite>Stephanie Brown, Centred Canine</cite>
+          </blockquote>
+          <p class="plate-links"><a href="https://centredcanine.ca" target="_blank" rel="noopener">centredcanine.ca <span aria-hidden="true">↗</span></a></p>
+        </div>
+        <div class="plate-visual" data-tilt>
+          <div class="tilt">
+            <figure class="win"><div class="chrome"><i></i><i></i><i></i><span>centredcanine.ca</span></div><img src="/assets/work/centredcanine-desktop-1000.jpg" srcset="/assets/work/centredcanine-desktop-1000.jpg 1000w, /assets/work/centredcanine-desktop.jpg 2000w" sizes="(max-width: 900px) 92vw, 52vw" alt="Centred Canine homepage" width="2000" height="1250" loading="lazy"></figure>
+            <figure class="phone plate-phone"><img src="/assets/work/centredcanine-phone.jpg" srcset="/assets/work/centredcanine-phone.jpg 420w, /assets/work/centredcanine-mobile.jpg 780w" sizes="(max-width: 600px) 24vw, 12vw" alt="Centred Canine on a phone" width="780" height="1688" loading="lazy"></figure>
+          </div>
+        </div>
+      </article>
+
+      <article class="plate plate-flip" style="--glow: 168, 85, 247">
+        <div class="plate-text" data-reveal>
+          <h3>Klinika</h3>
+          <p class="plate-kind">Website, iOS app and Android app · Riyadh</p>
+          <p>A medical booking and telehealth platform. Patients find a specialist, pick a time and pay, on the web or in the app.</p>
+          <p class="plate-links">
+            <a href="https://apps.apple.com/sa/app/klinika/id6450057463" target="_blank" rel="noopener">App Store <span aria-hidden="true">↗</span></a>
+            <a href="https://play.google.com/store/apps/details?id=com.klinikatech.klinika2" target="_blank" rel="noopener">Google Play <span aria-hidden="true">↗</span></a>
+            <a href="https://klinikatech.com/" target="_blank" rel="noopener">klinikatech.com <span aria-hidden="true">↗</span></a>
+          </p>
+        </div>
+        <div class="plate-visual" data-tilt>
+          <div class="tilt phones">
+            <figure class="phone"><img src="/assets/work/klinika-app-screen-3-300.jpg" srcset="/assets/work/klinika-app-screen-3-300.jpg 300w, /assets/work/klinika-app-screen-3.jpg 548w" sizes="(max-width: 900px) 30vw, 17vw" alt="Klinika app: picking a date and time" width="548" height="1208" loading="lazy"></figure>
+            <figure class="phone"><img src="/assets/work/klinika-mobile-420.jpg" srcset="/assets/work/klinika-mobile-420.jpg 420w, /assets/work/klinika-mobile.jpg 780w" sizes="(max-width: 900px) 30vw, 17vw" alt="Klinika on a phone: home screen" width="780" height="1688" loading="lazy"></figure>
+            <figure class="phone"><img src="/assets/work/klinika-app-screen-4-300.jpg" srcset="/assets/work/klinika-app-screen-4-300.jpg 300w, /assets/work/klinika-app-screen-4.jpg 548w" sizes="(max-width: 900px) 30vw, 17vw" alt="Klinika app: appointment and payment" width="548" height="1208" loading="lazy"></figure>
+          </div>
+        </div>
+      </article>
+
+      <article class="plate" style="--glow: 59, 130, 196">
+        <div class="plate-text" data-reveal>
+          <h3>Compass Clinic</h3>
+          <p class="plate-kind">Website and Google Ads · Vancouver</p>
+          <p>Psychological and support services for children, youth and parents. A site built so families can find the right service and reach the clinic quickly, and the Google Ads that bring them to it.</p>
+          <blockquote>
+            <p>“Very skilled and professional. Highly recommended.”</p>
+            <cite>Farid Hilal, Compass Clinic</cite>
+          </blockquote>
+          <p class="plate-links">
+            <a href="/blog/compass-clinic-website-case-study/">Read the case study</a>
+            <a href="https://compassclinic.ca" target="_blank" rel="noopener">compassclinic.ca <span aria-hidden="true">↗</span></a>
+          </p>
+        </div>
+        <div class="plate-visual" data-tilt>
+          <div class="tilt">
+            <figure class="win"><div class="chrome"><i></i><i></i><i></i><span>compassclinic.ca</span></div><img src="/assets/work/compass-desktop-1000.jpg" srcset="/assets/work/compass-desktop-1000.jpg 1000w, /assets/work/compass-desktop.jpg 2000w" sizes="(max-width: 900px) 92vw, 52vw" alt="Compass Clinic homepage" width="2000" height="1250" loading="lazy"></figure>
+            <figure class="phone plate-phone"><img src="/assets/work/compass-phone.jpg" srcset="/assets/work/compass-phone.jpg 420w, /assets/work/compass-mobile.jpg 780w" sizes="(max-width: 600px) 24vw, 12vw" alt="Compass Clinic on a phone" width="780" height="1688" loading="lazy"></figure>
+          </div>
+        </div>
+      </article>
+
+      <article class="plate plate-flip" style="--glow: 214, 92, 76">
+        <div class="plate-text" data-reveal>
+          <h3>AgePro</h3>
+          <p class="plate-kind">Website · Cambridge, Kitchener and Brantford</p>
+          <p>Senior home care. Built so families can find the right care and call in one tap.</p>
+          <p class="plate-links"><a href="https://agepro.ca" target="_blank" rel="noopener">agepro.ca <span aria-hidden="true">↗</span></a></p>
+        </div>
+        <div class="plate-visual" data-tilt>
+          <div class="tilt">
+            <figure class="win"><div class="chrome"><i></i><i></i><i></i><span>agepro.ca</span></div><img src="/assets/work/agepro-desktop-1000.jpg" srcset="/assets/work/agepro-desktop-1000.jpg 1000w, /assets/work/agepro-desktop.jpg 2000w" sizes="(max-width: 900px) 92vw, 52vw" alt="AgePro homepage" width="2000" height="1250" loading="lazy"></figure>
+            <figure class="phone plate-phone"><img src="/assets/work/agepro-phone.jpg" srcset="/assets/work/agepro-phone.jpg 420w, /assets/work/agepro-mobile.jpg 780w" sizes="(max-width: 600px) 24vw, 12vw" alt="AgePro on a phone" width="780" height="1688" loading="lazy"></figure>
+          </div>
+        </div>
+      </article>
+
+      <div class="more" data-reveal>
+        <a class="more-card" href="https://msbusyfit.com" target="_blank" rel="noopener">
+          <span class="win"><span class="chrome"><i></i><i></i><i></i></span><img src="/assets/work/msbusyfit-desktop-700.jpg" srcset="/assets/work/msbusyfit-desktop-700.jpg 700w, /assets/work/msbusyfit-desktop.jpg 1400w" sizes="(max-width: 600px) 92vw, (max-width: 900px) 46vw, 30vw" alt="" width="1400" height="875" loading="lazy"></span>
+          <strong>Ms Busy Fit</strong><span>Website and app · Online fitness coaching</span>
+        </a>
+        <a class="more-card" href="https://canuckcanada.ca" target="_blank" rel="noopener">
+          <span class="win"><span class="chrome"><i></i><i></i><i></i></span><img src="/assets/work/canuck-desktop-700.jpg" srcset="/assets/work/canuck-desktop-700.jpg 700w, /assets/work/canuck-desktop.jpg 1400w" sizes="(max-width: 600px) 92vw, (max-width: 900px) 46vw, 30vw" alt="" width="1400" height="875" loading="lazy"></span>
+          <strong>Canuck</strong><span>Online store · Custom engraved drinkware</span>
+        </a>
+        <a class="more-card" href="https://in-linek9.ca" target="_blank" rel="noopener">
+          <span class="win"><span class="chrome"><i></i><i></i><i></i></span><img src="/assets/work/inlinek9-desktop-700.jpg" srcset="/assets/work/inlinek9-desktop-700.jpg 700w, /assets/work/inlinek9-desktop.jpg 1400w" sizes="(max-width: 600px) 92vw, (max-width: 900px) 46vw, 30vw" alt="" width="1400" height="875" loading="lazy"></span>
+          <strong>In-Line K9</strong><span>Website · Dog training, Ottawa</span>
+        </a>
+      </div>
+      <p class="also" data-reveal>Also: <a href="https://car-fellas.ca" target="_blank" rel="noopener">Carfellas</a>, auto repair, and <a href="https://vikingk9canada.com" target="_blank" rel="noopener">Viking K9 Canada</a>, K9 training.</p>
     </div>
   </section>
 
   <!-- SERVICES -->
-  <section id="services" class="section">
-    <div class="container">
-      <div class="section-header">
-        <p class="eyebrow">What we do</p>
-        <h2>Four things, done well.</h2>
+  <section id="services" class="section services">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <h2>One studio for your site, your app <em>and</em> your ads.</h2>
+        <p>The person you talk to is the person who designs and builds it. No sales reps, no hand-offs.</p>
       </div>
-
-      <div class="cards">
-        <article class="card">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8M12 17v4"/></svg>
-          </div>
-          <h3>Website design &amp; development</h3>
-          <p>Custom-built sites that are fast, accessible, mobile-first, and tailored to your brand. No generic templates, no plugin bloat.</p>
-        </article>
-
-        <article class="card">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7l-1.4-1.4a2 2 0 0 0-2.8 0L4 11.4V14h2.6l5.8-5.8a2 2 0 0 0 0-2.8L14 7z"/><path d="M3 21h18"/><circle cx="18" cy="6" r="3"/></svg>
-          </div>
-          <h3>Website maintenance</h3>
-          <p>We keep your site fast, secure, and up to date with updates, performance tuning, content edits, backups, and someone to call when something breaks.</p>
-        </article>
-
-        <article class="card">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
-          </div>
-          <h3>Mobile app development</h3>
-          <p>Native-feeling iOS and Android apps. From concept to App Store and Play Store: design, build, ship, support.</p>
-        </article>
-
-        <a href="/google-ads-management/" class="card">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-          </div>
-          <h3>Google Ads management</h3>
-          <p>Flat monthly fee, never a percentage of your ad spend. Campaign setup, ongoing optimization, and plain-English reporting.</p>
+      <div class="rows">
+        <a class="row" href="#pricing" data-reveal>
+          <span class="row-name">Websites</span>
+          <span class="row-what">Custom design and code. Fast on phones, easy to update, and built to turn visitors into calls.</span>
+          <span class="row-price"><small>from</small> $1,500</span>
+          <span class="row-go" aria-hidden="true">→</span>
+        </a>
+        <a class="row" href="#contact" data-reveal>
+          <span class="row-name">Mobile apps</span>
+          <span class="row-what">iOS and Android apps for booking, ordering and members, from first sketch to the App Store and Google Play.</span>
+          <span class="row-price row-price-text">Quoted per project</span>
+          <span class="row-go" aria-hidden="true">→</span>
+        </a>
+        <a class="row" href="/google-ads-management/" data-reveal>
+          <span class="row-name">Google Ads</span>
+          <span class="row-what">Set up and managed for a flat monthly fee, never a percentage of your ad spend. Plain-English reports.</span>
+          <span class="row-price"><small>from</small> $350<small>/mo</small></span>
+          <span class="row-go" aria-hidden="true">→</span>
+        </a>
+        <a class="row" href="#contact" data-reveal>
+          <span class="row-name">Website care</span>
+          <span class="row-what">Updates, backups, security and small edits, with someone who actually answers the phone.</span>
+          <span class="row-price"><small>from</small> $150<small>/mo</small></span>
+          <span class="row-go" aria-hidden="true">→</span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- PROCESS -->
-  <section id="process" class="section section-alt">
-    <div class="container">
-      <div class="section-header">
-        <p class="eyebrow">How we work</p>
-        <h2>Straightforward and collaborative.</h2>
-      </div>
-
-      <ol class="steps">
-        <li>
-          <span class="step-num">01</span>
-          <h3>Discovery call</h3>
-          <p>A quick conversation to understand what you're building, who it's for, and what success looks like.</p>
-        </li>
-        <li>
-          <span class="step-num">02</span>
-          <h3>Proposal &amp; scope</h3>
-          <p>A clear written proposal showing what you get, when, and what it costs. No surprise add-ons.</p>
-        </li>
-        <li>
-          <span class="step-num">03</span>
-          <h3>Design &amp; build</h3>
-          <p>We design and build in short cycles, sharing progress as we go so there are no last-minute surprises.</p>
-        </li>
-        <li>
-          <span class="step-num">04</span>
-          <h3>Launch &amp; support</h3>
-          <p>We launch, train you on anything you'll manage, and stay on call afterward. No ghosting after go-live.</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
   <!-- PRICING -->
-  <section id="pricing" class="section">
-    <div class="container">
-      <div class="section-header">
-        <p class="eyebrow">What does a website cost?</p>
-        <h2>Pick the package that fits your goal.</h2>
-        <p class="section-sub">Outcome-based packages with clear starting prices. You get a fixed-price proposal before any work starts.</p>
+  <section id="pricing" class="section pricing">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <h2>Website packages, <em>priced</em> up front.</h2>
+        <p>Clear starting prices. You get a fixed-price proposal before any work starts, and the invoice matches it.</p>
       </div>
-
-      <div class="pricing-grid">
-        <article class="price-card">
+      <div class="tiers" data-reveal>
+        <article class="tier">
           <h3>Get Found</h3>
-          <p class="price-range">From $1,500</p>
-          <p class="price-detail">A focused site to get your business online and taking calls.</p>
-          <ul class="price-includes">
+          <p class="tier-price"><small>from</small> $1,500</p>
+          <p class="tier-what">A focused site to get your business online and taking calls.</p>
+          <ul>
             <li>Up to 3 custom pages</li>
             <li>Mobile-first, fast loading</li>
             <li>Contact form and click-to-call</li>
             <li>Live in about 2 weeks</li>
           </ul>
         </article>
-
-        <article class="price-card price-card-feature">
+        <article class="tier tier-feature">
           <h3>More Calls</h3>
-          <p class="price-range">From $3,500</p>
-          <p class="price-detail">A custom 5 to 8 page site built to turn visitors into enquiries.</p>
-          <ul class="price-includes">
+          <p class="tier-price"><small>from</small> $3,500</p>
+          <p class="tier-what">A custom 5 to 8 page site built to turn visitors into enquiries.</p>
+          <ul>
             <li>Custom design and content layout</li>
             <li>Built to convert, with basic SEO</li>
             <li>Lead form and analytics setup</li>
             <li>Launch, training, and 30 days of support</li>
           </ul>
         </article>
-
-        <article class="price-card">
+        <article class="tier">
           <h3>Market Leader</h3>
-          <p class="price-range">From $5,000</p>
-          <p class="price-detail">A larger custom build for businesses that want to stand out and scale.</p>
-          <ul class="price-includes">
+          <p class="tier-price"><small>from</small> $5,000</p>
+          <p class="tier-what">A larger custom build for businesses that want to stand out and scale.</p>
+          <ul>
             <li>8+ pages, advanced custom design</li>
             <li>Conversion-focused copy guidance</li>
             <li>Performance and SEO foundations</li>
@@ -373,272 +411,156 @@
           </ul>
         </article>
       </div>
-
-      <p class="pricing-note">Want the whole engine? Our <strong>Complete Growth System</strong> is a one-time $8,000 for a custom website, SEO setup, and a Google Ads campaign build, then ongoing <a href="/google-ads-management/">Google Ads management</a> at $650/mo (our Growth Ads plan, first month free, 3-month minimum). Your ad budget is separate and paid directly to Google. Keep any site fast and secure with maintenance from $150/mo. Curious what shapes the price? Read our <a href="/blog/how-much-does-a-website-cost-in-ottawa/">full pricing breakdown</a>.</p>
-
-      <div class="pricing-cta">
-        <a href="#quote" class="btn btn-primary btn-lg">Get my free quote</a>
-        <a href="tel:+16136177233" class="btn btn-ghost btn-lg">Call (613) 617-7233</a>
-      </div>
+      <p class="pricing-note" data-reveal>Want the whole engine? The <strong>Complete Growth System</strong> is a one-time $8,000 for a custom website, SEO setup, and a Google Ads campaign build, then ongoing <a href="/google-ads-management/">Google Ads management</a> at $650/mo (the Growth Ads plan, first month free, 3-month minimum). Your ad budget is separate and paid directly to Google. Keep any site fast and secure with maintenance from $150/mo. Curious what shapes the price? Read the <a href="/blog/how-much-does-a-website-cost-in-ottawa/">full pricing breakdown</a>.</p>
     </div>
   </section>
 
   <!-- GUARANTEE -->
-  <section class="guarantee-band">
-    <div class="container">
-      <p class="eyebrow eyebrow-light">Our promise</p>
-      <h2>Love the design, or you don't pay.</h2>
-      <p>We design your new homepage first. If you do not love the direction, you walk away owing nothing. That is how confident we are you will love what we build for your business.</p>
-      <a href="#quote" class="btn btn-primary btn-lg">Get my free quote</a>
+  <section class="guarantee">
+    <div class="wrap" data-reveal>
+      <h2>Love the design, <em>or you don't pay.</em></h2>
+      <p>I design your new homepage first. If you don't love the direction, you walk away owing nothing. It applies to every project, websites and apps alike.</p>
+      <a class="btn btn-cream" href="#contact">Get a free quote</a>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" class="section process">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <h2>How it <em>works.</em></h2>
+        <p>Four steps, and you always know what happens next and what it costs.</p>
+      </div>
+      <ol class="steps">
+        <li data-reveal><span class="step-n">1</span><h3>Discovery call</h3><p>A quick conversation about what you're building, who it's for and what success looks like.</p></li>
+        <li data-reveal><span class="step-n">2</span><h3>Proposal and scope</h3><p>A clear written proposal: what you get, when, and what it costs. No surprise add-ons.</p></li>
+        <li data-reveal><span class="step-n">3</span><h3>Design and build</h3><p>You see your homepage design first. Then I build in short cycles and share progress as I go.</p></li>
+        <li data-reveal><span class="step-n">4</span><h3>Launch and support</h3><p>I launch, show you how to manage anything you need, and stay on call afterward.</p></li>
+      </ol>
     </div>
   </section>
 
   <!-- REVIEWS -->
-  <section id="reviews" class="section section-alt">
-    <div class="container">
-      <div class="section-header">
-        <p class="eyebrow">Rated 5.0 on Google</p>
-        <h2>What clients say about working with us.</h2>
+  <section id="reviews" class="section reviews">
+    <div class="wrap">
+      <div class="reviews-head" data-reveal>
+        <p class="score">5.0</p>
+        <div>
+          <p class="stars" aria-label="Rated 5 out of 5">★★★★★</p>
+          <h2>What clients say on <em>Google.</em></h2>
+        </div>
       </div>
-      <div class="reviews-grid">
-        <article class="review-card">
-          <div class="review-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="review-text">"Adel developed my website, built a client portal, and set up my Google Ads, and the outcome has been amazing for my small business. The increase in website traffic and leads has had a huge impact on my business and has allowed me to focus more on serving my clients instead of trying to figure out marketing on my own. If you're a small business owner looking to improve your online presence and generate more leads, I highly recommend!"</p>
-          <p class="review-author">Stephanie Brown<span>Google review</span></p>
-        </article>
-        <article class="review-card">
-          <div class="review-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="review-text">"Showed me how a website should be done. Answered all my questions and even when I screwed up his work Adel fixed it right away. Even months later when I need adjustments to make my site work in the USA he did it right on the spot. I would recommend them to anyone."</p>
-          <p class="review-author">Rod Petrovic<span>Viking K9 Canada &middot; Google review</span></p>
-        </article>
-        <article class="review-card">
-          <div class="review-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="review-text">"An absolute outstanding experience from start to finish. Adel took the time to understand exactly what I wanted and delivered a website that exceeded my expectations. Not only is the site visually impressive, it's also fast, responsive, and incredibly user-friendly. I can't recommend him highly enough."</p>
-          <p class="review-author">Busy Fitness<span>Ms Busy Fit &middot; Google review</span></p>
-        </article>
-        <article class="review-card">
-          <div class="review-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="review-text">"Very impressed with Adel's work, he did exactly what I wanted and went above &amp; beyond my expectations. Very grateful for the fast work and professionalism, great fella!"</p>
-          <p class="review-author">DaNero<span>Carfellas &middot; Google review</span></p>
-        </article>
-        <article class="review-card">
-          <div class="review-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="review-text">"Adel and AGPixels have been helping me for quite sometime with my business website and they have been great. Very skilled and professional. Highly recommended."</p>
-          <p class="review-author">Farid Hilal<span>Compass Clinic &middot; Google review</span></p>
-        </article>
+      <div class="quotes">
+        <figure class="quote quote-lead" data-reveal>
+          <blockquote>“Adel developed my website, built a client portal, and set up my Google Ads, and the outcome has been amazing for my small business. The increase in website traffic and leads has had a huge impact on my business and has allowed me to focus more on serving my clients instead of trying to figure out marketing on my own. If you're a small business owner looking to improve your online presence and generate more leads, I highly recommend!”</blockquote>
+          <figcaption>Stephanie Brown<span>Centred Canine</span></figcaption>
+        </figure>
+        <figure class="quote" data-reveal>
+          <blockquote>“An absolute outstanding experience from start to finish. Adel took the time to understand exactly what I wanted and delivered a website that exceeded my expectations. Not only is the site visually impressive, it's also fast, responsive, and incredibly user-friendly. I can't recommend him highly enough.”</blockquote>
+          <figcaption>Busy Fitness<span>Ms Busy Fit</span></figcaption>
+        </figure>
+        <figure class="quote" data-reveal>
+          <blockquote>“Showed me how a website should be done. Answered all my questions and even when I screwed up his work Adel fixed it right away. Even months later when I need adjustments to make my site work in the USA he did it right on the spot. I would recommend them to anyone.”</blockquote>
+          <figcaption>Rod Petrovic<span>Viking K9 Canada</span></figcaption>
+        </figure>
+        <figure class="quote" data-reveal>
+          <blockquote>“Very impressed with Adel's work, he did exactly what I wanted and went above &amp; beyond my expectations. Very grateful for the fast work and professionalism, great fella!”</blockquote>
+          <figcaption>DaNero<span>Carfellas</span></figcaption>
+        </figure>
+        <figure class="quote" data-reveal>
+          <blockquote>“Adel and AGPixels have been helping me for quite sometime with my business website and they have been great. Very skilled and professional. Highly recommended.”</blockquote>
+          <figcaption>Farid Hilal<span>Compass Clinic</span></figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- FOUNDER / ABOUT -->
-  <section id="about" class="section about-strip">
-    <div class="container about-inner">
-      <div class="about-photo">
-        <img src="/assets/adel.jpg" alt="Adel Ghader, founder of AGPixels" width="520" height="560" loading="lazy">
-      </div>
-      <div class="about-copy">
-        <p class="eyebrow">Meet the founder</p>
-        <h2>Hi, I'm Adel, and I'll build your website myself.</h2>
-        <p class="about-lead">AGPixels is me, Adel Ghader, an Ottawa web designer and developer. When you hire AGPixels you work directly with the person building your site, from the first call to launch and every update after. No sales reps, no handoffs, no juniors you never meet.</p>
-        <p>I started AGPixels because too many small businesses get sold slow, templated websites and then left on their own. I do it differently: custom-built sites, a fixed price agreed up front, and one local person who actually answers when you need a change.</p>
-        <ul class="about-points">
-          <li><strong>Direct access.</strong> You deal with me, not a call centre.</li>
-          <li><strong>Local to Ottawa.</strong> Real meetings, real references, no offshore handoffs.</li>
-          <li><strong>You own everything.</strong> Your domain, code, and content, all in your name.</li>
+  <!-- ABOUT -->
+  <section id="about" class="section about">
+    <div class="wrap about-grid">
+      <div class="about-photo" data-reveal><img src="/assets/adel.jpg" alt="Adel Ghader, founder of AGPixels" width="512" height="512" loading="lazy"></div>
+      <div class="about-copy" data-reveal>
+        <h2>Hi, I'm Adel. <em>I'll build it myself.</em></h2>
+        <p class="lead">AGPixels is me, Adel Ghader, a web designer and developer in Ottawa. You work directly with the person building your site or app, from the first call to launch and every update after.</p>
+        <p>I started AGPixels because too many small businesses get sold slow, templated websites and are then left on their own. I do it differently: custom work, a fixed price agreed up front, and one local person who answers when you need a change.</p>
+        <ul class="points">
+          <li><b>Direct access.</b> You deal with me, not a call centre.</li>
+          <li><b>Local to Ottawa.</b> Real meetings and real references.</li>
+          <li><b>You own everything.</b> Your domain, code and content, in your name.</li>
         </ul>
-        <div class="about-actions">
-          <a href="#quote" class="btn btn-primary">Get my free quote</a>
-          <a href="/about/" class="btn btn-ghost">More about AGPixels</a>
+        <div class="actions">
+          <a class="btn btn-cream" href="#contact">Get a free quote</a>
+          <a class="btn btn-ghost" href="/about/">More about AGPixels</a>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WORK / PORTFOLIO -->
-  <section id="work" class="section">
-    <div class="container">
-      <div class="section-header">
-        <p class="eyebrow">Selected work</p>
-        <h2>Sites and apps we've shipped.</h2>
-      </div>
-
-      <div class="portfolio">
-        <div class="project">
-          <a href="https://klinikatech.com/" target="_blank" rel="noopener">
-            <div class="project-image">
-              <img src="/assets/portfolio/klinika.jpg" alt="Klinika website and mobile app preview" loading="lazy" width="400" height="300">
-            </div>
-          </a>
-          <div class="project-meta">
-            <h3>Klinika</h3>
-            <p>Medical booking &amp; telehealth platform in Riyadh. Website plus iOS and Android app.</p>
-            <span class="project-link"><a href="https://klinikatech.com/" target="_blank" rel="noopener">klinikatech.com →</a> · <a href="https://apps.apple.com/sa/app/klinika/id6450057463" target="_blank" rel="noopener">App Store</a> · <a href="https://play.google.com/store/apps/details?id=com.klinikatech.klinika2" target="_blank" rel="noopener">Google Play</a></span>
-          </div>
-        </div>
-
-        <a href="https://car-fellas.ca" target="_blank" rel="noopener" class="project">
-          <div class="project-image">
-            <img src="/assets/portfolio/carfellas.jpg" alt="Carfellas website preview" loading="lazy" width="400" height="300">
-          </div>
-          <div class="project-meta">
-            <h3>Carfellas</h3>
-            <p>Auto repair and maintenance</p>
-            <span class="project-link">car-fellas.ca →</span>
-          </div>
-        </a>
-
-        <a href="https://canuckcanada.ca" target="_blank" rel="noopener" class="project">
-          <div class="project-image">
-            <img src="/assets/portfolio/canuckcanada.jpg" alt="Canuck website preview" loading="lazy" width="400" height="300">
-          </div>
-          <div class="project-meta">
-            <h3>Canuck</h3>
-            <p>Custom laser-engraved drinkware and gear</p>
-            <span class="project-link">canuckcanada.ca →</span>
-          </div>
-        </a>
-
-        <div class="project">
-          <a href="https://compassclinic.ca" target="_blank" rel="noopener">
-            <div class="project-image">
-              <img src="/assets/portfolio/compassclinic.jpg" alt="Compass Clinic website preview" loading="lazy" width="400" height="300">
-            </div>
-          </a>
-          <div class="project-meta">
-            <h3>Compass Clinic</h3>
-            <p>Psychological &amp; support services in Vancouver</p>
-            <span class="project-link"><a href="https://compassclinic.ca" target="_blank" rel="noopener">compassclinic.ca →</a> · <a href="/blog/compass-clinic-website-case-study/">Case study →</a></span>
-          </div>
-        </div>
-
-        <a href="https://agepro.ca" target="_blank" rel="noopener" class="project">
-          <div class="project-image">
-            <img src="/assets/portfolio/agepro.jpg" alt="AgePro website preview" loading="lazy" width="400" height="300">
-          </div>
-          <div class="project-meta">
-            <h3>AgePro</h3>
-            <p>Senior home care in Cambridge, Kitchener, Brantford</p>
-            <span class="project-link">agepro.ca →</span>
-          </div>
-        </a>
-
-        <a href="https://in-linek9.ca" target="_blank" rel="noopener" class="project">
-          <div class="project-image">
-            <img src="/assets/portfolio/in-linek9.jpg" alt="In-Line K9 website preview" loading="lazy" width="400" height="300">
-          </div>
-          <div class="project-meta">
-            <h3>In-Line K9</h3>
-            <p>Award-winning dog training in Ottawa</p>
-            <span class="project-link">in-linek9.ca →</span>
-          </div>
-        </a>
-
-        <a href="https://centredcanine.ca" target="_blank" rel="noopener" class="project">
-          <div class="project-image">
-            <img src="/assets/portfolio/centredcanine.jpg" alt="Centred Canine website preview" loading="lazy" width="400" height="300">
-          </div>
-          <div class="project-meta">
-            <h3>Centred Canine</h3>
-            <p>Dog training &amp; behaviour</p>
-            <span class="project-link">centredcanine.ca →</span>
-          </div>
-        </a>
-
-        <a href="https://vikingk9canada.com" target="_blank" rel="noopener" class="project">
-          <div class="project-image">
-            <img src="/assets/portfolio/vikingk9canada.jpg" alt="Viking K9 Canada website preview" loading="lazy" width="400" height="300">
-          </div>
-          <div class="project-meta">
-            <h3>Viking K9 Canada</h3>
-            <p>Veteran-owned K9 training</p>
-            <span class="project-link">vikingk9canada.com →</span>
-          </div>
-        </a>
-
-        <a href="https://msbusyfit.com" target="_blank" rel="noopener" class="project">
-          <div class="project-image">
-            <img src="/assets/portfolio/msbusyfit.jpg" alt="Ms Busy Fit website preview" loading="lazy" width="400" height="300">
-          </div>
-          <div class="project-meta">
-            <h3>Ms Busy Fit</h3>
-            <p>Online fitness &amp; nutrition coaching for women</p>
-            <span class="project-link">msbusyfit.com →</span>
-          </div>
-        </a>
       </div>
     </div>
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="section section-alt">
-    <div class="container">
-      <div class="contact-grid">
-        <div class="contact-intro">
-          <p class="eyebrow">Let's talk</p>
-          <h2>Tell us about your&nbsp;project.</h2>
-          <p class="contact-sub">Send a few details about what you're building and we'll get back to you within one business day.</p>
-          <ul class="contact-points">
-            <li>Free, no-obligation discovery call</li>
-            <li>Clear written proposal before any work starts</li>
-            <li>Fixed scope, no surprise add-ons</li>
-          </ul>
+  <section id="contact" class="section contact">
+    <span id="quote" class="anchor" aria-hidden="true"></span>
+    <div class="wrap contact-grid">
+      <div class="contact-intro" data-reveal>
+        <h2>Tell me about your <em>project.</em></h2>
+        <p>Send a few details and I'll reply within one business day with next steps. No obligation, no pressure.</p>
+        <ul class="points">
+          <li>Free, no-obligation discovery call</li>
+          <li>Clear written proposal before any work starts</li>
+          <li>Love the design, or you don't pay</li>
+        </ul>
+        <div class="direct">
+          <a href="tel:+16136177233"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(613) 617-7233</a>
+          <a href="https://wa.me/16136177233" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.7-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>WhatsApp</a>
+          <a href="mailto:info@agpixels.ca"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>info@agpixels.ca</a>
         </div>
+      </div>
 
-        <form id="contact-form" class="contact-form" novalidate>
-          <!-- Honeypot anti-spam -->
-          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
-          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" value="">
-          <input type="hidden" name="form_loaded_at" value="">
-          <input type="hidden" name="attribution" value="">
+      <form id="contact-form" class="contact-form" novalidate data-reveal>
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" value="">
+        <input type="hidden" name="form_loaded_at" value="">
+        <input type="hidden" name="attribution" value="">
 
+        <div class="field-row">
           <div class="field">
             <label for="cf-name">Name</label>
             <input type="text" id="cf-name" name="name" required autocomplete="name">
           </div>
-
-          <div class="field">
-            <label for="cf-email">Email</label>
-            <input type="email" id="cf-email" name="email" required autocomplete="email">
-          </div>
-
           <div class="field">
             <label for="cf-phone">Phone</label>
             <input type="tel" id="cf-phone" name="phone" required autocomplete="tel" placeholder="Best number to reach you">
           </div>
-
-          <div class="field">
-            <label for="cf-type">Project type</label>
-            <select id="cf-type" name="project_type">
-              <option value="Website design &amp; development">Website design &amp; development</option>
-              <option value="Website maintenance">Website maintenance</option>
-              <option value="Mobile app development">Mobile app development</option>
-              <option value="Google Ads management">Google Ads management</option>
-              <option value="Not sure yet">Not sure yet</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="cf-msg">Tell us about your project</label>
-            <textarea id="cf-msg" name="message" rows="4" required></textarea>
-          </div>
-
-          <button type="submit" class="btn btn-primary btn-lg form-submit">Send message</button>
-
-          <p class="form-status" role="status" aria-live="polite"></p>
-          <p class="form-fineprint">By submitting this form you agree to our <a href="/privacy">privacy policy</a>.</p>
-        </form>
-      </div>
+        </div>
+        <div class="field">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" name="email" required autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="cf-type">What do you need?</label>
+          <select id="cf-type" name="project_type">
+            <option value="Website design &amp; development">Website design and development</option>
+            <option value="Website maintenance">Website care</option>
+            <option value="Mobile app development">Mobile app</option>
+            <option value="Google Ads management">Google Ads management</option>
+            <option value="Not sure yet">Not sure yet</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="cf-msg">Tell me about your project</label>
+          <textarea id="cf-msg" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-cream btn-block form-submit">Send message</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <p class="form-fineprint">By submitting this form you agree to the <a href="/privacy">privacy policy</a>.</p>
+      </form>
     </div>
   </section>
-
 </main>
 
 <footer class="site-footer">
-  <div class="container footer-inner">
-    <a href="#top" class="brand">
-      <img src="assets/logo.png" alt="AGPixels" class="brand-logo brand-logo-sm">
-    </a>
-    <p class="footer-tag">Pixel-perfect websites and mobile apps.</p>
+  <div class="wrap footer-inner">
+    <a href="#top" class="brand"><img src="/assets/logo.png" alt="AGPixels" width="280" height="46"></a>
+    <p class="footer-tag">Websites, apps and Google Ads, built in Ottawa.</p>
     <nav class="footer-links" aria-label="Footer">
       <a href="/about/">About</a>
       <a href="/web-design-ottawa/">Web Design Ottawa</a>
@@ -651,14 +573,10 @@
   </div>
 </footer>
 
-<!-- Sticky CTA · shows after user scrolls past hero, on every device -->
-<a href="#contact" class="sticky-cta" aria-label="Start a project">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-  </svg>
-  <span>Start a project</span>
-</a>
+<a href="#contact" class="sticky-cta" aria-label="Start a project">Start a project</a>
+<div class="spot" aria-hidden="true"></div>
 
-<script src="script.js" defer></script>
+<script src="/script.js" defer></script>
+<script src="/home.js" defer></script>
 </body>
 </html>

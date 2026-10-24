@@ -10,9 +10,9 @@
 <link rel="icon" type="image/png" sizes="any" href="/assets/icon.png">
 <link rel="icon" href="/assets/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&display=swap">
+<link rel="preload" href="/assets/fonts/instrument-serif-normal-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-serif-italic-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/geist-normal-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="home.css">
 <script>
   /* Motion only when the visitor hasn't asked for less of it; content never waits on it. */
@@ -56,7 +56,7 @@
           <a class="btn btn-ghost" href="#work">See the work</a>
         </div>
         <div class="proof rise" style="--d: .55s">
-          <img src="/assets/adel.jpg" alt="" width="44" height="44">
+          <img src="assets/adel-96.jpg" alt="" width="44" height="44">
           <span><b>Adel Ghader</b>Founder, AGPixels</span>
           <span class="sep" aria-hidden="true"></span>
           <span><span class="stars" aria-hidden="true">★★★★★</span><br>5.0 on Google</span>
@@ -66,21 +66,21 @@
       <div class="deck">
         <div class="stage" role="region" aria-roledescription="carousel" aria-label="Recent projects. Swipe or use the arrow keys." tabindex="0">
           <div class="stage-inner">
-            <figure class="win deck-card" data-slot="0" data-url="https://centredcanine.ca" data-kind="Shopify site and Google Ads"><div class="chrome"><i></i><i></i><i></i><span>centredcanine.ca</span></div><img src="assets/centredcanine-hero.jpg" alt="Centred Canine website" width="1200" height="750" draggable="false"><figcaption>Centred Canine</figcaption></figure>
-            <figure class="win deck-card" data-slot="1" data-url="https://klinikatech.com/" data-kind="Website, iOS and Android app"><div class="chrome"><i></i><i></i><i></i><span>klinikatech.com</span></div><img src="assets/klinika-hero.jpg" alt="Klinika website" width="1200" height="750" draggable="false"><figcaption>Klinika</figcaption></figure>
-            <figure class="win deck-card" data-slot="2" data-url="https://compassclinic.ca" data-kind="Clinic website and Google Ads"><div class="chrome"><i></i><i></i><i></i><span>compassclinic.ca</span></div><img src="assets/compass-hero.jpg" alt="Compass Clinic website" width="1200" height="750" draggable="false"><figcaption>Compass Clinic</figcaption></figure>
-            <figure class="win deck-card" data-slot="back" data-url="https://agepro.ca" data-kind="Home care website"><div class="chrome"><i></i><i></i><i></i><span>agepro.ca</span></div><img src="assets/agepro-hero.jpg" alt="AgePro website" width="1200" height="750" draggable="false"><figcaption>AgePro</figcaption></figure>
-            <figure class="win deck-card" data-slot="back" data-url="https://msbusyfit.com" data-kind="Website and app"><div class="chrome"><i></i><i></i><i></i><span>msbusyfit.com</span></div><img src="assets/msbusyfit-hero.jpg" alt="Ms Busy Fit website" width="1200" height="750" draggable="false"><figcaption>Ms Busy Fit</figcaption></figure>
-            <figure class="win deck-card" data-slot="back" data-url="https://canuckcanada.ca" data-kind="Online store"><div class="chrome"><i></i><i></i><i></i><span>canuckcanada.ca</span></div><img src="assets/canuck-hero.jpg" alt="Canuck online store" width="1200" height="750" draggable="false"><figcaption>Canuck</figcaption></figure>
-            <figure class="win deck-card" data-slot="back" data-url="https://in-linek9.ca" data-kind="Dog training website"><div class="chrome"><i></i><i></i><i></i><span>in-linek9.ca</span></div><img src="assets/inlinek9-hero.jpg" alt="In-Line K9 website" width="1200" height="750" draggable="false"><figcaption>In-Line K9</figcaption></figure>
+            <figure class="win deck-card" data-slot="0" data-url="https://centredcanine.ca" data-kind="Shopify site and Google Ads"><div class="chrome"><i></i><i></i><i></i><span>centredcanine.ca</span></div><img src="assets/centredcanine-hero-700.jpg" srcset="assets/centredcanine-hero-700.jpg 700w, assets/centredcanine-hero.jpg 1200w" sizes="(max-width: 600px) 52vw, (max-width: 900px) 80vw, 40vw" fetchpriority="high" alt="Centred Canine website" width="1200" height="750" draggable="false"><figcaption>Centred Canine</figcaption></figure>
+            <figure class="win deck-card" data-slot="1" data-url="https://klinikatech.com/" data-kind="Website, iOS and Android app"><div class="chrome"><i></i><i></i><i></i><span>klinikatech.com</span></div><img src="assets/klinika-hero-700.jpg" srcset="assets/klinika-hero-700.jpg 700w, assets/klinika-hero.jpg 1200w" sizes="(max-width: 600px) 52vw, (max-width: 900px) 80vw, 40vw" alt="Klinika website" width="1200" height="750" draggable="false"><figcaption>Klinika</figcaption></figure>
+            <figure class="win deck-card" data-slot="2" data-url="https://compassclinic.ca" data-kind="Clinic website and Google Ads"><div class="chrome"><i></i><i></i><i></i><span>compassclinic.ca</span></div><img src="assets/compass-hero-700.jpg" srcset="assets/compass-hero-700.jpg 700w, assets/compass-hero.jpg 1200w" sizes="(max-width: 600px) 52vw, (max-width: 900px) 80vw, 40vw" alt="Compass Clinic website" width="1200" height="750" draggable="false"><figcaption>Compass Clinic</figcaption></figure>
+            <figure class="win deck-card" data-slot="back" data-url="https://agepro.ca" data-kind="Home care website"><div class="chrome"><i></i><i></i><i></i><span>agepro.ca</span></div><img data-src="assets/agepro-hero-700.jpg" data-srcset="assets/agepro-hero-700.jpg 700w, assets/agepro-hero.jpg 1200w" sizes="(max-width: 600px) 52vw, (max-width: 900px) 80vw, 40vw" alt="AgePro website" width="1200" height="750" draggable="false"><figcaption>AgePro</figcaption></figure>
+            <figure class="win deck-card" data-slot="back" data-url="https://msbusyfit.com" data-kind="Website and app"><div class="chrome"><i></i><i></i><i></i><span>msbusyfit.com</span></div><img data-src="assets/msbusyfit-hero-700.jpg" data-srcset="assets/msbusyfit-hero-700.jpg 700w, assets/msbusyfit-hero.jpg 1200w" sizes="(max-width: 600px) 52vw, (max-width: 900px) 80vw, 40vw" alt="Ms Busy Fit website" width="1200" height="750" draggable="false"><figcaption>Ms Busy Fit</figcaption></figure>
+            <figure class="win deck-card" data-slot="back" data-url="https://canuckcanada.ca" data-kind="Online store"><div class="chrome"><i></i><i></i><i></i><span>canuckcanada.ca</span></div><img data-src="assets/canuck-hero-700.jpg" data-srcset="assets/canuck-hero-700.jpg 700w, assets/canuck-hero.jpg 1200w" sizes="(max-width: 600px) 52vw, (max-width: 900px) 80vw, 40vw" alt="Canuck online store" width="1200" height="750" draggable="false"><figcaption>Canuck</figcaption></figure>
+            <figure class="win deck-card" data-slot="back" data-url="https://in-linek9.ca" data-kind="Dog training website"><div class="chrome"><i></i><i></i><i></i><span>in-linek9.ca</span></div><img data-src="assets/inlinek9-hero-700.jpg" data-srcset="assets/inlinek9-hero-700.jpg 700w, assets/inlinek9-hero.jpg 1200w" sizes="(max-width: 600px) 52vw, (max-width: 900px) 80vw, 40vw" alt="In-Line K9 website" width="1200" height="750" draggable="false"><figcaption>In-Line K9</figcaption></figure>
             <div class="phone hero-phone" aria-hidden="true">
-              <img class="on" src="assets/centredcanine-phone.jpg" alt="" width="420" height="909" draggable="false">
-              <img src="assets/klinika-phone.jpg" alt="" width="420" height="909" draggable="false">
-              <img src="assets/compass-phone.jpg" alt="" width="420" height="909" draggable="false">
-              <img src="assets/agepro-phone.jpg" alt="" width="420" height="909" draggable="false">
-              <img src="assets/msbusyfit-phone.jpg" alt="" width="420" height="909" draggable="false">
-              <img src="assets/canuck-phone.jpg" alt="" width="420" height="909" draggable="false">
-              <img src="assets/inlinek9-phone.jpg" alt="" width="420" height="909" draggable="false">
+              <img class="on" src="assets/centredcanine-phone-280.jpg" srcset="assets/centredcanine-phone-280.jpg 280w, assets/centredcanine-phone.jpg 420w" sizes="(max-width: 600px) 20vw, (max-width: 900px) 28vw, 10vw" alt="" width="420" height="909" draggable="false">
+              <img data-src="assets/klinika-phone-280.jpg" data-srcset="assets/klinika-phone-280.jpg 280w, assets/klinika-phone.jpg 420w" sizes="(max-width: 600px) 20vw, (max-width: 900px) 28vw, 10vw" alt="" width="420" height="909" draggable="false">
+              <img data-src="assets/compass-phone-280.jpg" data-srcset="assets/compass-phone-280.jpg 280w, assets/compass-phone.jpg 420w" sizes="(max-width: 600px) 20vw, (max-width: 900px) 28vw, 10vw" alt="" width="420" height="909" draggable="false">
+              <img data-src="assets/agepro-phone-280.jpg" data-srcset="assets/agepro-phone-280.jpg 280w, assets/agepro-phone.jpg 420w" sizes="(max-width: 600px) 20vw, (max-width: 900px) 28vw, 10vw" alt="" width="420" height="909" draggable="false">
+              <img data-src="assets/msbusyfit-phone-280.jpg" data-srcset="assets/msbusyfit-phone-280.jpg 280w, assets/msbusyfit-phone.jpg 420w" sizes="(max-width: 600px) 20vw, (max-width: 900px) 28vw, 10vw" alt="" width="420" height="909" draggable="false">
+              <img data-src="assets/canuck-phone-280.jpg" data-srcset="assets/canuck-phone-280.jpg 280w, assets/canuck-phone.jpg 420w" sizes="(max-width: 600px) 20vw, (max-width: 900px) 28vw, 10vw" alt="" width="420" height="909" draggable="false">
+              <img data-src="assets/inlinek9-phone-280.jpg" data-srcset="assets/inlinek9-phone-280.jpg 280w, assets/inlinek9-phone.jpg 420w" sizes="(max-width: 600px) 20vw, (max-width: 900px) 28vw, 10vw" alt="" width="420" height="909" draggable="false">
             </div>
           </div>
         </div>
@@ -130,8 +130,8 @@
         </div>
         <div class="plate-visual" data-tilt>
           <div class="tilt">
-            <figure class="win"><div class="chrome"><i></i><i></i><i></i><span>centredcanine.ca</span></div><img src="assets/centredcanine-desktop.jpg" alt="Centred Canine homepage" width="2000" height="1250" loading="lazy"></figure>
-            <figure class="phone plate-phone"><img src="assets/centredcanine-mobile.jpg" alt="Centred Canine on a phone" width="780" height="1688" loading="lazy"></figure>
+            <figure class="win"><div class="chrome"><i></i><i></i><i></i><span>centredcanine.ca</span></div><img src="assets/centredcanine-desktop-1000.jpg" srcset="assets/centredcanine-desktop-1000.jpg 1000w, assets/centredcanine-desktop.jpg 2000w" sizes="(max-width: 900px) 92vw, 52vw" alt="Centred Canine homepage" width="2000" height="1250" loading="lazy"></figure>
+            <figure class="phone plate-phone"><img src="assets/centredcanine-phone.jpg" srcset="assets/centredcanine-phone.jpg 420w, assets/centredcanine-mobile.jpg 780w" sizes="(max-width: 600px) 24vw, 12vw" alt="Centred Canine on a phone" width="780" height="1688" loading="lazy"></figure>
           </div>
         </div>
       </article>
@@ -149,9 +149,9 @@
         </div>
         <div class="plate-visual" data-tilt>
           <div class="tilt phones">
-            <figure class="phone"><img src="assets/klinika-app-screen-3.jpg" alt="Klinika app: picking a date and time" width="548" height="1208" loading="lazy"></figure>
-            <figure class="phone"><img src="assets/klinika-mobile.jpg" alt="Klinika on a phone: home screen" width="780" height="1688" loading="lazy"></figure>
-            <figure class="phone"><img src="assets/klinika-app-screen-4.jpg" alt="Klinika app: appointment and payment" width="548" height="1208" loading="lazy"></figure>
+            <figure class="phone"><img src="assets/klinika-app-screen-3-300.jpg" srcset="assets/klinika-app-screen-3-300.jpg 300w, assets/klinika-app-screen-3.jpg 548w" sizes="(max-width: 900px) 30vw, 17vw" alt="Klinika app: picking a date and time" width="548" height="1208" loading="lazy"></figure>
+            <figure class="phone"><img src="assets/klinika-mobile-420.jpg" srcset="assets/klinika-mobile-420.jpg 420w, assets/klinika-mobile.jpg 780w" sizes="(max-width: 900px) 30vw, 17vw" alt="Klinika on a phone: home screen" width="780" height="1688" loading="lazy"></figure>
+            <figure class="phone"><img src="assets/klinika-app-screen-4-300.jpg" srcset="assets/klinika-app-screen-4-300.jpg 300w, assets/klinika-app-screen-4.jpg 548w" sizes="(max-width: 900px) 30vw, 17vw" alt="Klinika app: appointment and payment" width="548" height="1208" loading="lazy"></figure>
           </div>
         </div>
       </article>
@@ -172,8 +172,8 @@
         </div>
         <div class="plate-visual" data-tilt>
           <div class="tilt">
-            <figure class="win"><div class="chrome"><i></i><i></i><i></i><span>compassclinic.ca</span></div><img src="assets/compass-desktop.jpg" alt="Compass Clinic homepage" width="2000" height="1250" loading="lazy"></figure>
-            <figure class="phone plate-phone"><img src="assets/compass-mobile.jpg" alt="Compass Clinic on a phone" width="780" height="1688" loading="lazy"></figure>
+            <figure class="win"><div class="chrome"><i></i><i></i><i></i><span>compassclinic.ca</span></div><img src="assets/compass-desktop-1000.jpg" srcset="assets/compass-desktop-1000.jpg 1000w, assets/compass-desktop.jpg 2000w" sizes="(max-width: 900px) 92vw, 52vw" alt="Compass Clinic homepage" width="2000" height="1250" loading="lazy"></figure>
+            <figure class="phone plate-phone"><img src="assets/compass-phone.jpg" srcset="assets/compass-phone.jpg 420w, assets/compass-mobile.jpg 780w" sizes="(max-width: 600px) 24vw, 12vw" alt="Compass Clinic on a phone" width="780" height="1688" loading="lazy"></figure>
           </div>
         </div>
       </article>
@@ -187,23 +187,23 @@
         </div>
         <div class="plate-visual" data-tilt>
           <div class="tilt">
-            <figure class="win"><div class="chrome"><i></i><i></i><i></i><span>agepro.ca</span></div><img src="assets/agepro-desktop.jpg" alt="AgePro homepage" width="2000" height="1250" loading="lazy"></figure>
-            <figure class="phone plate-phone"><img src="assets/agepro-mobile.jpg" alt="AgePro on a phone" width="780" height="1688" loading="lazy"></figure>
+            <figure class="win"><div class="chrome"><i></i><i></i><i></i><span>agepro.ca</span></div><img src="assets/agepro-desktop-1000.jpg" srcset="assets/agepro-desktop-1000.jpg 1000w, assets/agepro-desktop.jpg 2000w" sizes="(max-width: 900px) 92vw, 52vw" alt="AgePro homepage" width="2000" height="1250" loading="lazy"></figure>
+            <figure class="phone plate-phone"><img src="assets/agepro-phone.jpg" srcset="assets/agepro-phone.jpg 420w, assets/agepro-mobile.jpg 780w" sizes="(max-width: 600px) 24vw, 12vw" alt="AgePro on a phone" width="780" height="1688" loading="lazy"></figure>
           </div>
         </div>
       </article>
 
       <div class="more" data-reveal>
         <a class="more-card" href="https://msbusyfit.com" target="_blank" rel="noopener">
-          <span class="win"><span class="chrome"><i></i><i></i><i></i></span><img src="assets/msbusyfit-desktop.jpg" alt="" width="1400" height="875" loading="lazy"></span>
+          <span class="win"><span class="chrome"><i></i><i></i><i></i></span><img src="assets/msbusyfit-desktop-700.jpg" srcset="assets/msbusyfit-desktop-700.jpg 700w, assets/msbusyfit-desktop.jpg 1400w" sizes="(max-width: 600px) 92vw, (max-width: 900px) 46vw, 30vw" alt="" width="1400" height="875" loading="lazy"></span>
           <strong>Ms Busy Fit</strong><span>Website and app · Online fitness coaching</span>
         </a>
         <a class="more-card" href="https://canuckcanada.ca" target="_blank" rel="noopener">
-          <span class="win"><span class="chrome"><i></i><i></i><i></i></span><img src="assets/canuck-desktop.jpg" alt="" width="1400" height="875" loading="lazy"></span>
+          <span class="win"><span class="chrome"><i></i><i></i><i></i></span><img src="assets/canuck-desktop-700.jpg" srcset="assets/canuck-desktop-700.jpg 700w, assets/canuck-desktop.jpg 1400w" sizes="(max-width: 600px) 92vw, (max-width: 900px) 46vw, 30vw" alt="" width="1400" height="875" loading="lazy"></span>
           <strong>Canuck</strong><span>Online store · Custom engraved drinkware</span>
         </a>
         <a class="more-card" href="https://in-linek9.ca" target="_blank" rel="noopener">
-          <span class="win"><span class="chrome"><i></i><i></i><i></i></span><img src="assets/inlinek9-desktop.jpg" alt="" width="1400" height="875" loading="lazy"></span>
+          <span class="win"><span class="chrome"><i></i><i></i><i></i></span><img src="assets/inlinek9-desktop-700.jpg" srcset="assets/inlinek9-desktop-700.jpg 700w, assets/inlinek9-desktop.jpg 1400w" sizes="(max-width: 600px) 92vw, (max-width: 900px) 46vw, 30vw" alt="" width="1400" height="875" loading="lazy"></span>
           <strong>In-Line K9</strong><span>Website · Dog training, Ottawa</span>
         </a>
       </div>

@@ -1,4 +1,14 @@
 /* AGPixels, Midnight: warm near-black, an editorial serif, real work in light. */
+
+/* Self-hosted and preloaded. The fallbacks are scaled to the real fonts' widths, so if a
+   fallback shows first the lines wrap the same and nothing moves when the real font arrives. */
+@font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; font-display: swap; src: url("/assets/fonts/instrument-serif-normal-400.woff2") format("woff2"); }
+@font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; font-display: swap; src: url("/assets/fonts/instrument-serif-italic-400.woff2") format("woff2"); }
+@font-face { font-family: "Geist"; font-style: normal; font-weight: 400 600; font-display: swap; src: url("/assets/fonts/geist-normal-400.woff2") format("woff2"); }
+@font-face { font-family: "Serif Fallback"; font-style: normal; src: local("Georgia"), local("Noto Serif"), local("DejaVu Serif"); size-adjust: 75.5%; }
+@font-face { font-family: "Serif Fallback"; font-style: italic; src: local("Georgia Italic"), local("Georgia-Italic"), local("Noto Serif Italic"); size-adjust: 79.3%; }
+@font-face { font-family: "Sans Fallback"; src: local("Arial"), local("Helvetica"), local("Roboto"); size-adjust: 101.8%; }
+
 :root {
   --bg: #0D0C11;
   --bg-2: #131219;
@@ -10,8 +20,8 @@
   --line-2: rgba(242, 238, 232, .22);
   --violet: #A49BFF;
   --gold: #F4C45A;
-  --serif: "Instrument Serif", Georgia, serif;
-  --sans: "Geist", system-ui, sans-serif;
+  --serif: "Instrument Serif", "Serif Fallback", Georgia, serif;
+  --sans: "Geist", "Sans Fallback", system-ui, sans-serif;
   --gut: clamp(16px, 4vw, 48px);
   --ease: cubic-bezier(.16, 1, .3, 1);
 }
