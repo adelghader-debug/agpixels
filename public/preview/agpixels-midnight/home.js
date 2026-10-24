@@ -10,6 +10,124 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
+  /* ---------- the hero deck: swipe, drag, arrows or keys bring the next project forward ---------- */
+  const stageEl = document.querySelector('.stage');
+  const cards = stageEl ? Array.from(stageEl.querySelectorAll('.deck-card')) : [];
+  if (cards.length) {
+    const screens = Array.from(stageEl.querySelectorAll('.hero-phone img'));
+    const cap = document.querySelector('.deck-cap');
+    const link = document.querySelector('.deck-link');
+    const count = document.querySelector('.deck-count');
+    const N = cards.length;
+    const motion = root.classList.contains('motion');
+    let active = 0, timer = 0, userDriven = false, visible = true, hovering = false;
+
+    const slotOf = i => { const s = (i - active + N) % N; return s < 3 ? String(s) : 'back'; };
+    const paint = () => {
+      cards.forEach((c, i) => {
+        if (c.dataset.slot !== 'exit') c.dataset.slot = slotOf(i);
+        c.setAttribute('aria-hidden', i === active ? 'false' : 'true');
+      });
+      screens.forEach((s, i) => s.classList.toggle('on', i === active));
+      const c = cards[active];
+      cap.innerHTML = '';
+      const b = document.createElement('b'); b.textContent = c.querySelector('figcaption').textContent;
+      const k = document.createElement('span'); k.textContent = c.dataset.kind;
+      cap.append(b, k);
+      cap.classList.remove('swap'); void cap.offsetWidth; cap.classList.add('swap');
+      link.href = c.dataset.url;
+      count.textContent = `${active + 1} / ${N}`;
+    };
+
+    /* Next: the front card leaves to the left and rejoins at the back once it is out of sight.
+       Previous: the card at the back is placed at the left edge, then flies in to the front. */
+    const go = dir => {
+      const leaving = cards[active];
+      active = (active + dir + N) % N;
+      if (dir > 0) {
+        leaving.dataset.slot = 'exit';
+        setTimeout(() => {
+          if (leaving.dataset.slot !== 'exit') return;
+          leaving.style.transition = 'none';
+          leaving.dataset.slot = slotOf(cards.indexOf(leaving));
+          void leaving.offsetWidth;
+          leaving.style.transition = '';
+        }, 750);
+      } else {
+        const entering = cards[active];
+        entering.style.transition = 'none';
+        entering.dataset.slot = 'exit';
+        void entering.offsetWidth;
+        entering.style.transition = '';
+        entering.dataset.slot = '0';
+      }
+      /* A card still flying out from an earlier quick swipe takes its new place too. */
+      cards.forEach(c => { if (c !== leaving && c.dataset.slot === 'exit') c.dataset.slot = ''; });
+      paint();
+    };
+
+    /* It moves on by itself until the visitor takes over. */
+    const stopAuto = () => { clearInterval(timer); timer = 0; };
+    const startAuto = () => {
+      stopAuto();
+      if (!motion || userDriven || !visible || hovering || document.hidden) return;
+      timer = setInterval(() => go(1), 5200);
+    };
+    const takeOver = () => {
+      if (!userDriven) { userDriven = true; cap.setAttribute('aria-live', 'polite'); }
+      stopAuto();
+    };
+
+    document.querySelectorAll('.deck-btn').forEach(btn => btn.addEventListener('click', () => { takeOver(); go(Number(btn.dataset.dir)); }));
+    stageEl.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); takeOver(); go(e.key === 'ArrowRight' ? 1 : -1); }
+    });
+
+    /* Drag or swipe: the front card follows the finger, and a long enough throw changes project. */
+    let startX = 0, startY = 0, dx = 0, pointerId = null, horizontal = false;
+    stageEl.addEventListener('pointerdown', e => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      pointerId = e.pointerId; startX = e.clientX; startY = e.clientY; dx = 0; horizontal = false;
+    });
+    stageEl.addEventListener('pointermove', e => {
+      if (e.pointerId !== pointerId) return;
+      dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      if (!horizontal) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        if (Math.abs(dy) > Math.abs(dx)) { pointerId = null; return; }
+        horizontal = true;
+        takeOver();
+        stageEl.setPointerCapture(e.pointerId);
+        stageEl.classList.add('dragging');
+      }
+      const front = cards[active];
+      front.style.transition = 'none';
+      front.style.translate = `${dx}px ${Math.abs(dx) * 0.04}px`;
+    });
+    const release = e => {
+      if (e.pointerId !== pointerId) return;
+      pointerId = null;
+      stageEl.classList.remove('dragging');
+      if (!horizontal) return;
+      const front = cards[active];
+      front.style.transition = '';
+      front.style.translate = '';
+      if (Math.abs(dx) > 56) go(dx < 0 ? 1 : -1);
+    };
+    stageEl.addEventListener('pointerup', release);
+    stageEl.addEventListener('pointercancel', release);
+
+    stageEl.addEventListener('mouseenter', () => { hovering = true; stopAuto(); });
+    stageEl.addEventListener('mouseleave', () => { hovering = false; startAuto(); });
+    new IntersectionObserver(entries => { visible = entries[0].isIntersecting; startAuto(); }).observe(stageEl);
+    document.addEventListener('visibilitychange', startAuto);
+
+    paint();
+    cap.classList.remove('swap');
+    if (motion) setTimeout(() => { stageEl.classList.add('settled'); startAuto(); }, 3200);
+  }
+
   if (!root.classList.contains('motion')) return;
 
   /* Wrap each headline word so it can rise through its own mask. */
