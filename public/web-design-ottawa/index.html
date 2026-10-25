@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AGPixels · Web Design Ottawa · Custom Websites for Small Businesses</title>
 <meta name="description" content="Ottawa web design agency building custom websites, WordPress sites, and redesigns for small businesses in Ottawa, Kanata, Orleans, Nepean, Barrhaven, and Gatineau. Free quote.">
-<meta name="theme-color" content="#6B5DF7">
+<meta name="theme-color" content="#0D0C11">
 <link rel="canonical" href="https://agpixels.ca/web-design-ottawa/">
 
 <!-- Open Graph -->
@@ -29,9 +29,9 @@
 <link rel="icon" type="image/png" sizes="any" href="/assets/icon.png">
 <link rel="icon" href="/assets/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="preload" href="/assets/fonts/instrument-serif-normal-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-serif-italic-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/geist-normal-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 
 <!-- Schema.org structured data -->
@@ -201,6 +201,11 @@
       </div>
       <p class="hero-trust">Love the design or you pay nothing. AGPixels is based in Ottawa, serving the city and Gatineau.</p>
     </div>
+    <div class="hero-stack" aria-hidden="true">
+      <figure class="hs-win hs-1"><span class="hs-bar">agepro.ca</span><img src="/assets/work/agepro-hero-700.jpg" alt="" width="700" height="438" loading="lazy" decoding="async"></figure>
+      <figure class="hs-win hs-2"><span class="hs-bar">compassclinic.ca</span><img src="/assets/work/compass-hero-700.jpg" alt="" width="700" height="438" loading="lazy" decoding="async"></figure>
+      <figure class="hs-win hs-3"><span class="hs-bar">centredcanine.ca</span><img src="/assets/work/centredcanine-hero-700.jpg" alt="" width="700" height="438" loading="lazy" decoding="async"></figure>
+    </div>
     <div class="hero-bg" aria-hidden="true"></div>
   </section>
 
@@ -209,7 +214,6 @@
   <section id="quote" class="quote-section">
     <div class="container quote-inner">
       <div class="quote-copy">
-        <p class="eyebrow">Get started in 60 seconds</p>
         <h2>Tell us a bit about your project.</h2>
         <p class="quote-sub">Send us 4 quick details and we will reply within one business day with a written proposal. No obligation, no pressure.</p>
         <ul class="quote-bullets">
@@ -264,31 +268,21 @@
   <section id="services" class="section">
     <div class="container">
       <div class="section-header">
-        <p class="eyebrow">What you get</p>
         <h2>Web design built for Ottawa small businesses.</h2>
       </div>
 
       <div class="cards">
         <article class="card">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8M12 17v4"/></svg>
-          </div>
           <h3>Custom website design</h3>
           <p>Fast, accessible, mobile-first websites tailored to your brand. Hand-coded or WordPress, built for the result, not the template. No plugin bloat, no cookie-cutter themes.</p>
         </article>
 
         <article class="card">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg>
-          </div>
           <h3>Website redesigns</h3>
           <p>Outgrown your current site? We redesign existing websites, keeping what works, fixing what doesn't, and moving you onto a foundation that loads fast, ranks well, and converts.</p>
         </article>
 
         <article class="card">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7l-1.4-1.4a2 2 0 0 0-2.8 0L4 11.4V14h2.6l5.8-5.8a2 2 0 0 0 0-2.8L14 7z"/><path d="M3 21h18"/><circle cx="18" cy="6" r="3"/></svg>
-          </div>
           <h3>WordPress maintenance</h3>
           <p>Ongoing WordPress maintenance: core and plugin updates, performance tuning, security patches, content edits, backups, and a real person in Ottawa to call when something breaks.</p>
         </article>
@@ -306,7 +300,6 @@
   <section class="section">
     <div class="container">
       <div class="section-header">
-        <p class="eyebrow">Simple, no pressure</p>
         <h2>How it works.</h2>
       </div>
       <div class="how-steps">
@@ -333,7 +326,6 @@
   <section id="pricing" class="section section-alt">
     <div class="container">
       <div class="section-header">
-        <p class="eyebrow">Ottawa web design packages</p>
         <h2>Pick the package that fits your goal.</h2>
         <p class="section-sub">Outcome-based packages with clear starting prices. You get a fixed-price proposal before any work starts.</p>
       </div>
@@ -388,7 +380,6 @@
   <!-- GUARANTEE -->
   <section class="guarantee-band">
     <div class="container">
-      <p class="eyebrow eyebrow-light">Our promise</p>
       <h2>Love the design, or you don't pay.</h2>
       <p>We design your new homepage first. If you do not love the direction, you walk away owing nothing. That is how confident we are you will love what we build for your Ottawa business.</p>
       <a href="#quote" class="btn btn-primary btn-lg">Get my free quote</a>
@@ -399,8 +390,8 @@
   <section id="reviews" class="section">
     <div class="container">
       <div class="section-header">
-        <p class="eyebrow">Rated 5.0 on Google</p>
         <h2>What clients say about working with us.</h2>
+        <p class="section-rating"><span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Rated 5.0 on Google</p>
       </div>
       <div class="reviews-grid">
         <article class="review-card">
@@ -436,7 +427,6 @@
   <section id="work" class="section">
     <div class="container">
       <div class="section-header">
-        <p class="eyebrow">Selected work</p>
         <h2>Sites we've shipped for Ottawa and Canadian small businesses.</h2>
         <p class="section-sub">Trusted by real businesses including In-Line K9, Carfellas, AgePro, Compass Clinic, Centred Canine, and Canuck. Every project below is a live client site you can visit.</p>
       </div>
@@ -444,7 +434,7 @@
       <div class="portfolio">
         <a href="https://in-linek9.ca" target="_blank" rel="noopener" class="project">
           <div class="project-image">
-            <img src="/assets/portfolio/in-linek9.jpg" alt="In-Line K9 website preview" loading="lazy" width="400" height="300">
+            <img src="/assets/work/inlinek9-desktop-700.jpg" srcset="/assets/work/inlinek9-desktop-700.jpg 700w, /assets/work/inlinek9-desktop.jpg 1400w" sizes="(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 31vw" alt="In-Line K9 website preview" loading="lazy" width="1400" height="875">
           </div>
           <div class="project-meta">
             <h3>In-Line K9</h3>
@@ -455,7 +445,7 @@
 
         <a href="https://car-fellas.ca" target="_blank" rel="noopener" class="project">
           <div class="project-image">
-            <img src="/assets/portfolio/carfellas.jpg" alt="Carfellas website preview" loading="lazy" width="400" height="300">
+            <img src="/assets/work/carfellas-desktop-700.jpg" srcset="/assets/work/carfellas-desktop-700.jpg 700w, /assets/work/carfellas-desktop.jpg 1400w" sizes="(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 31vw" alt="Carfellas website preview" loading="lazy" width="1400" height="875">
           </div>
           <div class="project-meta">
             <h3>Carfellas</h3>
@@ -467,7 +457,7 @@
         <div class="project">
           <a href="https://compassclinic.ca" target="_blank" rel="noopener">
             <div class="project-image">
-              <img src="/assets/portfolio/compassclinic.jpg" alt="Compass Clinic website preview" loading="lazy" width="400" height="300">
+              <img src="/assets/work/compass-desktop-1000.jpg" srcset="/assets/work/compass-desktop-1000.jpg 1000w, /assets/work/compass-desktop.jpg 2000w" sizes="(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 31vw" alt="Compass Clinic website preview" loading="lazy" width="2000" height="1250">
             </div>
           </a>
           <div class="project-meta">
@@ -479,7 +469,7 @@
 
         <a href="https://agepro.ca" target="_blank" rel="noopener" class="project">
           <div class="project-image">
-            <img src="/assets/portfolio/agepro.jpg" alt="AgePro website preview" loading="lazy" width="400" height="300">
+            <img src="/assets/work/agepro-desktop-1000.jpg" srcset="/assets/work/agepro-desktop-1000.jpg 1000w, /assets/work/agepro-desktop.jpg 2000w" sizes="(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 31vw" alt="AgePro website preview" loading="lazy" width="2000" height="1250">
           </div>
           <div class="project-meta">
             <h3>AgePro</h3>
@@ -490,7 +480,7 @@
 
         <a href="https://centredcanine.ca" target="_blank" rel="noopener" class="project">
           <div class="project-image">
-            <img src="/assets/portfolio/centredcanine.jpg" alt="Centred Canine website preview" loading="lazy" width="400" height="300">
+            <img src="/assets/work/centredcanine-desktop-1000.jpg" srcset="/assets/work/centredcanine-desktop-1000.jpg 1000w, /assets/work/centredcanine-desktop.jpg 2000w" sizes="(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 31vw" alt="Centred Canine website preview" loading="lazy" width="2000" height="1250">
           </div>
           <div class="project-meta">
             <h3>Centred Canine</h3>
@@ -501,7 +491,7 @@
 
         <a href="https://vikingk9canada.com" target="_blank" rel="noopener" class="project">
           <div class="project-image">
-            <img src="/assets/portfolio/vikingk9canada.jpg" alt="Viking K9 Canada website preview" loading="lazy" width="400" height="300">
+            <img src="/assets/work/vikingk9-desktop-700.jpg" srcset="/assets/work/vikingk9-desktop-700.jpg 700w, /assets/work/vikingk9-desktop.jpg 1400w" sizes="(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 31vw" alt="Viking K9 Canada website preview" loading="lazy" width="1400" height="875">
           </div>
           <div class="project-meta">
             <h3>Viking K9 Canada</h3>
@@ -512,7 +502,7 @@
 
         <a href="https://msbusyfit.com" target="_blank" rel="noopener" class="project">
           <div class="project-image">
-            <img src="/assets/portfolio/msbusyfit.jpg" alt="Ms Busy Fit website preview" loading="lazy" width="400" height="300">
+            <img src="/assets/work/msbusyfit-desktop-700.jpg" srcset="/assets/work/msbusyfit-desktop-700.jpg 700w, /assets/work/msbusyfit-desktop.jpg 1400w" sizes="(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 31vw" alt="Ms Busy Fit website preview" loading="lazy" width="1400" height="875">
           </div>
           <div class="project-meta">
             <h3>Ms Busy Fit</h3>
@@ -523,7 +513,7 @@
 
         <a href="https://canuckcanada.ca" target="_blank" rel="noopener" class="project">
           <div class="project-image">
-            <img src="/assets/portfolio/canuckcanada.jpg" alt="Canuck website preview" loading="lazy" width="400" height="300">
+            <img src="/assets/work/canuck-desktop-700.jpg" srcset="/assets/work/canuck-desktop-700.jpg 700w, /assets/work/canuck-desktop.jpg 1400w" sizes="(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 31vw" alt="Canuck website preview" loading="lazy" width="1400" height="875">
           </div>
           <div class="project-meta">
             <h3>Canuck</h3>
@@ -542,7 +532,6 @@
         <img src="/assets/adel.jpg" alt="Adel Ghader, founder of AGPixels" width="520" height="560" loading="lazy">
       </div>
       <div class="about-copy">
-        <p class="eyebrow">The person behind AGPixels</p>
         <h2>Hi, I'm Adel. AGPixels is my Ottawa studio.</h2>
         <p class="about-lead">When you hire AGPixels you work directly with me, Adel Ghader, from the first call to launch and every update after. I quote it, design it, build it, and answer the phone. No sales reps, no handoffs, no juniors you never meet.</p>
         <ul class="about-points">
@@ -562,7 +551,6 @@
   <section id="faq" class="section section-alt">
     <div class="container">
       <div class="section-header">
-        <p class="eyebrow">Common questions</p>
         <h2>Web design in Ottawa, answered.</h2>
       </div>
 
@@ -608,7 +596,6 @@
     <div class="container">
       <div class="contact-grid">
         <div class="contact-intro">
-          <p class="eyebrow">Get started</p>
           <h2>Get a quote for your&nbsp;website.</h2>
           <p class="contact-sub">Tell us about the website you need and we'll get back within one business day with a clear proposal and pricing.</p>
           <ul class="contact-points">
