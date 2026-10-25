@@ -79,7 +79,7 @@ h2 em { color: #fff; }
               radial-gradient(40% 35% at 80% 80%, rgba(255, 214, 170, .07), transparent 70%);
 }
 .hero-grid { position: relative; display: grid; grid-template-columns: 5fr 7fr; gap: 40px; align-items: center; flex: 1; }
-.hero-title { font: 400 clamp(52px, 6.3vw, 100px)/.96 var(--serif); letter-spacing: -0.015em; margin: 0 0 28px; }
+.hero-title { font: 400 clamp(50px, 5.9vw, 94px)/.96 var(--serif); letter-spacing: -0.015em; margin: 0 0 28px; }
 .hero-title em { color: #fff; }
 .sub { color: var(--ink-2); font-size: 18px; max-width: 30em; margin: 0 0 34px; }
 .actions { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -111,12 +111,20 @@ h2 em { color: #fff; }
 /* Every card sits at the front position; its slot moves it back into the stack or out to the side. */
 .deck-card {
   position: absolute; right: 14%; top: 27%; width: 76%;
-  transition: transform .9s var(--ease), filter .9s var(--ease), opacity .7s var(--ease), translate var(--td, .45s) var(--ease) var(--sd, 0s);
+  transition: transform .9s var(--ease), opacity .7s var(--ease), translate var(--td, .45s) var(--ease) var(--sd, 0s);
 }
 .deck-card[data-slot="0"] { transform: translate3d(0, 0, 40px) rotateY(-16deg) rotateX(5deg); }
-.deck-card[data-slot="1"] { transform: translate3d(9%, -20%, -60px) rotateY(-16deg) rotateX(5deg); filter: brightness(.68) saturate(.9); }
-.deck-card[data-slot="2"] { transform: translate3d(18%, -39%, -160px) rotateY(-16deg) rotateX(5deg); filter: brightness(.45) saturate(.8); }
-.deck-card[data-slot="back"] { transform: translate3d(27%, -58%, -260px) rotateY(-16deg) rotateX(5deg); filter: brightness(.3); opacity: 0; }
+.deck-card[data-slot="1"] { transform: translate3d(9%, -20%, -60px) rotateY(-16deg) rotateX(5deg); --dim: .34; }
+.deck-card[data-slot="2"] { transform: translate3d(18%, -39%, -160px) rotateY(-16deg) rotateX(5deg); --dim: .56; }
+.deck-card[data-slot="back"] { transform: translate3d(27%, -58%, -260px) rotateY(-16deg) rotateX(5deg); --dim: .7; opacity: 0; }
+.deck-card::after { content: ""; position: absolute; inset: 0; background: #0D0C11; opacity: var(--dim, 0); pointer-events: none; transition: opacity .9s var(--ease); }
+/* Explicit stacking order matching depth: browsers that draw the stack flat (no 3D depth
+   sorting, or while flattened) still put the front card in front. */
+.deck-card[data-slot="back"] { z-index: 1; }
+.deck-card[data-slot="2"] { z-index: 2; }
+.deck-card[data-slot="1"] { z-index: 3; }
+.deck-card[data-slot="0"] { z-index: 4; }
+.deck-card[data-slot="exit"] { z-index: 5; }
 .deck-card[data-slot="exit"] { transform: translate3d(-60%, 8%, 160px) rotateY(-26deg) rotateX(5deg); opacity: 0; }
 .deck-card figcaption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 
@@ -147,7 +155,7 @@ h2 em { color: #fff; }
 }
 .phone img { width: 100%; aspect-ratio: 9 / 19.5; object-fit: cover; object-position: top; }
 .hero-phone {
-  position: absolute; left: 4%; bottom: 22px; width: 21%; aspect-ratio: 9 / 19.5; transform: translateZ(120px) rotate(-4deg);
+  position: absolute; z-index: 6; left: 4%; bottom: 22px; width: 21%; aspect-ratio: 9 / 19.5; transform: translateZ(120px) rotate(-4deg);
   transition: translate var(--td, .45s) var(--ease) var(--sd, 0s);
 }
 .hero-phone img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transform: scale(1.06); transition: opacity .6s var(--ease), transform .9s var(--ease); }
@@ -350,8 +358,10 @@ h2 em { color: #fff; }
 .motion .rise { opacity: 0; transform: translateY(18px); }
 .motion.ready .rise { opacity: 1; transform: none; transition: opacity 1s var(--ease) var(--d, 0s), transform 1s var(--ease) var(--d, 0s); }
 /* Entrance: the stack fades up while each card flies in from depth, back to front. */
-.motion .stage-inner { opacity: 0; }
-.motion.ready .stage-inner { opacity: 1; transition: opacity 1.2s var(--ease) .1s; }
+.motion .stage-inner { visibility: hidden; }
+.motion.ready .stage-inner { visibility: visible; }
+.motion.ready .deck-card[data-slot="0"], .motion.ready .deck-card[data-slot="1"], .motion.ready .deck-card[data-slot="2"], .motion.ready .hero-phone { animation: deck-in 1.2s var(--ease) var(--sd, 0s) both; }
+@keyframes deck-in { from { opacity: 0; } }
 .motion .deck-card, .motion .hero-phone { translate: 80px 40px -420px; --td: 1.6s; }
 .motion.ready .deck-card, .motion.ready .hero-phone { translate: 0 0 0; }
 .motion.ready .deck-card[data-slot="2"] { --sd: .15s; }
