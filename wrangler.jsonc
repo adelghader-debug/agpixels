@@ -12,5 +12,8 @@
   },
   "observability": {
     "enabled": true
-  }
+  },
+  "kv_namespaces": [
+    { "binding": "PREVIEW_STATS", "id": "4c893634f9da4bfeb452501b485cb20f" }
+  ]
 }
