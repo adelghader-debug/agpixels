@@ -100,7 +100,10 @@ h1 em, h2 em, .accent { font-style: italic; color: #fff; }
   background: radial-gradient(48% 45% at 55% 42%, rgba(164, 155, 255, .16), transparent 70%),
               radial-gradient(38% 34% at 82% 78%, rgba(255, 214, 170, .07), transparent 70%);
 }
-/* Desktop only: real client sites stacked in 3D beside the opening text (as on the homepage). */
+/* Desktop only: real client sites stacked in 3D beside the opening text, with the homepage deck's
+   poses and motion (home.css): the sites fly in from depth, the stack turns toward the pointer and
+   the front site steps aside every few seconds (/hero-stack.js). Same 3D rule as the homepage:
+   never opacity, filter, overflow or mask on .hs-inner, or the stack flattens and draws out of order. */
 .hero-stack { display: none; }
 @media (min-width: 1100px) {
   .hero:has(.hero-stack) .hero-inner > * { max-width: min(640px, 48vw); }
@@ -108,17 +111,33 @@ h1 em, h2 em, .accent { font-style: italic; color: #fff; }
     display: block; position: absolute; z-index: 0; right: var(--gut); top: 50%; width: min(40vw, 700px); aspect-ratio: 4 / 3;
     transform: translateY(-50%); perspective: 2000px; pointer-events: none;
   }
+  .hs-inner { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateX(var(--ty, 0deg)) rotateY(var(--tx, 0deg)); }
   .hs-win {
-    position: absolute; margin: 0; width: 78%; border-radius: 12px; overflow: hidden; background: var(--bg-3);
+    position: absolute; right: 14%; top: 30%; margin: 0; width: 78%; border-radius: 12px; overflow: hidden; background: var(--bg-3);
     box-shadow: 0 50px 90px -40px rgba(0, 0, 0, .9), 0 0 0 1px rgba(242, 238, 232, .09);
+    transition: transform .9s var(--ease), opacity .7s var(--ease), translate var(--td, .45s) var(--ease) var(--sd, 0s);
   }
+  .hs-win::after { content: ""; position: absolute; inset: 0; background: var(--bg); opacity: var(--dim, 0); pointer-events: none; transition: opacity .9s var(--ease); }
+  .hs-win[data-slot="0"] { transform: translate3d(0, 0, 40px) rotateY(-16deg) rotateX(5deg); z-index: 4; }
+  .hs-win[data-slot="1"] { transform: translate3d(9%, -20%, -60px) rotateY(-16deg) rotateX(5deg); --dim: .34; z-index: 3; }
+  .hs-win[data-slot="2"] { transform: translate3d(18%, -39%, -160px) rotateY(-16deg) rotateX(5deg); --dim: .56; z-index: 2; }
+  .hs-win[data-slot="back"] { transform: translate3d(27%, -58%, -260px) rotateY(-16deg) rotateX(5deg); --dim: .7; opacity: 0; z-index: 1; }
+  .hs-win[data-slot="exit"] { transform: translate3d(-60%, 8%, 160px) rotateY(-26deg) rotateX(5deg); opacity: 0; z-index: 5; }
   .hs-bar { display: flex; align-items: center; height: 26px; padding-left: 54px; background: #1E1C25; font-size: 11px; color: var(--ink-3);
     background-image: radial-gradient(circle at 14px 13px, rgba(242,238,232,.18) 3.5px, transparent 4px), radial-gradient(circle at 28px 13px, rgba(242,238,232,.18) 3.5px, transparent 4px), radial-gradient(circle at 42px 13px, rgba(242,238,232,.18) 3.5px, transparent 4px); }
   .hs-win img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
-  .hs-1 { right: 0; top: 0; transform: rotateY(-16deg) rotateX(5deg) translateZ(-160px); filter: brightness(.5) saturate(.8); }
-  .hs-2 { right: 7%; top: 15%; transform: rotateY(-16deg) rotateX(5deg) translateZ(-60px); filter: brightness(.72) saturate(.9); }
-  .hs-3 { right: 14%; top: 30%; transform: rotateY(-16deg) rotateX(5deg) translateZ(40px); }
+  /* Entrance: the head script adds .motion (unless the visitor asked for less motion), /hero-stack.js adds .ready. */
+  .motion .hs-inner { visibility: hidden; }
+  .motion.ready .hs-inner { visibility: visible; }
+  .motion .hs-win { translate: 80px 40px -420px; --td: 1.6s; }
+  .motion.ready .hs-win { translate: 0 0 0; }
+  .motion.ready .hs-win[data-slot="0"], .motion.ready .hs-win[data-slot="1"], .motion.ready .hs-win[data-slot="2"] { animation: deck-in 1.2s var(--ease) var(--sd, 0s) both; }
+  .motion.ready .hs-win[data-slot="2"] { --sd: .15s; }
+  .motion.ready .hs-win[data-slot="1"] { --sd: .3s; }
+  .motion.ready .hs-win[data-slot="0"] { --sd: .45s; }
+  .motion .hero-stack.settled .hs-win { --td: .45s; --sd: 0s; }
 }
+@keyframes deck-in { from { opacity: 0; } }
 
 .about-hero { position: relative; padding: clamp(64px, 8vw, 120px) 0 clamp(48px, 6vw, 80px); overflow: clip; }
 .about-hero .container { position: relative; }

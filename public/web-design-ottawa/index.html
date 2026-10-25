@@ -33,6 +33,13 @@
 <link rel="preload" href="/assets/fonts/instrument-serif-italic-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/geist-normal-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
+<script>
+  /* The hero stack moves only when the visitor hasn't asked for less motion, and is never held back for long. */
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('motion');
+    setTimeout(function () { document.documentElement.classList.add('ready'); }, 2500);
+  }
+</script>
 
 <!-- Schema.org structured data -->
 <script type="application/ld+json">
@@ -202,9 +209,11 @@
       <p class="hero-trust">Love the design or you pay nothing. AGPixels is based in Ottawa, serving the city and Gatineau.</p>
     </div>
     <div class="hero-stack" aria-hidden="true">
-      <figure class="hs-win hs-1"><span class="hs-bar">agepro.ca</span><img src="/assets/work/agepro-hero-700.jpg" alt="" width="700" height="438" loading="lazy" decoding="async"></figure>
-      <figure class="hs-win hs-2"><span class="hs-bar">compassclinic.ca</span><img src="/assets/work/compass-hero-700.jpg" alt="" width="700" height="438" loading="lazy" decoding="async"></figure>
-      <figure class="hs-win hs-3"><span class="hs-bar">centredcanine.ca</span><img src="/assets/work/centredcanine-hero-700.jpg" alt="" width="700" height="438" loading="lazy" decoding="async"></figure>
+      <div class="hs-inner">
+        <figure class="hs-win" data-slot="0"><span class="hs-bar">centredcanine.ca</span><img src="/assets/work/centredcanine-hero-700.jpg" srcset="/assets/work/centredcanine-hero-700.jpg 700w, /assets/work/centredcanine-hero.jpg 1200w" sizes="(min-width: 1100px) 32vw, 1px" alt="" width="700" height="438" loading="lazy" decoding="async"></figure>
+        <figure class="hs-win" data-slot="1"><span class="hs-bar">compassclinic.ca</span><img src="/assets/work/compass-hero-700.jpg" srcset="/assets/work/compass-hero-700.jpg 700w, /assets/work/compass-hero.jpg 1200w" sizes="(min-width: 1100px) 32vw, 1px" alt="" width="700" height="438" loading="lazy" decoding="async"></figure>
+        <figure class="hs-win" data-slot="2"><span class="hs-bar">agepro.ca</span><img src="/assets/work/agepro-hero-700.jpg" srcset="/assets/work/agepro-hero-700.jpg 700w, /assets/work/agepro-hero.jpg 1200w" sizes="(min-width: 1100px) 32vw, 1px" alt="" width="700" height="438" loading="lazy" decoding="async"></figure>
+      </div>
     </div>
     <div class="hero-bg" aria-hidden="true"></div>
   </section>
@@ -686,5 +695,6 @@
 </a>
 
 <script src="/script.js" defer></script>
+<script src="/hero-stack.js" defer></script>
 </body>
 </html>

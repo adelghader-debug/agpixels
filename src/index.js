@@ -290,7 +290,7 @@ async function handleContact(request, env) {
       from: FROM_EMAIL,
       to: email,
       reply_to: REPLY_TO,
-      subject: "Thanks for reaching out — AGPixels",
+      subject: "Thanks for reaching out to AGPixels",
       html: confirmationEmail({ name, projectType, message }),
     }),
   ]);
@@ -388,7 +388,7 @@ function confirmationEmail({ name, projectType, message }) {
   return `<!DOCTYPE html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#0F0E1A;background:#fafafc;margin:0;padding:24px;">
 <div style="max-width:560px;margin:0 auto;background:#fff;border:1px solid #e6e5ee;border-radius:12px;padding:28px;">
   <p style="margin:0 0 16px;font-size:16px;">Hi ${safeName},</p>
-  <p style="margin:0 0 16px;font-size:15px;line-height:1.55;">Thanks for reaching out to <strong style="color:#6B5DF7;">AGPixels</strong> — your project inquiry came through and we'll be in touch within one business day.</p>
+  <p style="margin:0 0 16px;font-size:15px;line-height:1.55;">Thanks for reaching out to <strong style="color:#6B5DF7;">AGPixels</strong>. Your project inquiry came through and we'll be in touch within one business day.</p>
   <p style="margin:0 0 8px;font-size:14px;color:#6B6A78;text-transform:uppercase;letter-spacing:0.08em;">A quick recap of what you sent</p>
   <table style="width:100%;border-collapse:collapse;font-size:15px;background:#fafafc;border-radius:8px;padding:12px;margin-bottom:16px;">
     <tr><td style="padding:8px 12px;color:#6B6A78;width:120px;">Project type</td><td style="padding:8px 12px;">${safeType}</td></tr>
