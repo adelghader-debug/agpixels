@@ -68,20 +68,26 @@
     testCode = sessionStorage.getItem('agpx_meta_test') || '';
   } catch (_) {}
 
-  // The standard fbq queue. fbevents.js itself loads once the page is idle, so
-  // it never competes with the first paint; queued events are sent when it arrives.
+  // The standard fbq queue. fbevents.js itself (about 200 KB) loads on the
+  // visitor's first scroll, tap or key press, so it never weighs on the first
+  // paint or the page speed score; queued events are sent when it arrives. The
+  // Worker's copy of the page view goes out straight away regardless.
   const fbq = window.fbq = function () { fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments); };
   if (!window._fbq) window._fbq = fbq;
   fbq.push = fbq; fbq.loaded = true; fbq.version = '2.0'; fbq.queue = [];
   fbq('init', META_PIXEL_ID);
+  const firstTouch = ['scroll', 'pointerdown', 'keydown', 'touchstart'];
+  let pixelRequested = false;
   const loadPixel = () => {
+    if (pixelRequested) return;
+    pixelRequested = true;
+    firstTouch.forEach((type) => window.removeEventListener(type, loadPixel));
     const s = document.createElement('script');
     s.async = true;
     s.src = 'https://connect.facebook.net/en_US/fbevents.js';
     document.head.appendChild(s);
   };
-  const whenIdle = () => (window.requestIdleCallback ? requestIdleCallback(loadPixel, { timeout: 3000 }) : setTimeout(loadPixel, 1));
-  if (document.readyState === 'complete') whenIdle(); else window.addEventListener('load', whenIdle, { once: true });
+  firstTouch.forEach((type) => window.addEventListener(type, loadPixel, { passive: true }));
 
   const newId = () => (window.crypto && crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36).slice(2));
   window.agpMeta = { newId, testCode };
