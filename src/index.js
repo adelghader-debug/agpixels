@@ -21,6 +21,14 @@ const ALLOWED_REFERER_PREFIXES = [
 const FORM_MIN_AGE_MS = 3 * 1000;          // submit any faster → bot
 const FORM_MAX_AGE_MS = 60 * 60 * 1000;     // page rendered > 1h ago → stale/bot
 
+// Meta Pixel + Conversions API (retargeting audience for Meta ads). The pixel id
+// is public; the access token is the META_CAPI_TOKEN secret (`wrangler secret put`),
+// never committed. Server events are skipped while either is missing.
+// Keep the id in sync with public/script.js.
+const META_PIXEL_ID = "922840330763048";
+const META_API      = "https://graph.facebook.com/v26.0";
+const META_BOT_UA   = /bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp|telegram|curl|python-requests|headless|lighthouse/;
+
 // Security headers applied to every response leaving the Worker.
 // HSTS preload requires the redirect + max-age >= 31536000 + includeSubDomains.
 const SECURITY_HEADERS = {
@@ -170,8 +178,13 @@ export default {
       }
     }
 
+    // Page views from script.js, forwarded to the Meta Conversions API.
+    if (url.pathname === "/api/meta" && request.method === "POST") {
+      return withSecurityHeaders(await handleMetaBeacon(request, env, ctx));
+    }
+
     if (url.pathname === "/api/contact" && request.method === "POST") {
-      return withSecurityHeaders(await handleContact(request, env));
+      return withSecurityHeaders(await handleContact(request, env, ctx));
     }
 
     if (url.pathname === "/api/contact") {
@@ -190,7 +203,7 @@ export default {
   },
 };
 
-async function handleContact(request, env) {
+async function handleContact(request, env, ctx) {
   // --- Anti-spam gate 1: Origin / Referer must be agpixels.ca.
   // Bot doing curl/Python POST against /api/contact will fail this.
   const origin  = request.headers.get("Origin")  || "";
@@ -307,7 +320,101 @@ async function handleContact(request, env) {
     console.warn("Confirmation email failed:", confirmRes);
   }
 
+  // Meta Lead, only for real leads (past every spam gate, notification sent).
+  // Contact details are hashed in metaUserData before they leave the Worker.
+  const metaEventId = String(data.meta_event_id || "");
+  const leadPage = referer.startsWith(SITE_URL + "/") ? referer : SITE_URL + "/";
+  if (/^[\w.-]{8,64}$/.test(metaEventId) && !leadPage.startsWith(SITE_URL + "/preview/") && metaAllowed(request, env)) {
+    ctx.waitUntil((async () => sendMetaEvent(env, {
+      event_name: "Lead",
+      event_time: Math.floor(Date.now() / 1000),
+      event_id: metaEventId,
+      event_source_url: leadPage.slice(0, 1000),
+      action_source: "website",
+      user_data: await metaUserData(request, { email, phone, name }),
+      custom_data: { content_name: source.slice(0, 60) },
+    }, data.meta_test))());
+  }
+
   return json({ success: true, message: "Message sent" });
+}
+
+// ---- Meta Conversions API -------------------------------------------------
+
+// Browser beacon from script.js: forward the page view under the browser's event id.
+async function handleMetaBeacon(request, env, ctx) {
+  const done = new Response(null, { status: 204, headers: { "Cache-Control": "no-store" } });
+  if (!metaAllowed(request, env)) return done;
+  let body;
+  try { body = await request.json(); } catch (e) { return done; }
+  const eventId = String(body.event_id || "");
+  const pageUrl = String(body.url || "");
+  if (body.event_name !== "PageView" || !/^[\w.-]{8,64}$/.test(eventId)) return done;
+  if (!pageUrl.startsWith(SITE_URL + "/") || pageUrl.startsWith(SITE_URL + "/preview/")) return done;
+  ctx.waitUntil((async () => sendMetaEvent(env, {
+    event_name: "PageView",
+    event_time: Math.floor(Date.now() / 1000),
+    event_id: eventId,
+    event_source_url: pageUrl.slice(0, 1000),
+    action_source: "website",
+    user_data: await metaUserData(request),
+  }, body.test))());
+  return done;
+}
+
+// Same-site requests from real browsers only, never once the visitor sends Global
+// Privacy Control, and nothing at all until the pixel id and token are configured.
+function metaAllowed(request, env) {
+  if (!META_PIXEL_ID || !env.META_CAPI_TOKEN) return false;
+  if (request.headers.get("Sec-GPC") === "1") return false;
+  const origin  = request.headers.get("Origin")  || "";
+  const referer = request.headers.get("Referer") || "";
+  if (!ALLOWED_ORIGINS.has(origin) && !ALLOWED_REFERER_PREFIXES.some((p) => referer.startsWith(p))) return false;
+  return !META_BOT_UA.test((request.headers.get("User-Agent") || "").toLowerCase());
+}
+
+// IP, browser and Meta cookies go as they are (Meta needs them unhashed); contact
+// details and country are normalised and SHA-256 hashed, as Meta requires.
+async function metaUserData(request, contact) {
+  const cookies = request.headers.get("Cookie") || "";
+  const cookie = (n) => (cookies.match(new RegExp("(?:^|; )" + n + "=([^;]*)")) || [])[1];
+  const user = {
+    client_ip_address: request.headers.get("CF-Connecting-IP") || undefined,
+    client_user_agent: request.headers.get("User-Agent") || undefined,
+    fbp: cookie("_fbp"),
+    fbc: cookie("_fbc"),
+  };
+  const country = request.cf && request.cf.country;
+  if (country) user.country = [await sha256(country.toLowerCase())];
+  if (contact) {
+    user.em = [await sha256(contact.email.trim().toLowerCase())];
+    const digits = (contact.phone || "").replace(/\D/g, "");
+    if (digits.length >= 10) user.ph = [await sha256(digits.length === 10 ? "1" + digits : digits)];
+    const names = contact.name.toLowerCase().split(/\s+/).map((n) => n.replace(/[^\p{L}\p{N}]/gu, "")).filter(Boolean);
+    if (names.length) user.fn = [await sha256(names[0])];
+    if (names.length > 1) user.ln = [await sha256(names[names.length - 1])];
+  }
+  return Object.fromEntries(Object.entries(user).filter(([, v]) => v));
+}
+
+async function sendMetaEvent(env, event, testCode) {
+  const body = { data: [event], access_token: env.META_CAPI_TOKEN };
+  if (/^TEST\w{1,20}$/.test(testCode || "")) body.test_event_code = testCode;
+  try {
+    const res = await fetch(`${META_API}/${META_PIXEL_ID}/events`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) console.warn("Meta CAPI rejected", event.event_name, res.status, (await res.text()).slice(0, 300));
+  } catch (e) {
+    console.warn("Meta CAPI failed", event.event_name, String(e));   // tracking must never break the site
+  }
+}
+
+async function sha256(text) {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 async function sendEmail(apiKey, payload) {

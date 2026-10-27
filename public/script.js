@@ -42,6 +42,58 @@
   onScroll();
 })();
 
+// Meta Pixel + Conversions API · builds the retargeting audience for Meta ads.
+// Each event goes to Meta twice with the same event id: from the browser
+// (fbevents.js) and from our Worker (/api/meta, or /api/contact for leads), so
+// visits still count when an ad blocker stops fbevents.js, and Meta keeps one copy.
+// Off while META_PIXEL_ID is empty, on mockup previews, and for visitors whose
+// browser sends Global Privacy Control. Keep the id in sync with src/index.js.
+(function () {
+  const META_PIXEL_ID = '922840330763048';
+  if (!META_PIXEL_ID || navigator.globalPrivacyControl === true || location.pathname.startsWith('/preview/')) return;
+
+  const cookie = (name) => (document.cookie.match('(?:^|; )' + name + '=([^;]*)') || [])[1] || '';
+  const setCookie = (name, value) => { document.cookie = name + '=' + value + '; Max-Age=7776000; Path=/; SameSite=Lax; Secure'; };
+  // Meta's browser id (_fbp) and ad click id (_fbc). Created here so server
+  // events carry them even when fbevents.js is blocked; fbevents.js reuses them.
+  if (!cookie('_fbp')) setCookie('_fbp', 'fb.1.' + Date.now() + '.' + Math.floor(Math.random() * 2147483647));
+  const params = new URLSearchParams(location.search);
+  const fbclid = params.get('fbclid');
+  if (fbclid && !cookie('_fbc').endsWith('.' + fbclid)) setCookie('_fbc', 'fb.1.' + Date.now() + '.' + fbclid);
+  // Open any page with ?meta_test=TEST12345 (the code from Events Manager > Test
+  // events) to send this session's server events to the test tab.
+  let testCode = '';
+  try {
+    if (/^TEST\w{1,20}$/.test(params.get('meta_test') || '')) sessionStorage.setItem('agpx_meta_test', params.get('meta_test'));
+    testCode = sessionStorage.getItem('agpx_meta_test') || '';
+  } catch (_) {}
+
+  // The standard fbq queue. fbevents.js itself loads once the page is idle, so
+  // it never competes with the first paint; queued events are sent when it arrives.
+  const fbq = window.fbq = function () { fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments); };
+  if (!window._fbq) window._fbq = fbq;
+  fbq.push = fbq; fbq.loaded = true; fbq.version = '2.0'; fbq.queue = [];
+  fbq('init', META_PIXEL_ID);
+  const loadPixel = () => {
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://connect.facebook.net/en_US/fbevents.js';
+    document.head.appendChild(s);
+  };
+  const whenIdle = () => (window.requestIdleCallback ? requestIdleCallback(loadPixel, { timeout: 3000 }) : setTimeout(loadPixel, 1));
+  if (document.readyState === 'complete') whenIdle(); else window.addEventListener('load', whenIdle, { once: true });
+
+  const newId = () => (window.crypto && crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36).slice(2));
+  window.agpMeta = { newId, testCode };
+
+  const pageView = newId();
+  fbq('track', 'PageView', {}, { eventID: pageView });
+  const beacon = JSON.stringify({ event_name: 'PageView', event_id: pageView, url: location.href, test: testCode });
+  if (!(navigator.sendBeacon && navigator.sendBeacon('/api/meta', new Blob([beacon], { type: 'application/json' })))) {
+    fetch('/api/meta', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: beacon, keepalive: true }).catch(() => {});
+  }
+})();
+
 // Contact form(s) · AJAX submission to /api/contact
 // Now handles every form.contact-form on the page identically (full form +
 // hero mini-form), so both fire the same Google Ads conversion event.
@@ -115,6 +167,13 @@
 
       try {
         const data = Object.fromEntries(new FormData(form).entries());
+        // Meta: the Worker sends this lead to the Conversions API under the same
+        // id as the browser Lead event below, so Meta counts it once.
+        const metaLead = window.agpMeta ? window.agpMeta.newId() : '';
+        if (metaLead) {
+          data.meta_event_id = metaLead;
+          data.meta_test = window.agpMeta.testCode;
+        }
         const res = await fetch('/api/contact', {
           method: 'POST',
           headers: {
@@ -149,6 +208,10 @@
               event_category: 'contact',
               event_label: source,
             });
+          }
+
+          if (metaLead && typeof window.fbq === 'function') {
+            window.fbq('track', 'Lead', { content_name: source }, { eventID: metaLead });
           }
 
           form.reset();
