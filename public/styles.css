@@ -219,6 +219,8 @@ h1 em, h2 em, .accent { font-style: italic; color: #fff; }
 
 /* ---------- portfolio ---------- */
 .portfolio { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 40px 28px; }
+/* The Google Ads page's short row of three: one line on tablet and desktop, no empty column. */
+.reviews-grid + .portfolio { margin-top: clamp(36px, 5vw, 72px); grid-template-columns: repeat(3, 1fr); gap: 40px clamp(18px, 2vw, 28px); }
 .project { display: block; text-decoration: none; }
 .project > a { text-decoration: none; display: block; }
 .project-image {
@@ -408,6 +410,7 @@ h1 em, h2 em, .accent { font-style: italic; color: #fff; }
   .hero-sub, .about-hero p { font-size: 17px; }
   .hero-actions .btn, .pricing-cta .btn, .about-actions .btn { flex: 1; }
   .quote-grid { grid-template-columns: 1fr; }
+  .reviews-grid + .portfolio { grid-template-columns: 1fr; }
   .about-values { grid-template-columns: 1fr; }
   .about-values li:nth-child(even) { padding-left: 0; box-shadow: none; }
   .faq-item summary { padding-right: 40px; }
