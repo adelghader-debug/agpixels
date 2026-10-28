@@ -25,7 +25,7 @@ const FORM_MAX_AGE_MS = 60 * 60 * 1000;     // page rendered > 1h ago → stale/
 // is public; the access token is the META_CAPI_TOKEN secret (`wrangler secret put`),
 // never committed. Server events are skipped while either is missing.
 // Keep the id in sync with public/script.js.
-const META_PIXEL_ID = "922840330763048";
+const META_PIXEL_ID = "1099484986224377";
 const META_API      = "https://graph.facebook.com/v26.0";
 const META_BOT_UA   = /bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp|telegram|curl|python-requests|headless|lighthouse/;
 

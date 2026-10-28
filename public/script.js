@@ -49,7 +49,7 @@
 // Off while META_PIXEL_ID is empty, on mockup previews, and for visitors whose
 // browser sends Global Privacy Control. Keep the id in sync with src/index.js.
 (function () {
-  const META_PIXEL_ID = '922840330763048';
+  const META_PIXEL_ID = '1099484986224377';
   if (!META_PIXEL_ID || navigator.globalPrivacyControl === true || location.pathname.startsWith('/preview/')) return;
 
   const cookie = (name) => (document.cookie.match('(?:^|; )' + name + '=([^;]*)') || [])[1] || '';
