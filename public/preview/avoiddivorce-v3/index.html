@@ -141,7 +141,9 @@ section{padding-block:var(--section)}
 /* Process: the line that breaks out of the loop */
 .process h2{margin-bottom:.35em}
 .process .sub{color:var(--on-dark-2);font-size:1.12em;max-width:30em}
-.trace{position:relative;margin-top:clamp(40px,5vw,72px);display:grid;gap:70px}
+.hold{margin-top:clamp(40px,5vw,72px)}
+.trace{position:relative;display:grid;gap:70px}
+.trace.holding{position:sticky;top:88px}
 .trace svg.lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 .lines path{fill:none;stroke-linecap:round}
 .lines .base{stroke:var(--pine-line);stroke-width:2}
@@ -360,6 +362,7 @@ footer .small a{font-weight:700;text-underline-offset:3px}
   <div class="wrap">
     <h2>The 3-Stage Process</h2>
     <p class="sub">Three stages of reconciliation, guided through coaching.</p>
+    <div class="hold" id="hold">
     <div class="trace" id="trace">
       <svg class="lines" aria-hidden="true"><path class="base" id="basePath"/><path class="tip" id="tipPath"/></svg>
       <div class="loop" aria-hidden="true">
@@ -374,6 +377,8 @@ footer .small a{font-weight:700;text-underline-offset:3px}
         <li><span class="dot"></span><h3>Repair</h3><p>Focus on relational repair and begin rebuilding trust, connection, and admiration.</p></li>
         <li><span class="dot"></span><h3>Re-commit</h3><p>Work towards renewed commitment and a shared sense of excitement about the future.</p></li>
       </ol>
+    </div>
+    <div id="runway"></div>
     </div>
     <p class="foot">*Coaching supports personal growth and relationship development; outcomes vary depending on individual circumstances.</p>
   </div>
@@ -473,7 +478,8 @@ footer .small a{font-weight:700;text-underline-offset:3px}
       title=document.getElementById('loopTitle'), items=[].slice.call(document.querySelectorAll('#stages li')),
       labels=[ring.querySelector('.n'),ring.querySelector('.e'),ring.querySelector('.s'),ring.querySelector('.w')];
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var geo=null, ticking=false;
+  var geo=null, ticking=false, hold=document.getElementById('hold'), STICK=88, RUNWAY=reduce?0:560;
+  if(!reduce){ trace.classList.add('holding'); document.getElementById('runway').style.height=RUNWAY+'px'; }
 
   function build(){
     var T=trace.getBoundingClientRect(), R=ring.getBoundingClientRect();
@@ -489,24 +495,23 @@ footer .small a{font-weight:700;text-underline-offset:3px}
     else { d+='C'+(ex-(ex-f.x)*.8)+' '+ey+' '+f.x+' '+(ey+(f.y-ey)*.3)+' '+f.x+' '+f.y; }
     d+='L'+dots[dots.length-1].x+' '+dots[dots.length-1].y;
     base.setAttribute('d',d); tip.setAttribute('d',d);
-    var total=tip.getTotalLength(), ringLen=turns*2*Math.PI*r, samples=[];
-    for(var l=ringLen;l<=total;l+=6){samples.push({l:l,y:tip.getPointAtLength(l).y})}
-    samples.push({l:total,y:tip.getPointAtLength(total).y});
+    var total=tip.getTotalLength(), ringLen=turns*2*Math.PI*r;
     tip.style.strokeDasharray=total+' '+total;
-    geo={total:total,ringLen:ringLen,samples:samples,top:cy-r,exitY:ey,dots:dots,lap:2*Math.PI*r};
+    geo={total:total,ringLen:ringLen,ringBottom:cy+r,dots:dots,lap:2*Math.PI*r};
     update();
   }
 
   function update(){
     ticking=false; if(!geo) return;
-    var T=trace.getBoundingClientRect();
-    var y=reduce?1e9:innerHeight*.74-T.top;   /* the reading line, in trace coordinates */
-    var len,start=geo.top-innerHeight*.12;
-    if(y<=geo.exitY){ len=geo.ringLen*Math.max(0,Math.min(1,(y-start)/(geo.exitY-start))) }
-    else{
-      len=geo.total;
-      for(var i=0;i<geo.samples.length;i++){ if(geo.samples[i].y>=y){len=geo.samples[i].l;break} }
-    }
+    var h=innerHeight, w=hold.getBoundingClientRect().top, len;
+    /* Scroll positions, as the wrapper's top in the viewport:
+       a = the ring is fully on screen, start drawing
+       b = the end of the hold, the line leaves the ring
+       c = the last stage has reached mid-screen, the line is done */
+    var pa=h*.92-geo.ringBottom, pb=STICK-RUNWAY, pc=h*.5-geo.dots[geo.dots.length-1].y-RUNWAY;
+    if(reduce) len=geo.total;
+    else if(w>=pb) len=geo.ringLen*Math.max(0,Math.min(1,(pa-w)/(pa-pb)));
+    else len=geo.ringLen+(geo.total-geo.ringLen)*Math.max(0,Math.min(1,(pb-w)/(pb-pc)));
     tip.style.strokeDashoffset=geo.total-len;
     var broken=len>=geo.ringLen-1;
     trace.classList.toggle('broken',broken);
