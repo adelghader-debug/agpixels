@@ -310,7 +310,7 @@ footer{
   <script>
   // Recovery progress: change step states here ("done" | "active" | "todo").
   // The top bar, roadmap, revision stamp and footer all render from this list.
-  const REVISION = { rev: 148, updated: "31 October 2026", short: "31 Oct 2026" };
+  const REVISION = { rev: 149, updated: "31 October 2026", short: "31 Oct 2026" };
   const PHASES = [
     { name: "Discovery", steps: [
       ["Billing and fleet inventory", "done"],
@@ -680,7 +680,7 @@ footer{
         <span class="sev">Medium</span>
         <div class="body">
           <span class="ttl">Build Muath's answers to the 40 open questions</span>
-          <span class="det">31 Oct: Muath's answers of 30 October arrived. Seven confirm what is live with no build (Q5, Q6, Q7, Q17, Q19, Q24, Q27), and Q18 and Q29 keep what is live with small additions. The rest becomes nine packages: policy details, booking payment, support routing, calls and chat, report and medications, applications and offers, restricted wallet money, finance, and marketing consent. The first five are combined and on staging: the full backend suite passes (3,789 passed, none failed), server checks pass, the screens are not yet seen in a browser, and nothing is merged or on production. Applications and offers, restricted wallet money, and marketing consent are being built; finance follows. Eleven points went back as follow-up questions, and each stays as it is today until answered. Three of those are conflicts: blocking cancellation inside the cut-off against cancelling until the start, the published agreement's "no later than" wording against the new boundary, and chat opening at the start against three minutes before. Production only on Adel's word.</span>
+          <span class="det">31 Oct: Muath's answers of 30 October arrived. Seven confirm what is live with no build (Q5, Q6, Q7, Q17, Q19, Q24, Q27), and Q18 and Q29 keep what is live with small additions. The rest becomes nine packages: policy details, booking payment, support routing, calls and chat, report and medications, applications and offers, restricted wallet money, finance, and marketing consent. The first five are merged and on staging: the full backend suite passes (3,789 passed, none failed), and the screens were checked in the browser as manager, accountant, doctor and test patient. They are not on production. Before production: the deploy starts a 2-hour payment window for existing unpaid online-only bookings, which then cancel, and no message tells those patients. Applications and offers, restricted wallet money, and marketing consent are being built; finance follows. Eleven points went back as follow-up questions, and each stays as it is today until answered. Three of those are conflicts: blocking cancellation inside the cut-off against cancelling until the start, the published agreement's "no later than" wording against the new boundary, and chat opening at the start against three minutes before. Production only on Adel's word.</span>
         </div>
       </div>
 
