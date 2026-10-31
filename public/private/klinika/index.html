@@ -310,7 +310,7 @@ footer{
   <script>
   // Recovery progress: change step states here ("done" | "active" | "todo").
   // The top bar, roadmap, revision stamp and footer all render from this list.
-  const REVISION = { rev: 146, updated: "30 October 2026", short: "30 Oct 2026" };
+  const REVISION = { rev: 147, updated: "31 October 2026", short: "31 Oct 2026" };
   const PHASES = [
     { name: "Discovery", steps: [
       ["Billing and fleet inventory", "done"],
@@ -673,8 +673,16 @@ footer{
   </section>
 
   <section>
-    <h2>Pending <span class="count">14 open</span></h2>
+    <h2>Pending <span class="count">15 open</span></h2>
     <div class="tasks">
+
+      <div class="task med">
+        <span class="sev">Medium</span>
+        <div class="body">
+          <span class="ttl">Build Muath's answers to the 40 open questions</span>
+          <span class="det">31 Oct: Muath's answers of 30 October arrived. Seven confirm what is live with no build (Q5, Q6, Q7, Q17, Q19, Q24, Q27), and Q18 and Q29 keep what is live with small additions. The rest becomes nine packages: policy details, booking payment, support routing, calls and chat, report and medications, applications and offers, restricted wallet money, finance, and marketing consent. The first five are being built, none tested in full, merged or deployed yet. Ten points went back as follow-up questions, and each stays as it is today until answered. Three of those are conflicts: blocking cancellation inside the cut-off against cancelling until the start, the published agreement's "no later than" wording against the new boundary, and chat opening at the start against three minutes before. Production only on Adel's word.</span>
+        </div>
+      </div>
 
       <div class="task med">
         <span class="sev">Medium</span>
