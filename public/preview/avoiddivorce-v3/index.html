@@ -16,10 +16,10 @@
 
 :root{
   --pine:#14291f;--pine-2:#1c3629;--pine-line:#35513f;
-  --walnut:#34211a;--walnut-line:#553a2d;
+  --moss:#21402f;--moss-line:#3d5e4a;--deep:#0d1d15;--deep-line:#2a4235;
   --lichen:#e4e9dc;--lichen-2:#d6ddcb;--lichen-line:#b9c4ac;
   --ochre:#d9982b;--ochre-deep:#8a5a0c;
-  --on-dark:#f3f4ec;--on-dark-2:#bdc9b8;--on-walnut-2:#d3c3b5;
+  --on-dark:#f3f4ec;--on-dark-2:#bdc9b8;--on-moss-2:#c9d5c4;
   --ink:#14291f;--ink-2:#40554a;
   --serif:"Young Serif",Georgia,serif;
   --sans:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -99,12 +99,12 @@ section{padding-block:var(--section)}
 @media(min-width:960px){.familiar-grid{grid-template-columns:5fr 7fr}.familiar h2{position:sticky;top:112px;align-self:start}}
 
 /* Why coaching */
-.why{background:var(--walnut)}
+.why{background:var(--moss)}
 .why-head{display:grid;gap:22px;margin-bottom:clamp(36px,5vw,72px)}
-.why-head .body{color:var(--on-walnut-2)}
+.why-head .body{color:var(--on-moss-2)}
 .why-head .lead{color:var(--on-dark);font-size:1.12em;line-height:1.4}
-.row{display:grid;gap:12px;padding-block:clamp(26px,3vw,42px);border-top:1px solid var(--walnut-line)}
-.row p{color:var(--on-walnut-2);max-width:40em}
+.row{display:grid;gap:12px;padding-block:clamp(26px,3vw,42px);border-top:1px solid var(--moss-line)}
+.row p{color:var(--on-moss-2);max-width:40em}
 .row h3{color:var(--ochre)}
 @media(min-width:960px){.why-head{grid-template-columns:5fr 7fr;column-gap:clamp(30px,5vw,80px)}.row{grid-template-columns:5fr 7fr;column-gap:clamp(30px,5vw,80px)}}
 
@@ -207,8 +207,8 @@ form small{display:block;text-align:center;color:var(--ink-2);font-size:.9rem}
 @media(min-width:960px){.apply-grid{grid-template-columns:5fr 7fr;align-items:start}}
 
 /* Footer */
-footer{background:var(--walnut);padding-block:clamp(44px,5vw,68px);color:var(--on-walnut-2);font-size:.92rem}
-footer .top{display:flex;flex-wrap:wrap;gap:22px 34px;align-items:center;justify-content:space-between;padding-bottom:30px;border-bottom:1px solid var(--walnut-line);color:var(--on-dark)}
+footer{background:var(--deep);padding-block:clamp(44px,5vw,68px);color:var(--on-moss-2);font-size:.92rem}
+footer .top{display:flex;flex-wrap:wrap;gap:22px 34px;align-items:center;justify-content:space-between;padding-bottom:30px;border-bottom:1px solid var(--deep-line);color:var(--on-dark)}
 footer ul{display:flex;flex-wrap:wrap;gap:12px 26px;list-style:none;margin:0;padding:0}
 footer li a{font-weight:500;text-decoration:none}
 footer li a:hover{text-decoration:underline;text-underline-offset:5px;text-decoration-color:var(--ochre)}
