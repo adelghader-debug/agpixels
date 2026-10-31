@@ -133,9 +133,10 @@ section{padding-block:var(--section)}
 .how .checks svg{stroke:var(--ochre)}
 @media(min-width:960px){.how-grid{grid-template-columns:5fr 7fr}.how-side{position:sticky;top:112px;align-self:start}}
 
-/* Quote band */
-.quote{background:var(--ochre);color:var(--pine);padding-block:clamp(60px,8vw,118px)}
-.quote p{font:400 clamp(1.95rem,4.3vw,3.9rem)/1.12 var(--serif);letter-spacing:-.012em;max-width:21em;text-wrap:balance}
+/* Closing line of How Coaching Works, leads into the process */
+.statement{margin-top:clamp(52px,7vw,104px);padding-top:clamp(30px,4vw,52px);border-top:1px solid var(--pine-line);font:400 clamp(1.6rem,2.9vw,2.6rem)/1.18 var(--serif);letter-spacing:-.008em;color:var(--on-dark);max-width:none;text-wrap:balance}
+.how{padding-bottom:clamp(44px,5vw,72px)}
+.process{padding-top:clamp(44px,5vw,72px)}
 
 /* Process: the line that breaks out of the loop */
 .process h2{margin-bottom:.35em}
@@ -325,7 +326,8 @@ footer .small a{font-weight:700;text-underline-offset:3px}
 </section>
 
 <section class="how" id="approach">
-  <div class="wrap how-grid">
+  <div class="wrap">
+    <div class="how-grid">
     <div class="how-side">
       <h2>How Coaching Works</h2>
       <p class="lead">We combine personal stabilization, insight and skills, with ongoing accountability.</p>
@@ -349,12 +351,10 @@ footer .small a{font-weight:700;text-underline-offset:3px}
         <p>While no one can guarantee how your partner will respond, consistent change can disrupt the patterns she has learned to expect, rebuild emotional connection, and give your marriage a genuine path towards recovery.</p>
       </div>
     </div>
+    </div>
+    <p class="statement">We help you break destructive relationship patterns to give your marriage the best chance of success.</p>
   </div>
 </section>
-
-<div class="quote">
-  <div class="wrap"><p>“We help you break destructive relationship patterns to give your marriage the best chance of success.”</p></div>
-</div>
 
 <section class="process" id="process">
   <div class="wrap">
