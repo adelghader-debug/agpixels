@@ -141,14 +141,13 @@ section{padding-block:var(--section)}
 /* Process: the line that breaks out of the loop */
 .process h2{margin-bottom:.35em}
 .process .sub{color:var(--on-dark-2);font-size:1.12em;max-width:30em}
-.hold{margin-top:clamp(40px,5vw,72px)}
-.trace{position:relative;display:grid;gap:70px}
+.trace{position:relative;display:grid}
 .trace.holding{position:sticky;top:88px}
 .trace svg.lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 .lines path{fill:none;stroke-linecap:round}
 .lines .base{stroke:var(--pine-line);stroke-width:2}
 .lines .tip{stroke:var(--ochre);stroke-width:3.5}
-.loop{justify-self:center;width:min(74vw,300px)}
+.loop{justify-self:center;width:min(74vw,300px);margin-top:44px}
 .loop-title{text-align:center;font:650 1.3rem/1.2 var(--display);min-height:1.2em;margin-bottom:22px;color:var(--on-dark)}
 .ring{position:relative;aspect-ratio:1;font-weight:600;font-size:.95rem}
 .ring span{position:absolute;color:var(--on-dark-2);transition:color .25s}
@@ -157,10 +156,10 @@ section{padding-block:var(--section)}
 .ring .e{right:8%;top:50%;transform:translateY(-50%)}
 .ring .s{bottom:9%;left:50%;transform:translateX(-50%)}
 .ring .w{left:8%;top:50%;transform:translateY(-50%)}
-.ring .c{left:50%;top:50%;width:6.2em;transform:translate(-50%,-50%);text-align:center;font:650 1.02rem/1.15 var(--display);color:var(--ochre)}
-.js .ring .c{opacity:0;transition:opacity .4s}
-.js .trace.broken .ring .c{opacity:1}
-.stages{list-style:none;margin:0;padding:0 0 0 38px;display:grid;gap:clamp(44px,6vw,76px);position:relative}
+.ring .respond{left:50%;top:100%;margin:12px 0 0 10px;white-space:nowrap;font:650 1.02rem/1.15 var(--display);color:var(--ochre)}
+.js .ring .respond{opacity:0;transition:opacity .4s}
+.js .trace.broken .ring .respond{opacity:1}
+.stages{list-style:none;margin:96px 0 0;padding:0 0 0 38px;display:grid;gap:clamp(44px,6vw,76px);position:relative}
 .stages li{position:relative}
 .dot{position:absolute;left:-38px;top:.5em;width:22px;height:22px;margin-left:-3px;border-radius:50%;background:var(--ochre);border:5px solid var(--pine);box-shadow:0 0 0 2px var(--ochre);transition:background-color .3s,box-shadow .3s}
 .js .stages li:not(.on) .dot{background:var(--pine);box-shadow:0 0 0 2px var(--pine-line)}
@@ -169,9 +168,11 @@ section{padding-block:var(--section)}
 .stages p{color:var(--on-dark-2);max-width:32em}
 .foot{margin-top:clamp(40px,5vw,64px);color:var(--on-dark-2);font-size:.88rem}
 @media(min-width:960px){
-  .trace{grid-template-columns:5fr 7fr;column-gap:clamp(40px,6vw,96px);gap:0}
-  .loop{justify-self:start;width:min(100%,340px)}
-  .stages{margin-top:300px;padding-left:64px}
+  .trace{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:clamp(40px,6vw,96px)}
+  .process-head{align-self:start}
+  .loop{justify-self:center;width:min(100%,340px);margin-top:0}
+  .stages{grid-column:1/-1;margin-top:120px;padding-left:64px}
+  .stages li{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:clamp(30px,5vw,80px);align-items:baseline}
   .dot{left:-64px}
 }
 
@@ -360,16 +361,18 @@ footer .small a{font-weight:700;text-underline-offset:3px}
 
 <section class="process" id="process">
   <div class="wrap">
-    <h2>The 3-Stage Process</h2>
-    <p class="sub">Three stages of reconciliation, guided through coaching.</p>
     <div class="hold" id="hold">
     <div class="trace" id="trace">
       <svg class="lines" aria-hidden="true"><path class="base" id="basePath"/><path class="tip" id="tipPath"/></svg>
+      <div class="process-head">
+        <h2>The 3-Stage Process</h2>
+        <p class="sub">Three stages of reconciliation, guided through coaching.</p>
+      </div>
       <div class="loop" aria-hidden="true">
         <div class="loop-title" id="loopTitle">The unhealthy pattern</div>
         <div class="ring" id="ring">
-          <span class="n">Stress</span><span class="e">Reaction</span><span class="s">Conflict</span><span class="w">Distance</span>
-          <span class="c">Respond differently</span>
+          <span class="s">Stress</span><span class="w">Reaction</span><span class="n">Conflict</span><span class="e">Distance</span>
+          <span class="respond">Respond differently</span>
         </div>
       </div>
       <ol class="stages" id="stages">
@@ -476,25 +479,25 @@ footer .small a{font-weight:700;text-underline-offset:3px}
   var trace=document.getElementById('trace'), ring=document.getElementById('ring'),
       base=document.getElementById('basePath'), tip=document.getElementById('tipPath'),
       title=document.getElementById('loopTitle'), items=[].slice.call(document.querySelectorAll('#stages li')),
-      labels=[ring.querySelector('.n'),ring.querySelector('.e'),ring.querySelector('.s'),ring.querySelector('.w')];
+      labels=[ring.querySelector('.s'),ring.querySelector('.w'),ring.querySelector('.n'),ring.querySelector('.e')],
+      loop=trace.querySelector('.loop');
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var geo=null, ticking=false, hold=document.getElementById('hold'), STICK=88, RUNWAY=reduce?0:560;
+  var geo=null, ticking=false, hold=document.getElementById('hold'), STICK=88, RUNWAY=reduce?0:680;
   if(!reduce){ trace.classList.add('holding'); document.getElementById('runway').style.height=RUNWAY+'px'; }
 
   function build(){
     var T=trace.getBoundingClientRect(), R=ring.getBoundingClientRect();
     var cx=R.left-T.left+R.width/2, cy=R.top-T.top+R.height/2, r=R.width/2-1;
     var dots=items.map(function(li){var d=li.querySelector('.dot').getBoundingClientRect();return{x:d.left-T.left+d.width/2,y:d.top-T.top+d.height/2}});
-    var wide=innerWidth>=960;
     var a='A'+r+' '+r+' 0 0 1 ';
     var N=(cx)+' '+(cy-r),E=(cx+r)+' '+cy,S=cx+' '+(cy+r),W=(cx-r)+' '+cy;
-    var d='M'+N+a+E+a+S+a+W+a+N+a+E;       /* one full lap, then on to the right edge */
-    var turns=1.25, ex=cx+r, ey=cy, f=dots[0];
-    if(!wide){ d+=a+S; turns=1.5; ex=cx; ey=cy+r; }
-    if(wide){ d+='C'+ex+' '+(ey+(f.y-ey)*.62)+' '+(f.x-(f.x-ex)*.5)+' '+f.y+' '+f.x+' '+f.y; }
-    else { d+='C'+(ex-(ex-f.x)*.8)+' '+ey+' '+f.x+' '+(ey+(f.y-ey)*.3)+' '+f.x+' '+f.y; }
+    /* Clockwise from Stress at the bottom, one lap, back to Stress, then out to the rail. */
+    var d='M'+S+a+W+a+N+a+E+a+S;
+    var turns=1, ex=cx, ey=cy+r, f=dots[0];
+    d+='C'+(ex-(ex-f.x)*.8)+' '+ey+' '+f.x+' '+(ey+(f.y-ey)*.3)+' '+f.x+' '+f.y;
     d+='L'+dots[dots.length-1].x+' '+dots[dots.length-1].y;
     base.setAttribute('d',d); tip.setAttribute('d',d);
+    if(!reduce){ STICK=88-loop.offsetTop; trace.style.top=STICK+'px'; }
     var total=tip.getTotalLength(), ringLen=turns*2*Math.PI*r;
     tip.style.strokeDasharray=total+' '+total;
     geo={total:total,ringLen:ringLen,ringBottom:cy+r,dots:dots,lap:2*Math.PI*r};
@@ -506,17 +509,21 @@ footer .small a{font-weight:700;text-underline-offset:3px}
     var h=innerHeight, w=hold.getBoundingClientRect().top, len;
     /* Scroll positions, as the wrapper's top in the viewport:
        a = the ring is fully on screen, start drawing
-       b = the end of the hold, the line leaves the ring
-       c = the last stage has reached mid-screen, the line is done */
-    var pa=h*.92-geo.ringBottom, pb=STICK-RUNWAY, pc=h*.5-geo.dots[geo.dots.length-1].y-RUNWAY;
+       b = the lap is done, the line breaks out (still inside the hold)
+       c = the end of the hold, the line has reached the first stage
+       d = the last stage has reached mid-screen, the line is done */
+    var last=geo.dots[geo.dots.length-1], toFirst=geo.total-(last.y-geo.dots[0].y);
+    var pa=h*.92-geo.ringBottom, pb=STICK-RUNWAY*.72, pc=STICK-RUNWAY, pd=h*.55-last.y-RUNWAY;
+    var clamp=function(v){return Math.max(0,Math.min(1,v))};
     if(reduce) len=geo.total;
-    else if(w>=pb) len=geo.ringLen*Math.max(0,Math.min(1,(pa-w)/(pa-pb)));
-    else len=geo.ringLen+(geo.total-geo.ringLen)*Math.max(0,Math.min(1,(pb-w)/(pb-pc)));
+    else if(w>=pb) len=geo.ringLen*clamp((pa-w)/(pa-pb));
+    else if(w>=pc) len=geo.ringLen+(toFirst-geo.ringLen)*clamp((pb-w)/(pb-pc));
+    else len=toFirst+(geo.total-toFirst)*clamp((pc-w)/(pc-pd));
     tip.style.strokeDashoffset=geo.total-len;
     var broken=len>=geo.ringLen-1;
     trace.classList.toggle('broken',broken);
     title.textContent=broken?'Break the pattern':'The unhealthy pattern';
-    var q=broken?-1:Math.floor((len%geo.lap)/(geo.lap/4)+.5)%4;
+    var q=broken?0:Math.floor((len%geo.lap)/(geo.lap/4)+.5)%4;
     labels.forEach(function(el,i){el.classList.toggle('on',len>0&&i===q)});
     var tipY=broken?tip.getPointAtLength(len).y:-1;
     items.forEach(function(li,i){li.classList.toggle('on',tipY>=geo.dots[i].y-1)});
