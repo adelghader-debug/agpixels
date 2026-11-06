@@ -50,10 +50,9 @@ h2{font:700 clamp(1.95rem,4.6vw,3.05rem)/1.16 var(--serif);letter-spacing:-.012e
 .center{text-align:center}.center .rule{margin-inline:auto}
 
 /* Backgrounds, drawn instead of shipped as images */
-.dark{background:
-  radial-gradient(60% 45% at 88% 4%,rgba(228,174,87,.13),transparent 70%),
-  radial-gradient(45% 35% at 6% 96%,rgba(228,174,87,.07),transparent 70%),
-  var(--night);color:var(--on-night)}
+.dark{background:var(--night) url(assets/clouds-a.webp) center/cover no-repeat;color:var(--on-night)}
+.dark.alt{background-image:url(assets/clouds-b.webp)}
+@media(max-width:700px){.dark{background-image:url(assets/clouds-a-m.webp)}.dark.alt{background-image:url(assets/clouds-b-m.webp)}}
 .dark .eyebrow{color:var(--gold)}.dark .rule{background:var(--gold-line)}
 .light{background:
   radial-gradient(70% 50% at 10% 0%,var(--ivory-2),transparent 70%),
@@ -364,7 +363,7 @@ footer .small a{font-weight:700;color:var(--on-night);text-underline-offset:3px}
   </div>
 </section>
 
-<section class="why dark" id="why">
+<section class="why dark alt" id="why">
   <div class="wrap two">
     <div class="side">
       <span class="eyebrow">Why coaching</span>
@@ -503,7 +502,7 @@ footer .small a{font-weight:700;color:var(--on-night);text-underline-offset:3px}
   </div>
 </section>
 
-<section class="quotes dark" id="testimonials">
+<section class="quotes dark alt" id="testimonials">
   <div class="wrap center">
     <span class="eyebrow">Testimonials</span>
     <span class="rule"></span>
