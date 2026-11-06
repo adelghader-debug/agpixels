@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>avoiddivorce.com | Coaching for Men in Marital Crisis</title>
+<meta name="description" content="One-on-one coaching for men in marital crisis. Relationship turnarounds are possible, even after affairs, deep betrayal, or divorce papers have been filed.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#111111">
+<link rel="preload" href="assets/Montserrat.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/LibreBaskerville.woff2" as="font" type="font/woff2" crossorigin>
+<script>document.documentElement.classList.add('js')</script>
+<style>
+@font-face{font-family:"Montserrat";src:url(assets/Montserrat.woff2) format("woff2");font-weight:400 800;font-display:swap}
+@font-face{font-family:"Libre Baskerville";src:url(assets/LibreBaskerville.woff2) format("woff2");font-weight:400 700;font-display:swap}
+
+:root{
+  /* dark sections */
+  --night:#111111;--night-2:#18181b;--night-line:#2c2c30;
+  --on-night:#f9f8f4;--on-night-2:#cccccc;
+  --gold:#e4ae57;--gold-2:#eaaf45;--gold-line:#eca526;--gold-deep:#db9e3e;
+  /* ivory sections */
+  --ivory:#f5eee5;--ivory-2:#f8f0e8;--ivory-line:#e2d6c5;
+  --ink:#1c1b19;--ink-title:#171719;--body:#5a5752;
+  --bronze:#bd8f36;--bronze-text:#86601f;--bronze-strong:#9b6c24;
+  --champagne:#c49f54;--champagne-deep:#a77d2e;
+  --sans:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Libre Baskerville",Georgia,serif;
+  --gutter:clamp(20px,5vw,72px);
+  --section:clamp(64px,9vw,128px);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px;scrollbar-color:#3a3a3e var(--night);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--night);color:var(--on-night);font:400 clamp(16px,.55vw + 13.6px,18px)/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+::selection{background:var(--gold);color:var(--night)}
+a{color:inherit}
+img,video,svg{display:block;max-width:100%}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+.flow>*+*{margin-top:1em}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:var(--gutter)}
+section{padding-block:var(--section)}
+
+/* Section titles: serif everywhere except the hero */
+h2{font:700 clamp(1.95rem,4.6vw,3.05rem)/1.16 var(--serif);letter-spacing:-.012em}
+.eyebrow{display:block;font:600 .78rem/1.3 var(--sans);letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px}
+.rule{display:block;width:44px;height:3px;border-radius:2px;margin-bottom:20px}
+.center{text-align:center}.center .rule{margin-inline:auto}
+
+/* Backgrounds, drawn instead of shipped as images */
+.dark{background:
+  radial-gradient(60% 45% at 88% 4%,rgba(228,174,87,.13),transparent 70%),
+  radial-gradient(45% 35% at 6% 96%,rgba(228,174,87,.07),transparent 70%),
+  var(--night);color:var(--on-night)}
+.dark .eyebrow{color:var(--gold)}.dark .rule{background:var(--gold-line)}
+.light{background:
+  radial-gradient(70% 50% at 10% 0%,var(--ivory-2),transparent 70%),
+  radial-gradient(60% 50% at 100% 100%,#f2e9de,transparent 70%),
+  var(--ivory);color:var(--ink)}
+.light .eyebrow{color:var(--bronze-text)}.light .rule{background:var(--bronze)}
+.marble{background:
+  linear-gradient(118deg,transparent 30%,rgba(255,255,255,.45) 42%,transparent 55%),
+  linear-gradient(64deg,transparent 52%,rgba(226,210,190,.35) 63%,transparent 76%),
+  radial-gradient(80% 60% at 50% 0%,#f8f1e9,transparent 70%),
+  var(--ivory)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:14px 28px;border:0;border-radius:6px;background:var(--gold);color:#141414;font:700 1.02rem/1.2 var(--sans);text-decoration:none;cursor:pointer;box-shadow:0 12px 28px -14px rgba(228,174,87,.6);transition:background-color .2s,transform .35s var(--ease)}
+.btn svg{width:20px;height:20px;transition:transform .35s var(--ease)}
+.btn:hover{background:#ecbb6c;transform:translateY(-2px)}
+.btn:hover svg{transform:translateX(3px)}
+.btn:active{transform:translateY(0)}
+
+/* Wordmark (Gabe's logo lettering) */
+.wordmark{font-family:"Arial Black",Arial,sans-serif;font-weight:900;letter-spacing:-.5px;white-space:nowrap;display:inline-block;padding-bottom:.36em;line-height:1.1;text-decoration:none;font-size:1.32rem;color:var(--on-night)}
+.wordmark .lite{font-family:Arial,sans-serif;font-weight:400;position:relative}
+.wordmark .lite::after{content:"";position:absolute;left:0;top:1.12em;width:92%;height:.26em;background:currentColor;clip-path:polygon(0 0,100% 0,0 100%)}
+.wordmark .tld{font-family:Arial,sans-serif;font-weight:400;font-size:.48em;letter-spacing:0;margin-left:.12em}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:30;background:rgba(17,17,17,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--night-line)}
+.nav .bar{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:66px}
+.nav ul{list-style:none;margin:0;padding:0}
+.nav .links{display:none;gap:30px;margin-left:auto;align-items:center}
+.nav .links a{font-size:.92rem;font-weight:500;text-decoration:none;text-underline-offset:6px}
+.nav .links a:hover{text-decoration:underline;text-decoration-color:var(--gold)}
+.nav .links .btn{min-height:42px;padding:9px 18px;font-size:.9rem;box-shadow:none}
+.burger{display:grid;place-items:center;width:46px;height:46px;margin-right:-8px;border:0;background:none;color:var(--on-night);cursor:pointer}
+.burger svg{width:28px;height:28px}
+.burger .x{display:none}
+.nav.open .burger .x{display:block}.nav.open .burger .m{display:none}
+.drawer{display:none;border-top:1px solid var(--night-line);padding:10px var(--gutter) 22px}
+.nav.open .drawer{display:block}
+.drawer a{display:block;padding:12px 0;font-weight:600;text-decoration:none;border-bottom:1px solid var(--night-line)}
+.drawer .btn{width:100%;margin-top:18px;border-bottom:0}
+@media(min-width:960px){.nav .links{display:flex}.burger,.drawer{display:none!important}}
+
+/* Hero */
+.hero{padding-block:clamp(40px,6vw,96px) clamp(56px,7vw,104px)}
+.hero-grid{display:grid;gap:26px}
+.hero .eyebrow{margin-bottom:14px}
+.hero h1{font:700 clamp(2.3rem,5.4vw,3.5rem)/1.12 var(--sans);letter-spacing:-.022em}
+.hero h1 .accent{display:block;color:var(--gold)}
+.hero-text{color:var(--on-night-2);max-width:33em}
+.hero-cta{display:flex;flex-direction:column;align-items:stretch;gap:12px;text-align:center}
+.hero-cta small{color:var(--on-night-2);font-size:.9rem}
+.player{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#000;box-shadow:0 30px 60px -30px rgba(0,0,0,.9)}
+.player video{position:absolute;inset:0;width:100%;height:100%}
+.player button{position:absolute;inset:0;width:100%;padding:0;border:0;background:none;cursor:pointer;display:grid;place-items:center}
+.player button img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.player button:hover img{transform:scale(1.02)}
+.player .tri{position:relative;width:clamp(34px,4.4vw,52px);filter:drop-shadow(0 4px 14px rgba(0,0,0,.55));transition:transform .35s var(--ease)}
+.player button:hover .tri{transform:scale(1.12)}
+@media(min-width:960px){
+  .hero h1{font-size:clamp(2.4rem,3.3vw,3.3rem)}
+  .hero-grid{grid-template-columns:minmax(0,6fr) minmax(0,6fr);column-gap:clamp(40px,5vw,76px);align-items:center}
+  .hero-copy{grid-column:1}
+  .hero-player{grid-column:2;grid-row:1/3}
+  .hero-cta{grid-column:1;align-items:flex-start;text-align:left}
+}
+@media(max-width:959px){.hero-grid>.hero-copy{order:1}.hero-player{order:2}.hero-cta{order:3}}
+
+/* Sound familiar */
+.two{display:grid;gap:clamp(28px,5vw,76px)}
+@media(min-width:960px){.two{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}.two>.side h2{font-size:clamp(1.9rem,2.5vw,2.45rem)}.two>.side{position:sticky;top:104px;align-self:start}}
+.familiar h2{color:var(--ink-title)}
+.dots{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.dots li{display:grid;grid-template-columns:22px 1fr;gap:14px;font-size:1.08em;line-height:1.45;color:#2b2925}
+.dots li::before{content:"";width:13px;height:13px;margin-top:.42em;border-radius:50%;background:var(--bronze)}
+.familiar .para{margin-top:26px;color:var(--body)}
+.callout{margin-top:30px;padding:4px 0 4px 22px;border-left:3px solid var(--bronze);font:600 clamp(1.18rem,2.2vw,1.45rem)/1.38 var(--sans);color:var(--ink)}
+.callout b{color:var(--bronze-strong);font-weight:800}
+
+/* Why coaching */
+.why .lead{color:var(--on-night-2);margin-top:18px;max-width:34em}
+.pillars{list-style:none;margin:0;padding:0;display:grid;gap:clamp(26px,3vw,38px)}
+.pillars li{display:grid;grid-template-columns:40px 1.5px 1fr;gap:16px;align-items:center}
+@media(min-width:600px){.pillars li{grid-template-columns:48px 1.5px 1fr;gap:20px}}
+.pillars .ic svg{width:100%;height:auto;fill:var(--gold-2)}
+.pillars .bar{align-self:stretch;background:var(--gold-deep);border-radius:1px}
+.pillars .n{display:block;font:700 1.12rem/1 var(--sans);color:var(--gold-2);margin-bottom:6px}
+.pillars h3{font:700 1.22rem/1.25 var(--sans);color:var(--on-night);margin-bottom:6px}
+.pillars p{color:var(--on-night-2);font-size:.96em}
+
+/* Meet Gabe */
+.gabe h2{color:var(--ink-title)}
+.gabe .lead{font-weight:700;color:var(--ink);font-size:1.08em;line-height:1.45}
+.gabe .flow p:not(.lead){color:var(--body)}
+.creds{display:grid;grid-template-columns:1fr 1.5px 1fr;gap:18px;margin-top:26px;padding-top:4px}
+.creds div{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:.92em;color:var(--body);line-height:1.4}
+.creds b{display:block;color:var(--ink)}
+.creds svg{width:20px;height:20px;margin-top:1px;stroke:var(--bronze-strong);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.creds .bar{background:var(--bronze)}
+.portrait{margin:0}
+.portrait img{width:100%;height:auto;aspect-ratio:5/4;object-fit:cover;border-radius:10px;box-shadow:0 26px 50px -30px rgba(28,27,25,.55)}
+.portrait figcaption{margin-top:16px;text-align:center}
+.portrait strong{display:block;font:700 1.12rem/1.3 var(--sans);color:var(--ink)}
+.portrait span{display:block;color:var(--body);font-size:.95rem}
+.portrait .rule{width:64px;margin:12px auto 0}
+@media(min-width:960px){.gabe .two{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:center}}
+
+/* How coaching works */
+.how .flow{color:var(--on-night-2)}
+.worklist{margin:28px 0;padding:4px 0 4px 22px;border-left:3px solid var(--gold-line)}
+.worklist strong{display:block;font:700 1.08rem/1.35 var(--sans);color:var(--on-night);margin-bottom:12px}
+.worklist ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.worklist li{display:grid;grid-template-columns:26px 1fr;gap:12px;color:var(--on-night);line-height:1.45}
+.worklist svg{width:22px;height:22px;stroke:var(--gold);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.closer{margin-top:30px}
+.closer .rule{width:64px;margin-bottom:22px}
+.closer p{font:700 clamp(1.08rem,1.8vw,1.3rem)/1.5 var(--serif);color:var(--on-night)}
+
+/* Break the pattern + 3-stage process */
+.patterns{color:var(--ink)}
+.patterns .col{max-width:640px;margin-inline:auto}
+.patterns h2{color:var(--ink)}
+.patterns .eyebrow{color:var(--bronze-text)}
+.patterns .rule{background:var(--champagne)}
+.patterns .sub{color:var(--body);margin-top:14px}
+.pin{position:relative}
+.cycle-wrap{position:relative;margin-top:clamp(18px,3vw,30px)}
+.cycle{width:min(100%,480px);margin-inline:auto;overflow:visible}
+.cycle text{font:600 18px var(--sans);fill:#3d3a35;transition:fill .3s}
+.cycle text.on{fill:#8a5c14;font-weight:800}
+.cycle .resp{font-weight:600}
+.cycle .resp.on{fill:#8a5c14;font-weight:800}
+.cycle .sk{fill:none;stroke:var(--champagne);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+.cycle .sk2{stroke-width:1.1;opacity:.55}
+.cycle .lit{fill:none;stroke:#d9922a;stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round}
+.cycle .head{fill:var(--champagne)}
+.cycle .head.on{fill:#d9922a}
+.cycle-ring{transform-box:fill-box;transform-origin:50% 50%;transition:transform .2s linear}
+.process-head{margin-top:clamp(48px,7vw,84px)}
+.coach{display:grid;grid-template-columns:44px 1.5px 1fr;gap:16px;align-items:center;margin-top:30px;padding:20px 22px;border-radius:16px;background:linear-gradient(90deg,#f7ead3 0%,#fcf6eb 50%,#f7ead3 100%);color:#2a2824;font-size:.98em;line-height:1.45;transform-origin:50% 50%;will-change:transform}
+.coach svg{width:40px;height:40px;fill:#c58e2a}
+.coach .bar{align-self:stretch;background:#c58e2a;border-radius:1px}
+.coach b{color:#161513}
+.stagebox{position:relative;margin-top:34px}
+.stages{list-style:none;margin:0;padding:0;position:relative;display:grid;gap:34px}
+.stagebox .track,.stagebox .fill{position:absolute;left:25px;width:2px;border-radius:1px}
+.stagebox .track{background:#dcc9a5}
+.stagebox .fill{background:linear-gradient(#c49f54,#a77d2e);height:0}
+.stages li{position:relative;display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start}
+.num{position:relative;z-index:1;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font:700 1.12rem/1 var(--serif);color:#fff;background:radial-gradient(circle at 35% 30%,#d8b56c,#a77d2e);box-shadow:0 8px 18px -10px rgba(120,84,25,.9);transition:filter .35s,opacity .35s,box-shadow .35s,transform .35s var(--ease)}
+.stages h3{font:700 1.45rem/1.2 var(--serif);color:var(--ink);margin:2px 0 4px;transition:opacity .35s}
+.stages p{color:var(--body);transition:opacity .35s}
+.js .stages li .num{filter:grayscale(1) brightness(1.35);opacity:.55;box-shadow:none}
+.js .stages li h3,.js .stages li p{opacity:.5}
+.js .stages li.past .num{filter:none;opacity:.6}
+.js .stages li.past h3,.js .stages li.past p{opacity:.72}
+.js .stages li.now .num{filter:none;opacity:1;transform:scale(1.08);box-shadow:0 0 0 6px rgba(196,159,84,.22),0 10px 22px -10px rgba(120,84,25,.9)}
+.js .stages li.now h3,.js .stages li.now p{opacity:1}
+.foot{margin-top:34px;color:var(--body);font-size:.84rem}
+
+/* Testimonials */
+.quotes .sub{color:var(--on-night-2);max-width:30em;margin:16px auto 0}
+.carousel{max-width:620px;margin:clamp(30px,4vw,44px) auto 0}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:16px}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:center;background:linear-gradient(180deg,#1b1b1e,#141416);border:1px solid #2e2e33;border-radius:14px;padding:clamp(26px,4vw,40px);text-align:left}
+.slide .mark{font:700 4rem/0.6 var(--serif);color:var(--gold);display:block;margin:10px 0 14px}
+.slide p{font-size:1.12em;line-height:1.55;color:var(--on-night)}
+.slide .rule{margin:24px 0 14px;width:56px}
+.slide .who{font-size:.95rem;color:var(--on-night-2)}
+.slide .who b{color:var(--on-night);letter-spacing:.12em;text-transform:uppercase;margin-right:10px}
+.cnav{display:flex;align-items:center;justify-content:space-between;margin-top:22px}
+.cnav button{width:52px;height:52px;border-radius:50%;border:1.5px solid #6a6a70;background:none;color:var(--on-night);display:grid;place-items:center;cursor:pointer;transition:border-color .2s}
+.cnav button:hover{border-color:var(--gold)}
+.cnav button svg{width:24px;height:24px}
+.cdots{display:flex;gap:10px}
+.cdots i{width:10px;height:10px;border-radius:50%;background:#6a6a70;transition:background-color .2s}
+.cdots i.on{background:var(--gold)}
+
+/* Head coach */
+.coachsec h2{color:var(--ink-title)}
+.coachsec .flow{color:var(--body);font-size:1.04em}
+.ph{margin:0}
+.ph .box{aspect-ratio:5/4;border-radius:10px;background:linear-gradient(135deg,#ede2d3,#f8f1e7);display:grid;place-items:center;color:#b9a789;box-shadow:inset 0 0 0 1px var(--ivory-line)}
+.ph .box svg{width:96px;height:96px;fill:currentColor}
+.ph .box span{display:block;margin-top:10px;font-size:.88rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.ph figcaption{margin-top:16px;text-align:center}
+.ph strong{display:block;font:700 1.45rem/1.25 var(--serif);color:var(--ink)}
+.ph span.role{display:block;color:var(--body)}
+.ph .rule{width:64px;margin:12px auto 0}
+@media(min-width:960px){.coachsec .two{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:center}.coachsec .ph{order:-1}}
+
+/* FAQ */
+.faq h2{color:var(--ink-title)}
+.faq .sub{color:var(--body);margin-top:14px;max-width:32em}
+details{border-top:1px solid var(--ivory-line)}
+details:last-of-type{border-bottom:1px solid var(--ivory-line)}
+summary{display:grid;grid-template-columns:1fr 24px;gap:16px;align-items:start;padding-block:19px;cursor:pointer;list-style:none;font:600 1.04rem/1.4 var(--sans);color:var(--ink)}
+summary::-webkit-details-marker{display:none}
+summary svg{width:22px;height:22px;margin-top:1px;stroke:var(--bronze-strong);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s var(--ease)}
+details[open] summary svg{transform:rotate(180deg)}
+.answer{padding-bottom:22px;color:var(--body);max-width:42em}
+
+/* Final: conversation + form, over the mountains */
+.final{position:relative;overflow:hidden;padding-bottom:clamp(120px,14vw,190px)}
+.final .wrap{position:relative;z-index:1}
+.final .intro{color:var(--on-night-2);margin-top:16px;max-width:34em}
+.final-grid{display:grid;gap:clamp(28px,4vw,64px)}
+@media(min-width:960px){.final-grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:start}}
+.mountains{position:absolute;inset:auto 0 0 0;height:min(48vw,420px);pointer-events:none}
+.mountains svg{position:absolute;bottom:0;width:100%;height:100%}
+.glow{position:absolute;left:50%;bottom:-28%;width:150%;height:90%;transform:translateX(-50%);background:radial-gradient(50% 50% at 50% 50%,rgba(214,128,45,.55),rgba(214,128,45,.12) 55%,transparent 75%)}
+.card{background:#fbf8f3;color:var(--ink);border-radius:16px;padding:clamp(22px,3.4vw,38px);box-shadow:0 40px 80px -40px rgba(0,0,0,.95)}
+.card h3{font:700 clamp(1.3rem,2.2vw,1.6rem)/1.25 var(--serif)}
+.card .lede{color:var(--body);font-size:.96em;margin:8px 0 20px}
+form{display:grid;gap:16px}
+label{display:block;font-weight:700;font-size:.9rem;margin-bottom:6px;color:var(--ink)}
+input,textarea{width:100%;min-height:50px;padding:12px 14px;border:1.5px solid #d6ccbe;border-radius:8px;background:#fff;color:var(--ink);font:400 1rem/1.4 var(--sans);caret-color:var(--bronze-strong);transition:border-color .2s}
+input:hover,textarea:hover{border-color:#b9ab97}
+textarea{min-height:120px;resize:vertical}
+::placeholder{color:#7a746b;font-style:italic}
+.apply{width:100%;min-height:58px;border:0;border-radius:999px;background:linear-gradient(180deg,#a5762a,#865a1a);color:#fff;font:700 1.08rem/1 var(--sans);display:inline-flex;align-items:center;justify-content:center;gap:12px;cursor:pointer;box-shadow:0 14px 26px -14px rgba(120,84,25,.9);transition:filter .2s,transform .35s var(--ease)}
+.apply svg{width:20px;height:20px}
+.apply:hover{filter:brightness(1.08);transform:translateY(-2px)}
+.next{display:grid;grid-template-columns:24px 1.5px 1fr;gap:12px;align-items:center;justify-content:center;color:var(--body);font-size:.92rem;margin-top:4px}
+.next svg{width:22px;height:22px;fill:var(--bronze-strong)}
+.next .bar{height:20px;background:#cdbfa8}
+.preview-note{display:none;padding:12px 14px;border-radius:8px;background:#f1e7d6;color:var(--ink);font-size:.92rem}
+
+/* Footer */
+footer{background:#0b0b0c;padding-block:clamp(44px,5vw,64px);color:#a9a9ad;font-size:.88rem}
+footer .top{display:flex;flex-wrap:wrap;gap:22px 34px;align-items:center;justify-content:space-between;padding-bottom:28px;border-bottom:1px solid #26262a}
+footer ul{display:flex;flex-wrap:wrap;gap:12px 26px;list-style:none;margin:0;padding:0}
+footer li a{font-weight:500;color:var(--on-night);text-decoration:none}
+footer li a:hover{text-decoration:underline;text-underline-offset:5px;text-decoration-color:var(--gold)}
+footer .small{padding-top:24px;display:grid;gap:10px;max-width:64em}
+footer .small a{font-weight:700;color:var(--on-night);text-underline-offset:3px}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body id="top">
+
+<nav class="nav" id="nav" aria-label="Main">
+  <div class="wrap bar">
+    <a href="#top" class="wordmark" aria-label="avoiddivorce.com home">avoid<span class="lite">divorce</span><span class="tld">.com</span></a>
+    <ul class="links">
+      <li><a href="#why">Why Coaching</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#apply" class="btn">Book a Call</a></li>
+    </ul>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Menu"><svg class="m" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16" /><path d="M4 12h16" /><path d="M4 19h16" /></svg><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg></button>
+  </div>
+  <div class="drawer" id="drawer">
+    <a href="#why">Why Coaching</a><a href="#about">About</a><a href="#approach">Approach</a><a href="#process">Process</a><a href="#faq">FAQ</a>
+    <a href="#apply" class="btn">Book a Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
+  </div>
+</nav>
+
+<main>
+<section class="hero dark">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Relationship coaching for men</span>
+      <span class="rule"></span>
+      <h1>It’s Not Too Late to <span class="accent">Save Your Marriage</span></h1>
+      <div class="hero-text flow" style="margin-top:22px">
+        <p>Relationship turnarounds are possible, even after affairs, deep betrayal, or divorce papers have been filed.</p>
+        <p>With the right mindset, direction, and support, this crisis can become a turning point.</p>
+      </div>
+    </div>
+    <div class="hero-player">
+      <div class="player">
+        <video id="intro" poster="assets/intro-poster.webp" playsinline preload="none" aria-hidden="true">
+          <track kind="captions" src="assets/intro.en.vtt" srclang="en" label="English">
+        </video>
+        <button type="button" id="playBtn" aria-label="Play Gabe’s introduction video">
+          <img src="assets/intro-poster.webp" alt="" width="1600" height="900" fetchpriority="high">
+          <svg class="tri" viewBox="0 0 24 26" aria-hidden="true"><path d="M2 1.5 23 13 2 24.5z" fill="#fff"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <a href="#apply" class="btn">Book Your Free Discovery Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
+      <small>A no-pressure, 15-minute conversation.</small>
+    </div>
+  </div>
+</section>
+
+<section class="familiar light" id="familiar">
+  <div class="wrap two">
+    <div class="side">
+      <span class="rule"></span>
+      <h2>Does this sound familiar to you?</h2>
+    </div>
+    <div>
+      <ul class="dots">
+        <li>You are walking on eggshells in your own home.</li>
+        <li>You abandoned your own goals trying to keep her happy.</li>
+        <li>Every serious conversation seems to make things worse.</li>
+        <li>You fear she has started talking to lawyers, or someone else.</li>
+        <li>You feel more stuck and alone than ever, unsure what to do next.</li>
+      </ul>
+      <p class="para">Maybe you have apologized, given her space, talked things through, read books, listened to podcasts, or even gone to counselling, yet nothing seems to change.</p>
+      <p class="callout">You may not be lacking effort.<br>You may simply be using the <b>wrong approach.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="why dark" id="why">
+  <div class="wrap two">
+    <div class="side">
+      <span class="eyebrow">Why coaching</span>
+      <span class="rule"></span>
+      <h2>Apologies and good intentions are rarely enough for things to change.</h2>
+      <p class="lead">Coaching helps you understand what is going wrong, develop better relationship skills, and take consistent action.</p>
+    </div>
+    <ol class="pillars">
+      <li><span class="ic"><svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M264.08-173.85q-23.31 0-38.39-14.3-15.07-14.31-15.07-37.24 0-16.07 8.23-29.88 8.23-13.81 23.3-19.65l173.54-68.77v-154.93q-71.38 86.77-134.38 126.43-63 39.65-148.23 43.88v-45.77q64.54-1.92 119.38-32.84 54.85-30.93 99.85-86.77l57.23-63.85q8.46-10.84 20.81-17.88 12.34-7.04 26.8-7.04h45.7q14.46 0 27.11 7.04 12.65 7.04 21.5 17.88l56.85 63.85q47.23 54.23 100.65 85.96 53.42 31.73 117.96 33.65v45.77q-84.61-4.23-147.92-43.88-63.31-39.66-134.69-126.43v154.93l173.54 68.77q15.07 5.84 23.3 19.65 8.23 13.81 8.23 29.88 0 22.93-15.07 37.24-15.08 14.3-38.39 14.3H397.15v-6.38q0-24.85 14.47-39.5 14.46-14.66 39.3-14.66h134.16q8.38 0 14.19-5.8 5.81-5.81 5.81-14.2 0-8.38-5.81-14.19-5.81-5.81-14.19-5.81H450.92q-42.07 0-67.3 25.85-25.24 25.85-25.24 68.31v6.38h-94.3Zm167.3-491.07q-20.15-20.16-20.15-48.62 0-28.46 20.15-48.61 20.16-20.16 48.62-20.16 28.46 0 48.62 20.16 20.15 20.15 20.15 48.61t-20.15 48.62q-20.16 20.15-48.62 20.15-28.46 0-48.62-20.15Z"/></svg></span><span class="bar"></span><div><span class="n">01</span><h3>Regain a sense of control</h3><p>You can’t control your partner’s decisions, but you can change how you show up for your partner.</p></div></li>
+      <li><span class="ic"><svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M260-100v-161.23q-57-52-88.5-119.19-31.5-67.2-31.5-139.96 0-141.54 99.23-240.58Q338.46-860 480-860q116.54 0 208.42 69.66 91.89 69.65 119.35 180.73l48.84 194.15q3.62 13.61-4.8 24.54Q843.38-380 828.77-380H740v142.31q0 23.59-17.05 40.64T682.31-180H580v80h-45.39v-125.39h147.7q5.38 0 8.84-3.46t3.46-8.84v-187.7h112.47L764-598.85q-23.62-95.84-103.46-155.8-79.85-59.96-180.54-59.96-122.77 0-208.69 85.12t-85.92 207.41q0 63.65 25.93 120.28 25.94 56.63 73.14 100.57l20.93 19.92V-100H260Zm236.23-357.31Zm-40.69 78.69h47.69l2.23-39q14.69-2.38 27.9-9.98 13.21-7.6 22.72-18.4l36.23 14 22.61-38.38-27.31-21.7q6.16-16.43 6.16-33.87 0-17.43-6.16-33.74l27.31-21.69-22.61-38.39-36.23 14q-9.87-10.38-23.21-17.69-13.33-7.31-27.41-10.31l-2.23-39.38h-47.69l-2.23 39.38q-14.46 3-27.8 10.31-13.33 7.31-23.2 17.69l-36.23-14-22.23 38.39 27.3 21.69q-6.53 16.43-6.53 33.87 0 17.44 6.53 33.74l-27.3 21.7L366.08-432l36.23-14q9.51 10.8 22.71 18.4 13.21 7.6 28.29 9.98l2.23 39Zm-29.12-94.24q-21.65-21.79-21.65-52.96 0-31.18 21.54-52.83 21.53-21.66 52.71-21.66 31.17 0 53.08 21.54 21.9 21.53 21.9 52.71t-21.78 53.08q-21.79 21.9-52.97 21.9-31.17 0-52.83-21.78Z"/></svg></span><span class="bar"></span><div><span class="n">02</span><h3>Break unhealthy patterns</h3><p>Relationship problems often follow predictable cycles. Coaching helps you recognize your role, respond differently, and break those patterns.</p></div></li>
+      <li><span class="ic"><svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M480-101.39q-130.38-35.77-215.19-155.19Q180-376 180-521.08v-225.69l300-112.31 300 112.31v225.69q0 145.08-84.81 264.5Q610.38-137.16 480-101.39Zm0-47.38Q591.92-185.23 663.27-289q71.34-103.77 71.34-232.08v-194.07L480-810.85l-254.61 95.7v194.07q0 128.31 71.34 232.08Q368.08-185.23 480-148.77Zm0-330.85Z"/></svg></span><span class="bar"></span><div><span class="n">03</span><h3>Become stronger</h3><p>The work you will do can benefit you beyond your marriage. You will become more grounded, self-aware, and resilient, as a partner, father, and leader.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="gabe light" id="about">
+  <div class="wrap two">
+    <div>
+      <span class="eyebrow">Meet Gabe</span>
+      <span class="rule"></span>
+      <h2>A disciplined approach to relationship change.</h2>
+      <div class="flow" style="margin-top:22px">
+        <p class="lead">I founded avoiddivorce.com to create a better path for men facing marital crisis.</p>
+        <p>For much of my life, I was drawn to understanding and solving complex problems.</p>
+        <p>Today, I bring the same disciplined approach to relationships, human behaviour and personal change.</p>
+        <p>I help clients identify patterns they may not yet see, adopt a more useful mindset, and recognize where they still have meaningful influence. From there, we translate insight into deliberate action.</p>
+        <p>I believe that, with the right framework, direction, and support, a marital crisis can become a turning point in a man’s life.</p>
+      </div>
+      <div class="creds">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>Ph.D.,</b>Western University</span></div>
+        <span class="bar"></span>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>Postdoctoral Fellowship,</b>University of Alberta</span></div>
+      </div>
+    </div>
+    <figure class="portrait">
+      <img src="assets/gabe-landscape.webp" alt="Gabe Alain Huppe, Ph.D." width="1200" height="960" loading="lazy">
+      <figcaption><strong>Gabe Alain Huppe, Ph.D.</strong><span>Founder, avoiddivorce.com</span><span class="rule"></span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="how dark" id="approach">
+  <div class="wrap two">
+    <div class="side">
+      <span class="eyebrow">How coaching works</span>
+      <span class="rule"></span>
+      <h2>The work begins by helping you regain your footing.</h2>
+    </div>
+    <div>
+      <div class="flow">
+        <p>Most men begin coaching feeling stressed, overwhelmed, reactive, or desperate to repair the relationship immediately.</p>
+        <p>The first priority is to help you regain a stable personal baseline so you can think clearly and act with greater intention.</p>
+      </div>
+      <div class="worklist">
+        <strong>From there, we work together to:</strong>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Understand what is driving the marital crisis</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Identify patterns contributing to distance, conflict, and lost trust</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Develop a structured, multi-stage action plan</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Build emotional regulation, communication, and relational leadership skills</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Restore confidence, self-respect, and personal direction</li>
+        </ul>
+      </div>
+      <div class="flow">
+        <p>Through coaching, practical exercises, reflection, and accountability, you apply new skills to the situations you are facing and adjust the plan as circumstances evolve.</p>
+        <p>Over time, you build the judgement and confidence to navigate relationship challenges more effectively on your own.</p>
+      </div>
+      <div class="closer">
+        <span class="rule"></span>
+        <p>While no one can guarantee how your partner will respond, consistent change can disrupt the patterns she has learned to expect, rebuild emotional connection, and give your marriage a genuine path towards recovery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="patterns marble" id="process">
+  <div class="wrap">
+    <div class="hold" id="hold">
+      <div class="pin" id="pin">
+        <div class="col center" id="patHead">
+          <span class="eyebrow">Break unhealthy patterns</span>
+          <span class="rule"></span>
+          <h2>Lasting change begins by interrupting the cycle.</h2>
+          <p class="sub">We help you break destructive patterns to give your relationship the best chance of success.</p>
+        </div>
+        <div class="cycle-wrap" id="cycleWrap">
+          <svg class="cycle" id="cycle" viewBox="-10 0 440 390" role="img" aria-label="The unhealthy cycle: stress, reaction, conflict, distance, and back to stress. Breaking out of it means responding intentionally.">
+            <defs>
+              <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.4"/></filter>
+              <filter id="glowf" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <g class="cycle-ring" id="ring">
+              <g filter="url(#rough)">
+                <path class="sk" d="M178 262 C 130 258, 96 228, 86 186"/><path class="sk sk2" d="M180 266 C 128 261, 92 230, 83 190"/>
+                <path class="sk" d="M84 128 C 92 86, 124 56, 168 46"/><path class="sk sk2" d="M80 130 C 89 84, 122 52, 166 42"/>
+                <path class="sk" d="M252 46 C 296 56, 328 86, 336 128"/><path class="sk sk2" d="M254 42 C 298 53, 332 84, 340 126"/>
+                <path class="sk" d="M336 186 C 326 228, 292 258, 244 262"/><path class="sk sk2" d="M340 190 C 329 231, 293 262, 242 266"/>
+              </g>
+              <path class="head" d="M80 196 l3 -16 l10 13 z"/>
+              <path class="head" d="M174 40 l-14 10 l-1 -9 z"/>
+              <path class="head" d="M342 136 l-3 -16 l-10 13 z"/>
+              <path class="head" d="M234 266 l14 -8 l1 9 z"/>
+              <path class="lit" id="a1" d="M178 262 C 130 258, 96 228, 86 186" filter="url(#glowf)"/>
+              <path class="lit" id="a2" d="M84 128 C 92 86, 124 56, 168 46" filter="url(#glowf)"/>
+              <path class="lit" id="a3" d="M252 46 C 296 56, 328 86, 336 128" filter="url(#glowf)"/>
+              <path class="lit" id="a4" d="M336 186 C 326 228, 292 258, 244 262" filter="url(#glowf)"/>
+              <text id="tConflict" x="210" y="50" text-anchor="middle">Conflict</text>
+              <text id="tDistance" x="352" y="164" text-anchor="middle">Distance</text>
+              <text id="tStress" x="210" y="270" text-anchor="middle">Stress</text>
+              <text id="tReaction" x="68" y="164" text-anchor="middle">Reaction</text>
+            </g>
+            <g filter="url(#rough)"><path class="sk" d="M170 276 C 140 290, 108 300, 86 318"/></g>
+            <path class="head" id="exitHead" d="M80 324 l6 -15 l8 12 z"/>
+            <path class="lit" id="exitLit" d="M170 276 C 140 290, 108 300, 86 318" filter="url(#glowf)"/>
+            <text class="resp" id="tResp" x="92" y="348" text-anchor="middle"><tspan x="92">Respond</tspan><tspan x="92" dy="22">Intentionally</tspan></text>
+          </svg>
+        </div>
+      </div>
+      <div id="runway"></div>
+    </div>
+
+    <div class="col">
+      <div class="process-head center">
+        <span class="eyebrow">The 3-stage coaching process</span>
+        <span class="rule"></span>
+        <h2>A structured path toward reconciliation.</h2>
+      </div>
+      <div class="coach" id="coachBox">
+        <svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M70.31-187.69v-75.93q0-31.53 16.27-55.8 16.27-24.27 45.55-37.15 64.95-28.51 118.64-42.51 53.69-14 119.54-14 66.23 0 119.42 14t118.52 42.51q28.9 12.88 45.48 37.15 16.58 24.27 16.58 55.8v75.93h-600Zm665.38 0v-74.77q0-53.39-24.86-89.07-24.87-35.69-64.98-58.39 53.23 7.61 101.15 20.81 47.92 13.19 80.15 29.73 28.39 15.92 45.46 40.9 17.08 24.99 17.08 56.02v74.77h-154ZM275-530.31q-37.38-37.38-37.38-95.5 0-58.11 37.38-95.3 37.39-37.2 95.5-37.2 58.12 0 95.31 37.2Q503-683.92 503-625.81q0 58.12-37.19 95.5-37.19 37.39-95.31 37.39-58.11 0-95.5-37.39Zm374.18 0q-37.28 37.39-95.41 37.39-6.77 0-14.5-.93-7.73-.92-14.5-3.38 21.43-23.37 32.52-56.12 11.09-32.75 11.09-72.31 0-39.57-11.53-70.61-11.54-31.04-32.08-58.11 6.38-1.46 14.5-2.7 8.11-1.23 14.5-1.23 58.13 0 95.41 37.2 37.28 37.19 37.28 95.3 0 58.12-37.28 95.5ZM115.69-233.08h509.23v-30.54q0-16-9.11-30.03-9.12-14.04-26.19-22.35-62.77-29.31-110.62-40.5-47.84-11.19-108.69-11.19-60.46 0-108.62 11.19-48.15 11.19-110.92 40.5-17.08 8.31-26.08 22.35-9 14.03-9 30.03v30.54Zm317-330.15q24.93-24.92 24.93-62.38 0-37.47-24.93-62.39-24.92-24.92-62.38-24.92T307.92-688Q283-663.08 283-625.61q0 37.46 24.92 62.38 24.93 24.92 62.39 24.92t62.38-24.92Zm-62.38 330.15Zm0-392.53Z"/></svg><span class="bar"></span>
+        <p><b>Your coach will guide you through each stage,</b> helping you apply the right priorities, skills, and actions as your situation evolves.</p>
+      </div>
+      <div class="stagebox">
+      <span class="track" id="track" aria-hidden="true"></span><span class="fill" id="fill" aria-hidden="true"></span>
+      <ol class="stages" id="stages">
+        <li><span class="num">01</span><div><h3>Stabilize</h3><p>Establish the personal foundations you need to regain stability, think clearly, and act with intention.</p></div></li>
+        <li><span class="num">02</span><div><h3>Repair</h3><p>Focus on relational repair and begin rebuilding trust, connection, and admiration.</p></div></li>
+        <li><span class="num">03</span><div><h3>Re-commit</h3><p>Work towards renewed commitment and a shared sense of excitement about the future.</p></div></li>
+      </ol>
+      </div>
+      <p class="foot">*Coaching supports personal growth and relationship development; outcomes vary depending on individual circumstances.</p>
+    </div>
+  </div>
+</section>
+
+<section class="quotes dark" id="testimonials">
+  <div class="wrap center">
+    <span class="eyebrow">Testimonials</span>
+    <span class="rule"></span>
+    <h2>What Clients Are Saying</h2>
+    <p class="sub">Real experiences from men who have worked with me to strengthen their relationship and save their marriage.</p>
+    <div class="carousel" aria-roledescription="carousel">
+      <div class="track" id="qtrack">
+        <figure class="slide" aria-label="1 of 3"><span class="mark" aria-hidden="true">“</span><p>Placeholder: a short client quote will go here.</p><span class="rule"></span><figcaption class="who"><b>Person</b>| Ottawa, ON</figcaption></figure>
+        <figure class="slide" aria-label="2 of 3"><span class="mark" aria-hidden="true">“</span><p>Placeholder: a second short client quote will go here.</p><span class="rule"></span><figcaption class="who"><b>Person</b>| City, Province</figcaption></figure>
+        <figure class="slide" aria-label="3 of 3"><span class="mark" aria-hidden="true">“</span><p>Placeholder: a third short client quote will go here.</p><span class="rule"></span><figcaption class="who"><b>Person</b>| City, Province</figcaption></figure>
+      </div>
+      <div class="cnav">
+        <button type="button" id="qprev" aria-label="Previous testimonial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg></button>
+        <div class="cdots" id="qdots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+        <button type="button" id="qnext" aria-label="Next testimonial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="coachsec light" id="coach">
+  <div class="wrap two">
+    <div>
+      <span class="eyebrow">Our head coach</span>
+      <span class="rule"></span>
+      <h2>Guidance throughout the coaching process.</h2>
+      <div class="flow" style="margin-top:22px">
+        <p>Our Head Coach helps clients apply the AvoidDivorce framework to the realities of their own relationship.</p>
+        <p>Through practical guidance, accountability, and steady support, she helps each client identify priorities, practise new skills, and move forward with greater clarity.</p>
+      </div>
+    </div>
+    <figure class="ph">
+      <div class="box"><div class="center"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5c0-3-4-5.5-9-5.5Z"/></svg><span>Photo to come</span></div></div>
+      <figcaption><strong>Head Coach Name</strong><span class="role">Head Coach, avoiddivorce.com</span><span class="rule"></span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="faq light" id="faq" style="padding-top:0">
+  <div class="wrap two">
+    <div class="side">
+      <span class="eyebrow">FAQ</span>
+      <span class="rule"></span>
+      <h2>Questions You May Be Asking</h2>
+      <p class="sub">Straight answers to some of the questions men often have before starting coaching.</p>
+    </div>
+    <div>
+      <details><summary>Is it really possible to save my marriage if my wife says she’s done?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>It may be. Relationships have recovered after prolonged conflict, emotional distance, betrayal, and discussions of separation or divorce.</p><p>No one can guarantee how your wife will respond. The goal of coaching is to help you understand what has contributed to the crisis, change the patterns within your control, and create the strongest possible conditions for reconciliation.</p></div></details>
+      <details><summary>Can this work if my wife won’t participate?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>Yes. Many men seek help after their wife has refused counselling or is emotionally withdrawn from the relationship.</p><p>You do not need to wait for her participation to begin changing how you think, communicate, regulate your emotions, and show up within the relationship. Consistent change can interrupt familiar patterns and give your partner a different experience of you.</p></div></details>
+      <details><summary>How is this different from marriage counselling?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>Marriage counselling generally works with both partners and focuses on the relationship between them.</p><p>This coaching begins with you. It is a structured process of personal development designed to help you gain clarity, adopt a more useful mindset, build practical relationship skills, and take purposeful action. The emphasis is not on persuading your wife to change. It is on becoming someone capable of changing the dynamic.</p></div></details>
+      <details><summary>What if my marriage cannot be saved?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>That possibility exists, and coaching cannot control another person’s decisions.</p><p>However, the work remains valuable. You can develop greater emotional resilience, self-awareness, confidence, communication skills, and personal direction: qualities that will benefit you as a man, partner, and father regardless of the outcome.</p></div></details>
+      <details><summary>How long does the process take?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>Every situation is different. Some men begin feeling calmer and more purposeful relatively quickly, while rebuilding trust and connection usually requires sustained effort over time.</p><p>This is not a quick fix. Meaningful change depends on the condition of the relationship, the patterns involved, and your consistency in applying what you learn.</p></div></details>
+      <details><summary>How do I know whether coaching is right for me?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>Coaching may be a good fit if you are willing to examine your own contribution to the relationship, learn new ways of responding, and consistently apply what you learn.</p><p>You do not need to accept all the blame, have all the answers, or feel certain about the future. You do need to be willing to take responsibility for the part that remains within your influence.</p></div></details>
+      <details><summary>Is coaching a substitute for therapy or legal advice?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>No. Coaching supports personal growth, mindset development, practical skill-building, and purposeful action.</p><p>It is not psychotherapy, crisis treatment, or legal advice. When a situation involves serious mental health concerns, abuse, immediate safety risks, or complex legal issues, additional professional support may be necessary.</p></div></details>
+      <details><summary>What happens during the discovery call?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>The discovery call is a relaxed, no-obligation conversation about your situation.</p><p>I will listen, answer your questions, explain how the coaching works, and help determine whether the program is a good fit. There is no sales script, and if I do not believe I can help you, I will tell you.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="final dark" id="apply">
+  <div class="mountains" aria-hidden="true">
+    <div class="glow"></div>
+    <svg viewBox="0 0 1440 420" preserveAspectRatio="none">
+      <path d="M0 300 L120 248 L210 276 L330 214 L430 262 L560 202 L690 258 L800 222 L930 270 L1060 210 L1180 252 L1300 226 L1440 262 V420 H0 Z" fill="#26231f" opacity=".85"/>
+      <path d="M0 340 L90 310 L200 330 L320 288 L460 330 L590 296 L720 336 L860 300 L990 338 L1120 298 L1260 330 L1440 306 V420 H0 Z" fill="#1a1917"/>
+      <path d="M0 380 L140 360 L300 376 L470 352 L640 378 L820 356 L1000 380 L1180 358 L1340 374 L1440 362 V420 H0 Z" fill="#111110"/>
+    </svg>
+  </div>
+  <div class="wrap final-grid">
+    <div>
+      <span class="eyebrow">Ready to take the first step?</span>
+      <span class="rule"></span>
+      <h2>Start with a conversation.</h2>
+      <p class="intro">The discovery call is a no-pressure opportunity to discuss your situation, ask questions, and see whether coaching is a good fit. If we don’t believe we can help you, we’ll tell you.</p>
+    </div>
+    <div class="card">
+      <h3>Apply for your free discovery call.</h3>
+      <p class="lede">Tell us a little about yourself and what you’re facing. If the program appears to be a good fit, the next step is to choose a time for your call.</p>
+      <form id="applyForm">
+        <div><label for="name">Name</label><input id="name" name="name" autocomplete="name" required></div>
+        <div><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+        <div><label for="message">Briefly, what’s going on in your marriage?</label><textarea id="message" name="message" placeholder="A sentence or two is plenty."></textarea></div>
+        <button class="apply" type="submit">Apply Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></button>
+        <p class="preview-note" id="previewNote" role="status">This is a design preview, so the form isn’t connected here.</p>
+        <div class="next"><svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M197.69-100q-23.53 0-40.61-17.08T140-157.69v-579.23q0-23.53 17.08-40.61t40.61-17.08h73.85v-70h50.38v70h317.69v-70h49.23v70h73.47q23.53 0 40.61 17.08T820-736.92v579.23q0 23.53-17.08 40.61T762.31-100H197.69Zm0-45.39h564.62q4.61 0 8.46-3.84 3.84-3.85 3.84-8.46V-555H185.39v397.31q0 4.61 3.84 8.46 3.85 3.84 8.46 3.84Zm-12.3-454.99h589.22v-136.54q0-4.62-3.84-8.46-3.85-3.85-8.46-3.85H197.69q-4.61 0-8.46 3.85-3.84 3.84-3.84 8.46v136.54Zm0 0v-148.85 148.85ZM480-396.92q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.04 0-14.69 10.34-25.04 10.35-10.34 25.04-10.34t25.04 10.34q10.34 10.35 10.34 25.04 0 14.7-10.34 25.04-10.35 10.35-25.04 10.35Zm-185.04-10.35q-10.34-10.34-10.34-25.04 0-14.69 10.34-25.04 10.35-10.34 25.04-10.34t25.04 10.34q10.34 10.35 10.34 25.04 0 14.7-10.34 25.04-10.35 10.35-25.04 10.35t-25.04-10.35ZM640-396.92q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.04 0-14.69 10.34-25.04 10.35-10.34 25.04-10.34t25.04 10.34q10.34 10.35 10.34 25.04 0 14.7-10.34 25.04-10.35 10.35-25.04 10.35ZM480-240q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.03 0-14.7 10.34-25.04 10.35-10.35 25.04-10.35t25.04 10.35q10.34 10.34 10.34 25.04 0 14.69-10.34 25.03Q494.69-240 480-240Zm-185.04-10.35q-10.34-10.34-10.34-25.03 0-14.7 10.34-25.04 10.35-10.35 25.04-10.35t25.04 10.35q10.34 10.34 10.34 25.04 0 14.69-10.34 25.03Q334.69-240 320-240t-25.04-10.35ZM640-240q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.03 0-14.7 10.34-25.04 10.35-10.35 25.04-10.35t25.04 10.35q10.34 10.34 10.34 25.04 0 14.69-10.34 25.03Q654.69-240 640-240Z"/></svg><span class="bar"></span><span>Next step: choose a call time that works for you.</span></div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <a href="#top" class="wordmark" aria-label="avoiddivorce.com home">avoid<span class="lite">divorce</span><span class="tld">.com</span></a>
+      <ul>
+        <li><a href="#why">Why Coaching</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#apply">Book a Call</a></li>
+      </ul>
+    </div>
+    <div class="small">
+      <p>*Coaching is intended to support personal growth and relationship development. Outcomes will vary depending on individual circumstances and results cannot be guaranteed.</p>
+      <p>© 2026 avoiddivorce.com · All rights reserved.</p>
+      <p>Website by <a href="https://agpixels.ca/" target="_blank" rel="noopener">AGPixels</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* Menu */
+  var nav=document.getElementById('nav'), burger=document.getElementById('burger');
+  burger.addEventListener('click',function(){var o=nav.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  document.getElementById('drawer').addEventListener('click',function(e){if(e.target.closest('a')){nav.classList.remove('open');burger.setAttribute('aria-expanded','false')}});
+
+  /* Video: play() runs inside the tap (iOS rule); any stream failure drops to the MP4. */
+  var HLS='https://media.avoiddivorce.com/intro/v1/intro.m3u8', MP4='https://media.avoiddivorce.com/intro.mp4';
+  var v=document.getElementById('intro'), btn=document.getElementById('playBtn'), hls=null;
+  function fallback(){ if(v.currentSrc===MP4) return; if(hls){hls.destroy();hls=null} v.src=MP4; v.play().catch(function(){}) }
+  v.addEventListener('error',fallback);
+  btn.addEventListener('click',function(){
+    btn.remove(); v.controls=true; v.removeAttribute('aria-hidden'); v.setAttribute('aria-label','Gabe’s introduction video');
+    if(v.canPlayType('application/vnd.apple.mpegurl')){ v.src=HLS; v.play().catch(function(){}); return }
+    var s=document.createElement('script'); s.src='assets/hls.light.min.js'; s.onerror=fallback;
+    s.onload=function(){
+      if(!window.Hls||!Hls.isSupported()) return fallback();
+      hls=new Hls({capLevelToPlayerSize:true});
+      hls.on(Hls.Events.MANIFEST_PARSED,function(){v.play().catch(function(){})});
+      hls.on(Hls.Events.ERROR,function(_,d){ if(d.fatal) fallback() });
+      hls.loadSource(HLS); hls.attachMedia(v);
+    };
+    document.head.appendChild(s);
+  });
+
+  /* Preview only: the form has no endpoint on this page. */
+  document.getElementById('applyForm').addEventListener('submit',function(e){e.preventDefault();document.getElementById('previewNote').style.display='block'});
+
+  /* Testimonials carousel */
+  var qt=document.getElementById('qtrack'), dots=[].slice.call(document.querySelectorAll('#qdots i'));
+  function qi(){return Math.round(qt.scrollLeft/qt.clientWidth)}
+  function go(d){var n=(qi()+d+3)%3;qt.scrollTo({left:n*(qt.clientWidth+16),behavior:'smooth'})}
+  document.getElementById('qprev').addEventListener('click',function(){go(-1)});
+  document.getElementById('qnext').addEventListener('click',function(){go(1)});
+  qt.addEventListener('scroll',function(){var i=Math.round(qt.scrollLeft/(qt.clientWidth+16));dots.forEach(function(d,k){d.classList.toggle('on',k===i)})},{passive:true});
+
+  /* The signature, in four beats tied to scroll (scrolling up undoes them):
+     1. the cycle lights up step by step and stays lit (section held in place)
+     2. the cycle resets and shrinks; the exit arrow and "Respond Intentionally" light and stay lit
+     3. the coach box swells as it crosses the middle of the screen
+     4. the stages light in turn; earlier ones stay lit but dimmer, Re-commit stays fully lit */
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hold=document.getElementById('hold'), pin=document.getElementById('pin'), cw=document.getElementById('cycleWrap');
+  var ring=document.getElementById('ring');
+  var arcs=['a1','a2','a3','a4'].map(function(id){return document.getElementById(id)});
+  var exitLit=document.getElementById('exitLit'), exitHead=document.getElementById('exitHead');
+  var heads=[].slice.call(ring.querySelectorAll('.head'));
+  var tStress=document.getElementById('tStress'), labels=[tStress,document.getElementById('tReaction'),document.getElementById('tConflict'),document.getElementById('tDistance')];
+  var tResp=document.getElementById('tResp');
+  var coach=document.getElementById('coachBox'), stages=[].slice.call(document.querySelectorAll('#stages li'));
+  var track=document.getElementById('track'), fill=document.getElementById('fill'), stList=document.getElementById('stages');
+  var STICK=0, RUNWAY=reduce?0:900, lens=[], exitLen=0, ticking=false;
+  function clamp(x){return Math.max(0,Math.min(1,x))}
+  function dash(p,len,f){p.style.strokeDasharray=len+' '+len;p.style.strokeDashoffset=len*(1-f)}
+
+  function build(){
+    lens=arcs.map(function(a){return a.getTotalLength()}); exitLen=exitLit.getTotalLength();
+    if(!reduce){ pin.style.position='sticky';
+      STICK=72-cw.offsetTop+Math.max(0,(innerHeight-72-cw.offsetHeight)/2-10);
+      pin.style.position='sticky'; pin.style.top=Math.min(72,STICK)+'px';
+      STICK=Math.min(72,STICK);
+      document.getElementById('runway').style.height=RUNWAY+'px';
+    }
+    var first=stages[0].querySelector('.num').getBoundingClientRect(), last=stages[stages.length-1].querySelector('.num').getBoundingClientRect(), L=stList.getBoundingClientRect();
+    var top=first.top-L.top+first.height/2, bot=last.top-L.top+last.height/2;
+    track.style.top=top+'px'; track.style.height=(bot-top)+'px'; fill.style.top=top+'px';
+    update();
+  }
+
+  function update(){
+    ticking=false;
+    var h=innerHeight, w=hold.getBoundingClientRect().top;
+    /* beats 1-2 run while the pinned block is held: wrapper top from STICK down to STICK-RUNWAY */
+    var cwBottom=cw.offsetTop+cw.offsetHeight;
+    var start=h*.95-cwBottom;                       /* cycle fully on screen */
+    var p=reduce?1:clamp((start-w)/(start-(STICK-RUNWAY)));
+    var p1=clamp(p/.62), p2=clamp((p-.66)/.3);
+    /* beat 1: 9 steps: Stress, arc, Reaction, arc, Conflict, arc, Distance, arc, Stress */
+    var steps=p1*9, lit=p2<=0;
+    labels.forEach(function(t,i){t.classList.toggle('on',lit&&steps>=i*2+0.01)});
+    arcs.forEach(function(a,i){dash(a,lens[i],lit?clamp(steps-(i*2+1)):0);a.style.opacity=lit?1:Math.max(0,1-p2*4)});
+    heads.forEach(function(hd,i){hd.classList.toggle('on',lit&&steps>=i*2+2)});
+    if(lit&&steps>=8.99) tStress.classList.add('on');
+    /* beat 2 */
+    ring.style.transform='scale('+(1-.16*clamp(p2*1.6))+')';
+    dash(exitLit,exitLen,clamp((p2-.18)/.62));
+    var out=p2>=.8;
+    tResp.classList.toggle('on',out); exitHead.classList.toggle('on',out);
+    /* beat 3: coach box swells around mid-screen */
+    var cb=coach.getBoundingClientRect(), cy=(cb.top+cb.bottom)/2;
+    var up=clamp((h*.86-cy)/(h*.28)), down=clamp((h*.5-cy)/(h*.26)), s=reduce?0:up*(1-down);
+    coach.style.transform='scale('+(1+.06*s)+')';
+    coach.style.boxShadow='0 '+(18*s)+'px '+(44*s)+'px -18px rgba(150,104,30,'+(0.55*s)+'), inset 0 0 0 '+(1.5*s)+'px rgba(197,142,42,'+(.55*s)+')';
+    /* beat 4: stages */
+    var anchor=h*.58, now=-1;
+    stages.forEach(function(li,i){var r=li.querySelector('.num').getBoundingClientRect(); if(reduce||r.top+r.height/2<=anchor) now=i});
+    stages.forEach(function(li,i){li.classList.toggle('now',i===now);li.classList.toggle('past',now>i)});
+    var tb=track.getBoundingClientRect(), f=reduce?1:clamp((anchor-tb.top)/tb.height);
+    fill.style.height=(f*tb.height)+'px';
+  }
+  function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(update)}}
+  addEventListener('scroll',onScroll,{passive:true});
+  addEventListener('resize',build); addEventListener('load',build);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(build);
+  build();
+})();
+</script>
+</body>
+</html>
