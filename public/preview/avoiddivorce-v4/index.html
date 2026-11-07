@@ -262,14 +262,12 @@ details[open] summary svg{transform:rotate(180deg)}
 .answer{padding-bottom:22px;color:var(--body);max-width:42em}
 
 /* Final: conversation + form, over the mountains */
-.final{position:relative;overflow:hidden;padding-bottom:clamp(120px,14vw,190px)}
+.final{position:relative;overflow:hidden;padding-bottom:clamp(170px,22vw,320px);background:linear-gradient(to bottom,var(--night) 0,rgba(17,17,17,0) 38%) no-repeat,var(--night) url(assets/horizon.webp) center bottom var(--sheet)/cover no-repeat}
+@media(max-width:700px){.final{background:linear-gradient(to bottom,var(--night) 0,rgba(17,17,17,0) 45%) no-repeat,var(--night) url(assets/horizon-m.webp) center bottom var(--sheet)/100% auto no-repeat}}
 .final .wrap{position:relative;z-index:1}
 .final .intro{color:var(--on-night-2);margin-top:16px;max-width:34em}
 .final-grid{display:grid;gap:clamp(28px,4vw,64px)}
 @media(min-width:960px){.final-grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:start}}
-.mountains{position:absolute;inset:auto 0 0 0;height:min(48vw,420px);pointer-events:none}
-.mountains svg{position:absolute;bottom:0;width:100%;height:100%}
-.glow{position:absolute;left:50%;bottom:-28%;width:150%;height:90%;transform:translateX(-50%);background:radial-gradient(50% 50% at 50% 50%,rgba(214,128,45,.55),rgba(214,128,45,.12) 55%,transparent 75%)}
 .card{background:#fbf8f3;color:var(--ink);border-radius:16px;padding:clamp(22px,3.4vw,38px);box-shadow:0 40px 80px -40px rgba(0,0,0,.95)}
 .card h3{font:700 clamp(1.3rem,2.2vw,1.6rem)/1.25 var(--serif)}
 .card .lede{color:var(--body);font-size:.96em;margin:8px 0 20px}
@@ -570,14 +568,6 @@ footer .small a{font-weight:700;color:var(--on-night);text-underline-offset:3px}
 </section>
 
 <section class="final dark" id="apply">
-  <div class="mountains" aria-hidden="true">
-    <div class="glow"></div>
-    <svg viewBox="0 0 1440 420" preserveAspectRatio="none">
-      <path d="M0 300 L120 248 L210 276 L330 214 L430 262 L560 202 L690 258 L800 222 L930 270 L1060 210 L1180 252 L1300 226 L1440 262 V420 H0 Z" fill="#26231f" opacity=".85"/>
-      <path d="M0 340 L90 310 L200 330 L320 288 L460 330 L590 296 L720 336 L860 300 L990 338 L1120 298 L1260 330 L1440 306 V420 H0 Z" fill="#1a1917"/>
-      <path d="M0 380 L140 360 L300 376 L470 352 L640 378 L820 356 L1000 380 L1180 358 L1340 374 L1440 362 V420 H0 Z" fill="#111110"/>
-    </svg>
-  </div>
   <div class="wrap final-grid">
     <div>
       <span class="eyebrow">Ready to take the first step?</span>
