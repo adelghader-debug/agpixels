@@ -57,9 +57,9 @@ h2{font:700 clamp(1.95rem,4.6vw,3.05rem)/1.16 var(--serif);letter-spacing:-.012e
 .center{text-align:center}.center .rule{margin-inline:auto}
 
 /* Backgrounds, drawn instead of shipped as images */
-.dark{background:var(--night) url(assets/clouds-a.webp) center/cover no-repeat;color:var(--on-night)}
-.dark.alt{background-image:url(assets/clouds-b.webp)}
-@media(max-width:700px){.dark{background-image:url(assets/clouds-a-m.webp)}.dark.alt{background-image:url(assets/clouds-b-m.webp)}}
+.dark{background-color:var(--night);background-image:url(assets/haze-tr.webp),url(assets/haze-bl.webp);background-position:right top,left bottom;background-size:min(86vw,1400px) auto,min(46vw,800px) auto;background-repeat:no-repeat;background-blend-mode:screen;color:var(--on-night)}
+.dark.alt{background-image:url(assets/haze-tl.webp),url(assets/haze-br.webp);background-position:left top,right bottom}
+@media(max-width:700px){.dark{background-image:url(assets/haze-tr-m.webp),url(assets/haze-bl-m.webp);background-size:110% auto,80% auto}.dark.alt{background-image:url(assets/haze-tl-m.webp),url(assets/haze-br-m.webp)}}
 .dark .eyebrow{color:var(--gold)}.dark .rule{background:var(--gold-line)}
 .light{background:
   radial-gradient(70% 50% at 10% 0%,var(--ivory-2),transparent 70%),
@@ -262,7 +262,7 @@ details[open] summary svg{transform:rotate(180deg)}
 .answer{padding-bottom:22px;color:var(--body);max-width:42em}
 
 /* Final: conversation + form, over the mountains */
-.final{position:relative;overflow:hidden;padding-bottom:clamp(170px,22vw,320px);background:linear-gradient(to bottom,var(--night) 0,rgba(17,17,17,0) 38%) no-repeat,var(--night) url(assets/horizon.webp) center bottom var(--sheet)/cover no-repeat}
+.final{position:relative;overflow:hidden;background-blend-mode:normal!important;padding-bottom:clamp(170px,22vw,320px);background:linear-gradient(to bottom,var(--night) 0,rgba(17,17,17,0) 38%) no-repeat,var(--night) url(assets/horizon.webp) center bottom var(--sheet)/cover no-repeat}
 @media(max-width:700px){.final{background:linear-gradient(to bottom,var(--night) 0,rgba(17,17,17,0) 45%) no-repeat,var(--night) url(assets/horizon-m.webp) center bottom var(--sheet)/100% auto no-repeat}}
 .final .wrap{position:relative;z-index:1}
 .final .intro{color:var(--on-night-2);margin-top:16px;max-width:34em}
