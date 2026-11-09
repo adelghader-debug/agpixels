@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Klinika UI review, before and after</title>
+<style>
+:root { --pink:#BF539E; --purple:#774D9D; --ink:#2F2838; --text:#4E4757; --muted:#8A8493; --line:#ECE7F1; --bg:#F6F4F9; --green:#2E9E6A; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:16px/1.55 "Segoe UI", Inter, system-ui, sans-serif; }
+.wrap { max-width:1180px; margin:0 auto; padding:40px 24px 80px; }
+header.top { background:linear-gradient(115deg,#6F4797,#BF539E); color:#fff; }
+header.top .wrap { padding:48px 24px 40px; }
+header.top .kicker { font-size:13px; letter-spacing:.08em; text-transform:uppercase; opacity:.85; }
+header.top h1 { font-size:38px; line-height:1.15; margin:8px 0 10px; }
+header.top p { max-width:760px; margin:0; opacity:.95; }
+nav.toc { display:flex; flex-wrap:wrap; gap:8px; margin:20px 0 0; }
+nav.toc a { color:#fff; background:rgba(255,255,255,.16); padding:6px 12px; border-radius:99px; text-decoration:none; font-size:14px; }
+h2 { font-size:26px; color:var(--ink); margin:56px 0 6px; }
+h2 + .lead { margin:0 0 20px; color:var(--muted); max-width:820px; }
+.summary { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-top:22px; }
+.summary div { background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px; }
+.summary b { color:var(--ink); display:block; margin-bottom:4px; }
+.item { background:#fff; border:1px solid var(--line); border-radius:18px; padding:22px; margin:16px 0; box-shadow:0 6px 18px rgba(66,57,77,.04); break-inside:avoid; page-break-inside:avoid; }
+.itemhead { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+.itemhead h3 { margin:0; font-size:21px; color:var(--ink); }
+.num { width:32px; height:32px; border-radius:10px; background:var(--purple); color:#fff; display:grid; place-items:center; font-weight:700; font-size:15px; flex:none; }
+.num.ok { background:var(--green); }
+.cols { display:grid; grid-template-columns:300px 1fr; gap:24px; align-items:start; }
+.item.wide .cols { grid-template-columns:1fr; }
+.text h4 { margin:0 0 6px; font-size:13px; text-transform:uppercase; letter-spacing:.06em; }
+.text h4.t { color:#B0485E; } .text h4.p { color:var(--green); margin-top:16px; }
+.text ul { margin:0; padding-left:18px; } .text li { margin:4px 0; }
+.shots { display:flex; gap:16px; justify-content:flex-start; flex-wrap:wrap; }
+.shot { margin:0; width:232px; }
+.item.wide .shot { width:calc(50% - 8px); }
+.shot img { width:100%; border-radius:14px; border:1px solid var(--line); display:block; box-shadow:0 8px 22px rgba(66,57,77,.10); }
+.shot figcaption { font-size:13px; font-weight:700; margin-bottom:6px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; }
+.shot.after figcaption { color:var(--green); }
+.shot.empty .none { height:120px; border:1px dashed var(--line); border-radius:14px; display:grid; place-items:center; color:var(--muted); }
+.done .text p { margin:0; }
+table { width:100%; border-collapse:collapse; background:#fff; border-radius:14px; overflow:hidden; border:1px solid var(--line); }
+th, td { text-align:left; padding:10px 14px; border-bottom:1px solid var(--line); vertical-align:top; }
+th { background:#F3EFF7; color:var(--ink); font-size:14px; }
+td.box { width:84px; text-align:center; }
+td.box::before { content:""; display:inline-block; width:18px; height:18px; border:2px solid #CFC7D9; border-radius:5px; }
+.tokens { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; }
+.tok { background:#fff; border:1px solid var(--line); border-radius:14px; padding:12px; }
+.sw { height:44px; border-radius:10px; margin-bottom:8px; }
+.note { color:var(--muted); font-size:14px; }
+footer { color:var(--muted); font-size:13px; margin-top:48px; }
+@media (max-width:820px) { .cols { grid-template-columns:1fr; } .shot { width:calc(50% - 8px); } header.top h1 { font-size:28px; } }
+@media print { header.top { -webkit-print-color-adjust:exact; print-color-adjust:exact; } .item { box-shadow:none; } nav.toc { display:none; } .shot { width:200px; } }
+</style></head><body>
+<header class="top"><div class="wrap">
+  <div class="kicker">Klinika · prepared by AGPixels · 9 November 2026</div>
+  <h1>Patient app and website: proposed improvements, before and after</h1>
+  <p>Every "before" is today's app or website running on the Klinika test server with test clinics, test doctors and a test patient. Every "after" is the proposed design using the same data. Please mark each item in the approval table at the end.</p>
+  <nav class="toc"><a href="#summary">Summary</a><a href="#done">Already fixed</a><a href="#app">Patient app</a><a href="#web">Website</a><a href="#bugs">Problems found</a><a href="#system">Design rules</a><a href="#server">Server changes</a><a href="#approval">Approval</a></nav>
+</div></header>
+<div class="wrap">
+
+<h2 id="summary">What changes, in short</h2>
+<div class="summary">
+ <div><b>Show what patients need to decide</b>Every doctor and clinic card shows the title, specialty, clinic, rating with its number of reviews, the next free time and the price.</div>
+ <div><b>Clear booking steps</b>Reason, date and time, review and pay, with a step bar. The booking is made only when the patient confirms and pays.</div>
+ <div><b>Wallet in the app</b>Patients can pay with their Klinika wallet in the app, as they already can on the website.</div>
+ <div><b>One status on every visit</b>Each visit says if it is confirmed, unpaid or waiting for the patient, with the one action that fits.</div>
+ <div><b>One calm design for app and website</b>One set of colours, type sizes, spacing, cards and buttons, used the same way on every screen.</div>
+</div>
+
+<h2 id="done">Already fixed in version 1.6.1</h2>
+<p class="lead">These are built, tested and part of the Android update being released now.</p>
+
+<section class="item done">
+  <div class="itemhead"><span class="num ok">&#10003;</span><h3>Buttons hidden on newer Android phones</h3></div>
+  <div class="cols"><div class="text"><p>On Android 15 and later, phones with back, home and recent buttons hid Proceed and other bottom buttons. Pages now stop above that bar.</p></div><div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/done_buttons-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After, in 1.6.1</figcaption><img src="img/done_buttons-after.jpg" alt="After, in 1.6.1" loading="lazy"></figure></div></div>
+</section>
+<section class="item done">
+  <div class="itemhead"><span class="num ok">&#10003;</span><h3>Profile menu</h3></div>
+  <div class="cols"><div class="text"><p>Rows now share one icon size and margin, and show an arrow. The list no longer scrolls under the clock.</p></div><div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/done_profile-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After, in 1.6.1</figcaption><img src="img/done_profile-after.jpg" alt="After, in 1.6.1" loading="lazy"></figure></div></div>
+</section>
+<section class="item done">
+  <div class="itemhead"><span class="num ok">&#10003;</span><h3>Empty pages</h3></div>
+  <div class="cols"><div class="text"><p>&quot;No items found&quot; and blank pages are replaced with clear messages in English and Arabic.</p></div><div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/done_empty-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After, in 1.6.1</figcaption><img src="img/done_empty-after.jpg" alt="After, in 1.6.1" loading="lazy"></figure></div></div>
+</section>
+
+<h2 id="app">Patient app</h2>
+<p class="lead">In the order a patient meets them: home, finding a doctor, booking, visits, offers, laboratory and nursing.</p>
+
+<section class="item" id="home">
+  <div class="itemhead"><span class="num">1</span><h3>Home</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>Heavy purple page with a large logo and empty space at the top.</li><li>Your next visit is not shown, so patients open Visits to check it.</li><li>Offers sit at the very bottom.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>Calm white page that greets the patient by name.</li><li>Your next visit at the top, with its time and what happens next.</li><li>Services as clear tiles with one line each: video call, at the clinic, at home.</li><li>Instant consultation and offers below, smaller.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/home-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/home-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item" id="specialities">
+  <div class="itemhead"><span class="num">2</span><h3>Specialties</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>A grid of icons and names only.</li><li>No sign of how many doctors each specialty has.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>Two columns with the number of doctors under each specialty.</li><li>Search also finds specialties by symptom.</li><li>Needs a small server change: the server counts the doctors but does not send the number to the app.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/specialities-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/specialities-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item" id="doctors">
+  <div class="itemhead"><span class="num">3</span><h3>Doctor list</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>Name, one specialty label, price and a star only.</li><li>No title, clinic, number of reviews or free time.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>Title and specialty, clinic, rating with its number of reviews, a Licensed mark.</li><li>Next free time and the price per visit at the bottom of each card.</li><li>Already built in the app and running on the test server: this is a real screenshot.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/doctors-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/doctors-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item" id="clinics">
+  <div class="itemhead"><span class="num">4</span><h3>Clinic list</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>Clinic name, district and rating only.</li><li>Patients cannot see which services the clinic offers or what it costs.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>Address, rating with reviews and how many doctors of this specialty work there.</li><li>Services offered (clinic, video, home) as small labels.</li><li>Next free time and the lowest price.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/clinics-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/clinics-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item" id="reason">
+  <div class="itemhead"><span class="num">5</span><h3>Visit reason</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>Long instruction in large type.</li><li>Recording and attaching look like the main actions.</li><li>No sign of which doctor is being booked or how many steps are left.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>The chosen doctor at the top and a three step bar: reason, date and time, review and pay.</li><li>A short question with a hint below it.</li><li>Voice note and files as secondary buttons.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/reason-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/reason-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item" id="datetime">
+  <div class="itemhead"><span class="num">6</span><h3>Date and time</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>Strong purple and pink blocks, small day boxes.</li><li>&quot;This doctor available in few clinics&quot; shows even with one clinic.</li><li>Days off look like normal days until tapped.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>Each day shows how many free times it has, and days off say so.</li><li>Times grouped into afternoon and evening.</li><li>The chosen time and price stay visible above the Continue button.</li><li>Times are marked as Saudi time.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/datetime-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/datetime-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item" id="review">
+  <div class="itemhead"><span class="num">7</span><h3>Review and pay</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>The booking is created when the patient taps Book now, before this page.</li><li>Long list of labels: the specialty shown twice, zero fees and zero VAT listed.</li><li>Card is the only payment method in the app, even with money in the wallet.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>One clear summary: who, when, where.</li><li>Only the price lines that apply, then the total.</li><li>Pay with the Klinika wallet or a card. The wallet shows its balance.</li><li>The clinic&#x27;s cancellation rule in one line.</li><li>The booking is created only when the patient taps Confirm and pay.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/review-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot before"><figcaption>Today, lower on the same page</figcaption><img src="img/review2-before.jpg" alt="Today, lower on the same page" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/review-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item" id="confirmed">
+  <div class="itemhead"><span class="num">8</span><h3>Booking confirmed</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>Not shown here: it only appears after a real paid booking, which this review did not make.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>A clear confirmation with the visit details, how it was paid and the booking number.</li><li>Add to calendar and Directions buttons.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot empty"><figcaption>Before</figcaption><div class="none">New screen</div></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/confirmed-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item" id="visits">
+  <div class="itemhead"><span class="num">9</span><h3>My visits</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>Large cards with a lot of empty space.</li><li>The countdown box and arrow are hard to understand.</li><li>Unpaid, confirmed and waiting visits look alike.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>A status label on each visit: confirmed, waiting for your reply, unpaid.</li><li>Date and time on the right, where the eye looks first.</li><li>One action per visit that fits its status: accept a new time, open the call, get directions.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/visits-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/visits-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item" id="visitdetail">
+  <div class="itemhead"><span class="num">10</span><h3>Visit details</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>Long list of labels and values.</li><li>Test names cut off.</li><li>Status shown at the bottom.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>Status, date and time at the top in large type.</li><li>Each test with its price, and what was paid.</li><li>The cancellation deadline in plain words.</li><li>Reschedule and Cancel always at the bottom.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/visitdetail-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/visitdetail-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item" id="report">
+  <div class="itemhead"><span class="num">11</span><h3>Visit report</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>Four large headings even when the doctor wrote nothing.</li><li>&quot;The doctor did not add the notes&quot; repeated.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>Only the sections the doctor filled in.</li><li>Notes, recommendations and prescriptions in calm cards.</li><li>Book follow-up and Download PDF at the bottom.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/report-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/report-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item" id="offers">
+  <div class="itemhead"><span class="num">12</span><h3>Offers</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>The green bar does not explain itself.</li><li>No clinic or doctor on the card.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>Clinic and doctor on each offer.</li><li>The saving as a label on the photo, and &quot;Ends in 60 days&quot; in words.</li><li>Category chips to filter quickly.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/offers-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/offers-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item" id="offerdetail">
+  <div class="itemhead"><span class="num">13</span><h3>Offer details</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>Specialty and clinic as a plain list.</li><li>The price only on the next screen.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>Photo, saving and end date at the top.</li><li>The doctor and the clinic as cards.</li><li>Price and next free time next to the Book offer button.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/offerdetail-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/offerdetail-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item" id="lab">
+  <div class="itemhead"><span class="num">14</span><h3>Laboratory</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>Home or lab is chosen in a pop-up before this page.</li><li>Categories as grey rows with no counts or prices.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>Home or lab as a switch on the page.</li><li>Popular packages first, with the number of tests and the starting price.</li><li>Categories with the number of tests and the lowest price.</li><li>A bar at the bottom shows what is selected and the total.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/lab-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot before"><figcaption>Today, the pop-up before it</figcaption><img src="img/labchoice-before.jpg" alt="Today, the pop-up before it" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/lab-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item" id="nursing">
+  <div class="itemhead"><span class="num">15</span><h3>Nursing</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>Tasks as large rows with round buttons.</li><li>No prices until later.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>Each service with a short description and its starting price.</li><li>Clear tick boxes, with the selected count and total at the bottom.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/nursing-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/nursing-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item" id="address">
+  <div class="itemhead"><span class="num">16</span><h3>Address for home visits</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>The address shows as a map code, for example &quot;Riyadh RJGQ+RWC&quot;.</li><li>No place for the floor, apartment or a note for the provider.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>The street and district in words.</li><li>Floor, apartment and a note for the provider.</li><li>Search a street, or use the current location.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/address-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/address-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+
+<h2 id="web">Patient website</h2>
+<p class="lead">The website uses the same cards and wording as the app, so patients see one product.</p>
+
+<section class="item" id="webphone">
+  <div class="itemhead"><span class="num">17</span><h3>Website doctor list on a phone</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>Purple header with filters, cards like the old app card.</li><li>Title written before the name, no number of reviews.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>The same doctor card as the app, so both feel like one product.</li><li>Visit type switch and sort chips: soonest, lowest price, top rated.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/webphone-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/webphone-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+<section class="item wide" id="webdesk">
+  <div class="itemhead"><span class="num">18</span><h3>Website doctor list on a computer</h3></div>
+  <div class="cols">
+    <div class="text">
+      <h4 class="t">Today</h4><ul class="today"><li>A large header fills the first screen. The doctors start below it.</li></ul>
+      <h4 class="p">Proposed</h4><ul class="prop"><li>Doctors visible at once, two per row, with filters on the left.</li><li>The same card and information as the app.</li></ul>
+    </div>
+    <div class="shots"><figure class="shot before"><figcaption>Before</figcaption><img src="img/webdesk-before.jpg" alt="Before" loading="lazy"></figure><figure class="shot after"><figcaption>After</figcaption><img src="img/webdesk-after.jpg" alt="After" loading="lazy"></figure></div>
+  </div>
+</section>
+
+<h2 id="bugs">Problems found during the review</h2>
+<p class="lead">Found while walking every journey with test data. Each will be fixed with the screen it belongs to.</p>
+<table><tr><th style="width:30%">Problem</th><th>What happens</th></tr><tr><td>Calendar never loads for some doctors</td><td>When a doctor&#x27;s hours are not saved for all seven days, the date page shows a spinner forever. 25 doctor and service combinations on the test server have this.</td></tr><tr><td>Booking is made before the review</td><td>Tapping Book now on the date page already creates the booking, unpaid, before the patient sees the price summary.</td></tr><tr><td>No wallet payment in the app</td><td>The wallet can only be used on the website. The app offers card payment only.</td></tr><tr><td>Next free time a day early abroad</td><td>For a phone outside Saudi time, the server returns the next free day one day early.</td></tr><tr><td>Address shown as a map code</td><td>Home visit addresses show as a code such as &quot;Riyadh RJGQ+RWC&quot; instead of a street.</td></tr><tr><td>Wrong text with one clinic</td><td>&quot;This doctor available in few clinics&quot; shows when the doctor works at one clinic.</td></tr><tr><td>Repeated and empty lines</td><td>The booking summary lists the specialty twice and shows fees and VAT of 0 SAR.</td></tr></table>
+
+<h2 id="system">Design rules behind the "after" screens</h2>
+<p class="lead">One set of rules for the app, the website and later the staff dashboards. Today the app alone uses 55 different colours typed directly into screens, and the dashboard uses a different pink from the app.</p>
+<div class="tokens">
+ <div class="tok"><div class="sw" style="background:#BF539E"></div><b>Pink</b><div class="note">Buttons and actions only</div></div>
+ <div class="tok"><div class="sw" style="background:#774D9D"></div><b>Purple</b><div class="note">Brand accents, titles, next free time</div></div>
+ <div class="tok"><div class="sw" style="background:#2F2838"></div><b>Ink</b><div class="note">Headings and key text</div></div>
+ <div class="tok"><div class="sw" style="background:#F6F4F9;border:1px solid #ECE7F1"></div><b>Background</b><div class="note">Pages; cards are white</div></div>
+ <div class="tok"><div class="sw" style="background:#2E9E6A"></div><b>Green</b><div class="note">Confirmed, paid, licensed</div></div>
+ <div class="tok"><div class="sw" style="background:#C98512"></div><b>Amber</b><div class="note">Waiting for the patient</div></div>
+ <div class="tok"><div class="sw" style="background:#C8475F"></div><b>Red</b><div class="note">Cancelled, failed, cancel buttons</div></div>
+</div>
+<ul>
+ <li>Type: the app's own Bahij font, in four sizes (titles 18 to 22, names 16, body 14, small 12).</li>
+ <li>Spacing: 16 on every page edge, 12 between cards, 14 inside cards.</li>
+ <li>Cards: white, rounded 16, a thin line and a soft shadow. Prices and next free time in a shaded footer.</li>
+ <li>Buttons: one pink button per screen for the main action; other actions as outlined buttons.</li>
+ <li>Every list has a clear message when empty, and every button that saves something shows that it is working.</li>
+ <li>Arabic is laid out right to left with the same rules, and numbers stay in Latin digits.</li>
+</ul>
+
+<h2 id="server">Small server changes needed</h2>
+<p class="lead">Most of the work is in the app and website. These need small additions on the server, using data it already holds:</p>
+<ul><li>Specialty list: send the number of doctors (the server already counts them).</li><li>Clinic list: send the services offered, the lowest price and the next free time.</li><li>Laboratory: send the number of tests and the lowest price per category.</li><li>Home visits: turn the map point into a street address.</li><li>Next free time: fix the date for phones outside Saudi time.</li></ul>
+
+<h2 id="approval">Approval</h2>
+<p class="lead">Tick one box per item, and add a note where you want something changed. Staff dashboards follow in the next document.</p>
+<table><tr><th>#</th><th>Screen</th><th>Approve</th><th>With changes</th><th>Not now</th><th>Notes</th></tr><tr><td>1</td><td>Home</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>2</td><td>Specialties</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>3</td><td>Doctor list</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>4</td><td>Clinic list</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>5</td><td>Visit reason</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>6</td><td>Date and time</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>7</td><td>Review and pay</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>8</td><td>Booking confirmed</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>9</td><td>My visits</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>10</td><td>Visit details</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>11</td><td>Visit report</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>12</td><td>Offers</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>13</td><td>Offer details</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>14</td><td>Laboratory</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>15</td><td>Nursing</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>16</td><td>Address for home visits</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>17</td><td>Website doctor list on a phone</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr><tr><td>18</td><td>Website doctor list on a computer</td><td class='box'></td><td class='box'></td><td class='box'></td><td></td></tr></table>
+
+<footer>Prepared by AGPixels for Klinika. Screens use test data only: no real patients, doctors or clinics appear in this document.</footer>
+</div></body></html>
