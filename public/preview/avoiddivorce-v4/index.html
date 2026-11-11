@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>avoiddivorce.com | Coaching for Men in Marital Crisis</title>
-<meta name="description" content="One-on-one coaching for men in marital crisis. Relationship turnarounds are possible, even after affairs, deep betrayal, or divorce papers have been filed.">
+<meta name="description" content="One-on-one coaching for men in marital crisis. Relationship turnarounds are possible, even after affairs, deep betrayal or divorce papers have been filed.">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#111111">
 <link rel="preload" href="assets/Montserrat.woff2" as="font" type="font/woff2" crossorigin>
@@ -273,10 +273,22 @@ details[open] summary svg{transform:rotate(180deg)}
 .card .lede{color:var(--body);font-size:.96em;margin:8px 0 20px}
 form{display:grid;gap:16px}
 label{display:block;font-weight:700;font-size:.9rem;margin-bottom:6px;color:var(--ink)}
-input,textarea{width:100%;min-height:50px;padding:12px 14px;border:1.5px solid #d6ccbe;border-radius:8px;background:#fff;color:var(--ink);font:400 1rem/1.4 var(--sans);caret-color:var(--bronze-strong);transition:border-color .2s}
-input:hover,textarea:hover{border-color:#b9ab97}
+input:not([type=radio]):not([type=checkbox]),textarea{width:100%;min-height:50px;padding:12px 14px;border:1.5px solid #d6ccbe;border-radius:8px;background:#fff;color:var(--ink);font:400 1rem/1.4 var(--sans);caret-color:var(--bronze-strong);transition:border-color .2s}
+input:not([type=radio]):not([type=checkbox]):hover,textarea:hover{border-color:#b9ab97}
 textarea{min-height:120px;resize:vertical}
 ::placeholder{color:#7a746b;font-style:italic}
+.choice{border:0;margin:0;padding:0;min-width:0;display:grid;gap:8px}
+.choice legend{float:left;width:100%;padding:0;margin-bottom:6px;font-weight:700;font-size:.9rem;line-height:1.4;color:var(--ink)}
+.choice .hint{margin:-4px 0 4px;font-style:italic;font-size:.86rem;color:var(--body)}
+.opt{display:flex;align-items:center;gap:12px;min-height:48px;margin:0;padding:10px 14px;border:1.5px solid #d6ccbe;border-radius:8px;background:#fff;font-weight:500;font-size:.95rem;cursor:pointer;transition:border-color .2s,background-color .2s}
+.opt:hover{border-color:#b9ab97}
+.opt input,.consent input{flex:none;width:20px;height:20px;margin:0;accent-color:#865a1a;cursor:pointer}
+.opt:has(input:checked){border-color:#a5762a;background:#fbf3e6}
+.opt:has(input:focus-visible),.consent:has(input:focus-visible){outline:2px solid #a5762a;outline-offset:2px}
+.consent{display:flex;align-items:flex-start;gap:12px;margin:2px 0 0;font-weight:500;font-size:.88rem;line-height:1.5;color:var(--ink);cursor:pointer}
+.consent input{margin-top:2px}
+.consent a{color:#865a1a;font-weight:700;text-decoration:underline;text-underline-offset:2px}
+.fine{margin:0;font-size:.8rem;color:var(--body)}
 .apply{width:100%;min-height:58px;border:0;border-radius:999px;background:linear-gradient(180deg,#a5762a,#865a1a);color:#fff;font:700 1.08rem/1 var(--sans);display:inline-flex;align-items:center;justify-content:center;gap:12px;cursor:pointer;box-shadow:0 14px 26px -14px rgba(120,84,25,.9);transition:filter .2s,transform .35s var(--ease)}
 .apply svg{width:20px;height:20px}
 .apply:hover{filter:brightness(1.08);transform:translateY(-2px)}
@@ -326,8 +338,8 @@ footer .small a{font-weight:700;color:var(--on-night);text-underline-offset:3px}
       <span class="rule"></span>
       <h1>It’s Not Too Late to <span class="accent">Save Your Marriage</span></h1>
       <div class="hero-text flow" style="margin-top:22px">
-        <p>Relationship turnarounds are possible, even after affairs, deep betrayal, or divorce papers have been filed.</p>
-        <p>With the right mindset, direction, and support, this crisis can become a turning point.</p>
+        <p>Relationship turnarounds are possible, even after affairs, deep betrayal or divorce papers have been filed.</p>
+        <p>With the right mindset, direction and support, this crisis can become a turning point.</p>
       </div>
     </div>
     <div class="hero-player">
@@ -359,10 +371,10 @@ footer .small a{font-weight:700;color:var(--on-night);text-underline-offset:3px}
         <li>You are walking on eggshells in your own home.</li>
         <li>You abandoned your own goals trying to keep her happy.</li>
         <li>Every serious conversation seems to make things worse.</li>
-        <li>You fear she has started talking to lawyers, or someone else.</li>
+        <li>You fear she has started talking to lawyers or someone else.</li>
         <li>You feel more stuck and alone than ever, unsure what to do next.</li>
       </ul>
-      <p class="para">Maybe you have apologized, given her space, talked things through, read books, listened to podcasts, or even gone to counselling, yet nothing seems to change.</p>
+      <p class="para">Maybe you have apologized, given her space, talked things through, read books, listened to podcasts or even gone to counselling, yet nothing seems to change.</p>
       <p class="callout">You may not be lacking effort.<br>You may simply be using the <b>wrong approach.</b></p>
     </div>
   </div>
@@ -374,12 +386,12 @@ footer .small a{font-weight:700;color:var(--on-night);text-underline-offset:3px}
       <span class="eyebrow">Why coaching</span>
       <span class="rule"></span>
       <h2>Apologies and good intentions are rarely enough for things to change.</h2>
-      <p class="lead">Coaching helps you understand what is going wrong, develop better relationship skills, and take consistent action.</p>
+      <p class="lead">Coaching helps you understand what is going wrong, develop better relationship skills and take consistent action.</p>
     </div>
     <ol class="pillars">
       <li><span class="ic"><svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M264.08-173.85q-23.31 0-38.39-14.3-15.07-14.31-15.07-37.24 0-16.07 8.23-29.88 8.23-13.81 23.3-19.65l173.54-68.77v-154.93q-71.38 86.77-134.38 126.43-63 39.65-148.23 43.88v-45.77q64.54-1.92 119.38-32.84 54.85-30.93 99.85-86.77l57.23-63.85q8.46-10.84 20.81-17.88 12.34-7.04 26.8-7.04h45.7q14.46 0 27.11 7.04 12.65 7.04 21.5 17.88l56.85 63.85q47.23 54.23 100.65 85.96 53.42 31.73 117.96 33.65v45.77q-84.61-4.23-147.92-43.88-63.31-39.66-134.69-126.43v154.93l173.54 68.77q15.07 5.84 23.3 19.65 8.23 13.81 8.23 29.88 0 22.93-15.07 37.24-15.08 14.3-38.39 14.3H397.15v-6.38q0-24.85 14.47-39.5 14.46-14.66 39.3-14.66h134.16q8.38 0 14.19-5.8 5.81-5.81 5.81-14.2 0-8.38-5.81-14.19-5.81-5.81-14.19-5.81H450.92q-42.07 0-67.3 25.85-25.24 25.85-25.24 68.31v6.38h-94.3Zm167.3-491.07q-20.15-20.16-20.15-48.62 0-28.46 20.15-48.61 20.16-20.16 48.62-20.16 28.46 0 48.62 20.16 20.15 20.15 20.15 48.61t-20.15 48.62q-20.16 20.15-48.62 20.15-28.46 0-48.62-20.15Z"/></svg></span><span class="bar"></span><div><span class="n">01</span><h3>Regain a sense of control</h3><p>You can’t control your partner’s decisions, but you can change how you show up for your partner.</p></div></li>
-      <li><span class="ic"><svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M260-100v-161.23q-57-52-88.5-119.19-31.5-67.2-31.5-139.96 0-141.54 99.23-240.58Q338.46-860 480-860q116.54 0 208.42 69.66 91.89 69.65 119.35 180.73l48.84 194.15q3.62 13.61-4.8 24.54Q843.38-380 828.77-380H740v142.31q0 23.59-17.05 40.64T682.31-180H580v80h-45.39v-125.39h147.7q5.38 0 8.84-3.46t3.46-8.84v-187.7h112.47L764-598.85q-23.62-95.84-103.46-155.8-79.85-59.96-180.54-59.96-122.77 0-208.69 85.12t-85.92 207.41q0 63.65 25.93 120.28 25.94 56.63 73.14 100.57l20.93 19.92V-100H260Zm236.23-357.31Zm-40.69 78.69h47.69l2.23-39q14.69-2.38 27.9-9.98 13.21-7.6 22.72-18.4l36.23 14 22.61-38.38-27.31-21.7q6.16-16.43 6.16-33.87 0-17.43-6.16-33.74l27.31-21.69-22.61-38.39-36.23 14q-9.87-10.38-23.21-17.69-13.33-7.31-27.41-10.31l-2.23-39.38h-47.69l-2.23 39.38q-14.46 3-27.8 10.31-13.33 7.31-23.2 17.69l-36.23-14-22.23 38.39 27.3 21.69q-6.53 16.43-6.53 33.87 0 17.44 6.53 33.74l-27.3 21.7L366.08-432l36.23-14q9.51 10.8 22.71 18.4 13.21 7.6 28.29 9.98l2.23 39Zm-29.12-94.24q-21.65-21.79-21.65-52.96 0-31.18 21.54-52.83 21.53-21.66 52.71-21.66 31.17 0 53.08 21.54 21.9 21.53 21.9 52.71t-21.78 53.08q-21.79 21.9-52.97 21.9-31.17 0-52.83-21.78Z"/></svg></span><span class="bar"></span><div><span class="n">02</span><h3>Break unhealthy patterns</h3><p>Relationship problems often follow predictable cycles. Coaching helps you recognize your role, respond differently, and break those patterns.</p></div></li>
-      <li><span class="ic"><svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M480-101.39q-130.38-35.77-215.19-155.19Q180-376 180-521.08v-225.69l300-112.31 300 112.31v225.69q0 145.08-84.81 264.5Q610.38-137.16 480-101.39Zm0-47.38Q591.92-185.23 663.27-289q71.34-103.77 71.34-232.08v-194.07L480-810.85l-254.61 95.7v194.07q0 128.31 71.34 232.08Q368.08-185.23 480-148.77Zm0-330.85Z"/></svg></span><span class="bar"></span><div><span class="n">03</span><h3>Become stronger</h3><p>The work you will do can benefit you beyond your marriage. You will become more grounded, self-aware, and resilient, as a partner, father, and leader.</p></div></li>
+      <li><span class="ic"><svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M260-100v-161.23q-57-52-88.5-119.19-31.5-67.2-31.5-139.96 0-141.54 99.23-240.58Q338.46-860 480-860q116.54 0 208.42 69.66 91.89 69.65 119.35 180.73l48.84 194.15q3.62 13.61-4.8 24.54Q843.38-380 828.77-380H740v142.31q0 23.59-17.05 40.64T682.31-180H580v80h-45.39v-125.39h147.7q5.38 0 8.84-3.46t3.46-8.84v-187.7h112.47L764-598.85q-23.62-95.84-103.46-155.8-79.85-59.96-180.54-59.96-122.77 0-208.69 85.12t-85.92 207.41q0 63.65 25.93 120.28 25.94 56.63 73.14 100.57l20.93 19.92V-100H260Zm236.23-357.31Zm-40.69 78.69h47.69l2.23-39q14.69-2.38 27.9-9.98 13.21-7.6 22.72-18.4l36.23 14 22.61-38.38-27.31-21.7q6.16-16.43 6.16-33.87 0-17.43-6.16-33.74l27.31-21.69-22.61-38.39-36.23 14q-9.87-10.38-23.21-17.69-13.33-7.31-27.41-10.31l-2.23-39.38h-47.69l-2.23 39.38q-14.46 3-27.8 10.31-13.33 7.31-23.2 17.69l-36.23-14-22.23 38.39 27.3 21.69q-6.53 16.43-6.53 33.87 0 17.44 6.53 33.74l-27.3 21.7L366.08-432l36.23-14q9.51 10.8 22.71 18.4 13.21 7.6 28.29 9.98l2.23 39Zm-29.12-94.24q-21.65-21.79-21.65-52.96 0-31.18 21.54-52.83 21.53-21.66 52.71-21.66 31.17 0 53.08 21.54 21.9 21.53 21.9 52.71t-21.78 53.08q-21.79 21.9-52.97 21.9-31.17 0-52.83-21.78Z"/></svg></span><span class="bar"></span><div><span class="n">02</span><h3>Break unhealthy patterns</h3><p>Relationship problems often follow predictable cycles. Coaching helps you recognize your role, respond differently and break those patterns.</p></div></li>
+      <li><span class="ic"><svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M480-101.39q-130.38-35.77-215.19-155.19Q180-376 180-521.08v-225.69l300-112.31 300 112.31v225.69q0 145.08-84.81 264.5Q610.38-137.16 480-101.39Zm0-47.38Q591.92-185.23 663.27-289q71.34-103.77 71.34-232.08v-194.07L480-810.85l-254.61 95.7v194.07q0 128.31 71.34 232.08Q368.08-185.23 480-148.77Zm0-330.85Z"/></svg></span><span class="bar"></span><div><span class="n">03</span><h3>Become stronger</h3><p>The work you will do can benefit you beyond your marriage. You will become more grounded, self-aware and resilient, as a partner, father and leader.</p></div></li>
     </ol>
   </div>
 </section>
@@ -394,8 +406,8 @@ footer .small a{font-weight:700;color:var(--on-night);text-underline-offset:3px}
         <p class="lead">I founded avoiddivorce.com to create a better path for men facing marital crisis.</p>
         <p>For much of my life, I was drawn to understanding and solving complex problems.</p>
         <p>Today, I bring the same disciplined approach to relationships, human behaviour and personal change.</p>
-        <p>I help clients identify patterns they may not yet see, adopt a more useful mindset, and recognize where they still have meaningful influence. From there, we translate insight into deliberate action.</p>
-        <p>I believe that, with the right framework, direction, and support, a marital crisis can become a turning point in a man’s life.</p>
+        <p>I help clients identify patterns they may not yet see, adopt a more useful mindset and recognize where they still have meaningful influence. From there, we translate insight into deliberate action.</p>
+        <p>I believe that, with the right framework, direction and support, a marital crisis can become a turning point in a man’s life.</p>
       </div>
       <div class="creds">
         <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>Ph.D.,</b>Western University</span></div>
@@ -419,26 +431,26 @@ footer .small a{font-weight:700;color:var(--on-night);text-underline-offset:3px}
     </div>
     <div>
       <div class="flow">
-        <p>Most men begin coaching feeling stressed, overwhelmed, reactive, or desperate to repair the relationship immediately.</p>
+        <p>Most men begin coaching feeling stressed, overwhelmed, reactive or desperate to repair the relationship immediately.</p>
         <p>The first priority is to help you regain a stable personal baseline so you can think clearly and act with greater intention.</p>
       </div>
       <div class="worklist">
         <strong>From there, we work together to:</strong>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Understand what is driving the marital crisis</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Identify patterns contributing to distance, conflict, and lost trust</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Identify patterns contributing to distance, conflict and lost trust</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Develop a structured, multi-stage action plan</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Build emotional regulation, communication, and relational leadership skills</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Restore confidence, self-respect, and personal direction</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Build emotional regulation, communication and relational leadership skills</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Restore confidence, self-respect and personal direction</li>
         </ul>
       </div>
       <div class="flow">
-        <p>Through coaching, practical exercises, reflection, and accountability, you apply new skills to the situations you are facing and adjust the plan as circumstances evolve.</p>
+        <p>Through coaching, practical exercises, reflection and accountability, you apply new skills to the situations you are facing and adjust the plan as circumstances evolve.</p>
         <p>Over time, you build the judgement and confidence to navigate relationship challenges more effectively on your own.</p>
       </div>
       <div class="closer">
         <span class="rule"></span>
-        <p>While no one can guarantee how your partner will respond, consistent change can disrupt the patterns she has learned to expect, rebuild emotional connection, and give your marriage a genuine path towards recovery.</p>
+        <p>While no one can guarantee how your partner will respond, consistent change can disrupt the patterns she has learned to expect, rebuild emotional connection and give your marriage a genuine path towards recovery.</p>
       </div>
     </div>
   </div>
@@ -455,7 +467,7 @@ footer .small a{font-weight:700;color:var(--on-night);text-underline-offset:3px}
           <p class="sub">We help you break destructive patterns to give your relationship the best chance of success.</p>
         </div>
         <div class="cycle-wrap" id="cycleWrap">
-          <svg class="cycle" id="cycle" viewBox="22 28 400 396" role="img" aria-label="The unhealthy cycle: stress, reaction, conflict, distance, and back to stress. Breaking out of it means responding intentionally.">
+          <svg class="cycle" id="cycle" viewBox="22 28 400 396" role="img" aria-label="The unhealthy cycle: stress, reaction, conflict, distance and back to stress. Breaking out of it means responding intentionally.">
             <defs><filter id="rough" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="1" seed="3"/><feDisplacementMap in="SourceGraphic" scale="1.3"/></filter></defs>
             <g class="cycle-ring" id="ring">
               <g filter="url(#rough)">
@@ -492,13 +504,13 @@ footer .small a{font-weight:700;color:var(--on-night);text-underline-offset:3px}
       </div>
       <div class="coach" id="coachBox">
         <svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M70.31-187.69v-75.93q0-31.53 16.27-55.8 16.27-24.27 45.55-37.15 64.95-28.51 118.64-42.51 53.69-14 119.54-14 66.23 0 119.42 14t118.52 42.51q28.9 12.88 45.48 37.15 16.58 24.27 16.58 55.8v75.93h-600Zm665.38 0v-74.77q0-53.39-24.86-89.07-24.87-35.69-64.98-58.39 53.23 7.61 101.15 20.81 47.92 13.19 80.15 29.73 28.39 15.92 45.46 40.9 17.08 24.99 17.08 56.02v74.77h-154ZM275-530.31q-37.38-37.38-37.38-95.5 0-58.11 37.38-95.3 37.39-37.2 95.5-37.2 58.12 0 95.31 37.2Q503-683.92 503-625.81q0 58.12-37.19 95.5-37.19 37.39-95.31 37.39-58.11 0-95.5-37.39Zm374.18 0q-37.28 37.39-95.41 37.39-6.77 0-14.5-.93-7.73-.92-14.5-3.38 21.43-23.37 32.52-56.12 11.09-32.75 11.09-72.31 0-39.57-11.53-70.61-11.54-31.04-32.08-58.11 6.38-1.46 14.5-2.7 8.11-1.23 14.5-1.23 58.13 0 95.41 37.2 37.28 37.19 37.28 95.3 0 58.12-37.28 95.5ZM115.69-233.08h509.23v-30.54q0-16-9.11-30.03-9.12-14.04-26.19-22.35-62.77-29.31-110.62-40.5-47.84-11.19-108.69-11.19-60.46 0-108.62 11.19-48.15 11.19-110.92 40.5-17.08 8.31-26.08 22.35-9 14.03-9 30.03v30.54Zm317-330.15q24.93-24.92 24.93-62.38 0-37.47-24.93-62.39-24.92-24.92-62.38-24.92T307.92-688Q283-663.08 283-625.61q0 37.46 24.92 62.38 24.93 24.92 62.39 24.92t62.38-24.92Zm-62.38 330.15Zm0-392.53Z"/></svg><span class="bar"></span>
-        <p><b>Your coach will guide you through each stage,</b> helping you apply the right priorities, skills, and actions as your situation evolves.</p>
+        <p><b>Your coach will guide you through each stage,</b> helping you apply the right priorities, skills and actions as your situation evolves.</p>
       </div>
       <div class="stagebox">
       <span class="track" id="track" aria-hidden="true"></span><span class="fill" id="fill" aria-hidden="true"></span>
       <ol class="stages" id="stages">
-        <li><span class="num">01</span><div><h3>Stabilize</h3><p>Establish the personal foundations you need to regain stability, think clearly, and act with intention.</p></div></li>
-        <li><span class="num">02</span><div><h3>Repair</h3><p>Focus on relational repair and begin rebuilding trust, connection, and admiration.</p></div></li>
+        <li><span class="num">01</span><div><h3>Stabilize</h3><p>Establish the personal foundations you need to regain stability, think clearly and act with intention.</p></div></li>
+        <li><span class="num">02</span><div><h3>Repair</h3><p>Focus on relational repair and begin rebuilding trust, connection and admiration.</p></div></li>
         <li><span class="num">03</span><div><h3>Re-commit</h3><p>Work towards renewed commitment and a shared sense of excitement about the future.</p></div></li>
       </ol>
       </div>
@@ -536,7 +548,7 @@ footer .small a{font-weight:700;color:var(--on-night);text-underline-offset:3px}
       <h2>Guidance throughout the coaching process.</h2>
       <div class="flow" style="margin-top:22px">
         <p>Our Head Coach helps clients apply the AvoidDivorce framework to the realities of their own relationship.</p>
-        <p>Through practical guidance, accountability, and steady support, she helps each client identify priorities, practise new skills, and move forward with greater clarity.</p>
+        <p>Through practical guidance, accountability and steady support, she helps each client identify priorities, practise new skills and move forward with greater clarity.</p>
       </div>
     </div>
     <figure class="ph">
@@ -555,14 +567,14 @@ footer .small a{font-weight:700;color:var(--on-night);text-underline-offset:3px}
       <p class="sub">Straight answers to some of the questions men often have before starting coaching.</p>
     </div>
     <div>
-      <details><summary>Is it really possible to save my marriage if my wife says she’s done?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>It may be. Relationships have recovered after prolonged conflict, emotional distance, betrayal, and discussions of separation or divorce.</p><p>No one can guarantee how your wife will respond. The goal of coaching is to help you understand what has contributed to the crisis, change the patterns within your control, and create the strongest possible conditions for reconciliation.</p></div></details>
-      <details><summary>Can this work if my wife won’t participate?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>Yes. Many men seek help after their wife has refused counselling or is emotionally withdrawn from the relationship.</p><p>You do not need to wait for her participation to begin changing how you think, communicate, regulate your emotions, and show up within the relationship. Consistent change can interrupt familiar patterns and give your partner a different experience of you.</p></div></details>
-      <details><summary>How is this different from marriage counselling?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>Marriage counselling generally works with both partners and focuses on the relationship between them.</p><p>This coaching begins with you. It is a structured process of personal development designed to help you gain clarity, adopt a more useful mindset, build practical relationship skills, and take purposeful action. The emphasis is not on persuading your wife to change. It is on becoming someone capable of changing the dynamic.</p></div></details>
-      <details><summary>What if my marriage cannot be saved?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>That possibility exists, and coaching cannot control another person’s decisions.</p><p>However, the work remains valuable. You can develop greater emotional resilience, self-awareness, confidence, communication skills, and personal direction: qualities that will benefit you as a man, partner, and father regardless of the outcome.</p></div></details>
-      <details><summary>How long does the process take?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>Every situation is different. Some men begin feeling calmer and more purposeful relatively quickly, while rebuilding trust and connection usually requires sustained effort over time.</p><p>This is not a quick fix. Meaningful change depends on the condition of the relationship, the patterns involved, and your consistency in applying what you learn.</p></div></details>
-      <details><summary>How do I know whether coaching is right for me?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>Coaching may be a good fit if you are willing to examine your own contribution to the relationship, learn new ways of responding, and consistently apply what you learn.</p><p>You do not need to accept all the blame, have all the answers, or feel certain about the future. You do need to be willing to take responsibility for the part that remains within your influence.</p></div></details>
-      <details><summary>Is coaching a substitute for therapy or legal advice?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>No. Coaching supports personal growth, mindset development, practical skill-building, and purposeful action.</p><p>It is not psychotherapy, crisis treatment, or legal advice. When a situation involves serious mental health concerns, abuse, immediate safety risks, or complex legal issues, additional professional support may be necessary.</p></div></details>
-      <details><summary>What happens during the discovery call?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>The discovery call is a relaxed, no-obligation conversation about your situation.</p><p>I will listen, answer your questions, explain how the coaching works, and help determine whether the program is a good fit. There is no sales script, and if I do not believe I can help you, I will tell you.</p></div></details>
+      <details><summary>Is it really possible to save my marriage if my wife says she’s done?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>It may be. Relationships have recovered after prolonged conflict, emotional distance, betrayal and discussions of separation or divorce.</p><p>No one can guarantee how your wife will respond. The goal of coaching is to help you understand what has contributed to the crisis, change the patterns within your control and create the strongest possible conditions for reconciliation.</p></div></details>
+      <details><summary>Can this work if my wife won’t participate?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>Yes. Many men seek help after their wife has refused counselling or is emotionally withdrawn from the relationship.</p><p>You do not need to wait for her participation to begin changing how you think, communicate, regulate your emotions and show up within the relationship. Consistent change can interrupt familiar patterns and give your partner a different experience of you.</p></div></details>
+      <details><summary>How is this different from marriage counselling?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>Marriage counselling generally works with both partners and focuses on the relationship between them.</p><p>This coaching begins with you. It is a structured process of personal development designed to help you gain clarity, adopt a more useful mindset, build practical relationship skills and take purposeful action. The emphasis is not on persuading your wife to change. It is on becoming someone capable of changing the dynamic.</p></div></details>
+      <details><summary>What if my marriage cannot be saved?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>That possibility exists and coaching cannot control another person’s decisions.</p><p>However, the work remains valuable. You can develop greater emotional resilience, self-awareness, confidence, communication skills and personal direction: qualities that will benefit you as a man, partner and father regardless of the outcome.</p></div></details>
+      <details><summary>How long does the process take?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>Every situation is different. Some men begin feeling calmer and more purposeful relatively quickly, while rebuilding trust and connection usually requires sustained effort over time.</p><p>This is not a quick fix. Meaningful change depends on the condition of the relationship, the patterns involved and your consistency in applying what you learn.</p></div></details>
+      <details><summary>How do I know whether coaching is right for me?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>Coaching may be a good fit if you are willing to examine your own contribution to the relationship, learn new ways of responding and consistently apply what you learn.</p><p>You do not need to accept all the blame, have all the answers or feel certain about the future. You do need to be willing to take responsibility for the part that remains within your influence.</p></div></details>
+      <details><summary>Is coaching a substitute for therapy or legal advice?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>No. Coaching supports personal growth, mindset development, practical skill-building and purposeful action.</p><p>It is not psychotherapy, crisis treatment or legal advice. When a situation involves serious mental health concerns, abuse, immediate safety risks or complex legal issues, additional professional support may be necessary.</p></div></details>
+      <details><summary>What happens during the discovery call?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary><div class="answer flow"><p>The discovery call is a relaxed, no-obligation conversation about your situation.</p><p>I will listen, answer your questions, explain how the coaching works and help determine whether the program is a good fit. There is no sales script and if I do not believe I can help you, I will tell you.</p></div></details>
     </div>
   </div>
 </section>
@@ -573,7 +585,7 @@ footer .small a{font-weight:700;color:var(--on-night);text-underline-offset:3px}
       <span class="eyebrow">Ready to take the first step?</span>
       <span class="rule"></span>
       <h2>Start with a conversation.</h2>
-      <p class="intro">The discovery call is a no-pressure opportunity to discuss your situation, ask questions, and see whether coaching is a good fit. If we don’t believe we can help you, we’ll tell you.</p>
+      <p class="intro">The discovery call is a no-pressure opportunity to discuss your situation, ask questions and see whether coaching is a good fit. If we don’t believe we can help you, we’ll tell you.</p>
     </div>
     <div class="card">
       <h3>Apply for your free discovery call.</h3>
@@ -582,10 +594,28 @@ footer .small a{font-weight:700;color:var(--on-night);text-underline-offset:3px}
         <div><label for="name">Name</label><input id="name" name="name" autocomplete="name" required></div>
         <div><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
         <div><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
-        <div><label for="message">Briefly, what’s going on in your marriage?</label><textarea id="message" name="message" placeholder="A sentence or two is plenty."></textarea></div>
+        <div><label for="message">What has brought you to seek coaching at this time?</label><textarea id="message" name="message" placeholder="A few sentences is plenty to help us understand your situation."></textarea></div>
+        <fieldset class="choice">
+          <legend>How soon are you hoping to begin coaching?</legend>
+          <label class="opt"><input type="radio" name="timing" value="asap" required><span>As soon as possible</span></label>
+          <label class="opt"><input type="radio" name="timing" value="weeks"><span>Within the next few weeks</span></label>
+          <label class="opt"><input type="radio" name="timing" value="1-3 months"><span>Within 1–3 months</span></label>
+          <label class="opt"><input type="radio" name="timing" value="exploring"><span>I am still exploring options</span></label>
+        </fieldset>
+        <fieldset class="choice">
+          <legend>What level of investment would you be prepared to make in a 2–6 month coaching program?</legend>
+          <p class="hint" id="investHint">This helps us understand what coaching options are a practical fit.</p>
+          <label class="opt"><input type="radio" name="investment" value="under 1000" required aria-describedby="investHint"><span>Under $1,000</span></label>
+          <label class="opt"><input type="radio" name="investment" value="1000-2500"><span>$1,000–$2,500</span></label>
+          <label class="opt"><input type="radio" name="investment" value="2500-4000"><span>$2,500–$4,000</span></label>
+          <label class="opt"><input type="radio" name="investment" value="4000+"><span>$4,000+</span></label>
+          <label class="opt"><input type="radio" name="investment" value="unsure"><span>I am unsure</span></label>
+        </fieldset>
+        <label class="consent"><input type="checkbox" name="consent" required><span>I consent to AvoidDivorce.com collecting and using the information I provide to review my application and contact me about coaching by email, phone or text message as described in the <a href="#privacy">Privacy Policy</a>.</span></label>
         <button class="apply" type="submit">Apply Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></button>
         <p class="preview-note" id="previewNote" role="status">This is a design preview, so the form isn’t connected here.</p>
         <div class="next"><svg viewBox="0 -960 960 960" aria-hidden="true"><path d="M197.69-100q-23.53 0-40.61-17.08T140-157.69v-579.23q0-23.53 17.08-40.61t40.61-17.08h73.85v-70h50.38v70h317.69v-70h49.23v70h73.47q23.53 0 40.61 17.08T820-736.92v579.23q0 23.53-17.08 40.61T762.31-100H197.69Zm0-45.39h564.62q4.61 0 8.46-3.84 3.84-3.85 3.84-8.46V-555H185.39v397.31q0 4.61 3.84 8.46 3.85 3.84 8.46 3.84Zm-12.3-454.99h589.22v-136.54q0-4.62-3.84-8.46-3.85-3.85-8.46-3.85H197.69q-4.61 0-8.46 3.85-3.84 3.84-3.84 8.46v136.54Zm0 0v-148.85 148.85ZM480-396.92q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.04 0-14.69 10.34-25.04 10.35-10.34 25.04-10.34t25.04 10.34q10.34 10.35 10.34 25.04 0 14.7-10.34 25.04-10.35 10.35-25.04 10.35Zm-185.04-10.35q-10.34-10.34-10.34-25.04 0-14.69 10.34-25.04 10.35-10.34 25.04-10.34t25.04 10.34q10.34 10.35 10.34 25.04 0 14.7-10.34 25.04-10.35 10.35-25.04 10.35t-25.04-10.35ZM640-396.92q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.04 0-14.69 10.34-25.04 10.35-10.34 25.04-10.34t25.04 10.34q10.34 10.35 10.34 25.04 0 14.7-10.34 25.04-10.35 10.35-25.04 10.35ZM480-240q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.03 0-14.7 10.34-25.04 10.35-10.35 25.04-10.35t25.04 10.35q10.34 10.34 10.34 25.04 0 14.69-10.34 25.03Q494.69-240 480-240Zm-185.04-10.35q-10.34-10.34-10.34-25.03 0-14.7 10.34-25.04 10.35-10.35 25.04-10.35t25.04 10.35q10.34 10.34 10.34 25.04 0 14.69-10.34 25.03Q334.69-240 320-240t-25.04-10.35ZM640-240q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.03 0-14.7 10.34-25.04 10.35-10.35 25.04-10.35t25.04 10.35q10.34 10.34 10.34 25.04 0 14.69-10.34 25.03Q654.69-240 640-240Z"/></svg><span class="bar"></span><span>Next step: choose a call time that works for you.</span></div>
+        <p class="fine">* Coaching is not therapy, legal advice or emergency/crisis support.</p>
       </form>
     </div>
   </div>
