@@ -379,26 +379,23 @@ dialog[open] { animation: rise .35s var(--ease); }
 
 .prof > *, .book > *, .about > *, .list > * { min-width: 0; }
 
-/* ---------- the coded doctor: each part moves on its own ---------- */
-.doc-fig { width: 384px; bottom: 0; inset-inline-end: 64px; }
-.vd { display: block; width: 100%; height: auto; overflow: visible; animation: vd-in .8s var(--ease) .15s both; filter: drop-shadow(0 18px 22px rgba(60, 33, 104, .18)); }
-[dir=rtl] .vd { scale: -1 1; }
-.vd-body { transform-box: view-box; transform-origin: 200px 440px; animation: vd-breathe 4.5s ease-in-out infinite; }
-.vd-head { transform-box: view-box; transform-origin: 200px 262px; animation: vd-head 7s ease-in-out infinite; }
-.vd-arm { transform-box: view-box; transform-origin: 300px 432px; animation: vd-wave 7s ease-in-out .9s infinite; }
-.vd-hand { transform-box: view-box; transform-origin: 350px 284px; animation: vd-hand 7s ease-in-out .9s infinite; }
-.vd-eye { transform-box: fill-box; transform-origin: center; animation: vd-blink 4.8s infinite; }
-.vd-pupil { transform: translate(var(--ex, 0px), var(--ey, 0px)); transition: transform .18s ease-out; }
-.vd-brow { animation: vd-brow 7s ease-in-out .9s infinite; }
-.vd-steth { transform-box: view-box; transform-origin: 200px 290px; animation: vd-sway 4.5s ease-in-out infinite; }
-.doc-fig .bubble { top: 104px; inset-inline-start: -30px; animation-delay: .9s; }
-@keyframes vd-in { from { opacity: 0; transform: translateY(16px); } }
-@keyframes vd-breathe { 50% { transform: scaleY(1.012); } }
-@keyframes vd-head { 0%, 100% { transform: rotate(-1.6deg); } 50% { transform: rotate(2deg); } }
-@keyframes vd-wave { 0%, 34%, 100% { transform: rotate(0); } 5% { transform: rotate(-7deg); } 11% { transform: rotate(6deg); } 17% { transform: rotate(-7deg); } 23% { transform: rotate(6deg); } 29% { transform: rotate(-3deg); } }
-@keyframes vd-hand { 0%, 34%, 100% { transform: rotate(0); } 5% { transform: rotate(-10deg); } 11% { transform: rotate(12deg); } 17% { transform: rotate(-10deg); } 23% { transform: rotate(12deg); } 29% { transform: rotate(-4deg); } }
-@keyframes vd-blink { 0%, 93%, 100% { transform: scaleY(1); } 96.5% { transform: scaleY(.08); } }
-@keyframes vd-brow { 0%, 34%, 100% { transform: none; } 6%, 28% { transform: translateY(-3px); } }
-@keyframes vd-sway { 50% { transform: rotate(1.2deg); } }
-@media (max-width: 1020px) { .doc-fig { width: 270px; inset-inline-end: 12px; } }
-@media (max-width: 720px) { .doc-fig { width: 150px; inset-inline-end: 2px; top: 14px; bottom: auto; } .doc-fig .bubble { top: 0; inset-inline-start: -36px; } }
+/* ---------- the 3D doctor as a layered puppet ---------- */
+.doc-fig { width: 400px; bottom: -34px; inset-inline-end: 60px; }
+.rig { position: relative; aspect-ratio: 627 / 632; --lx: 0; --ly: 0; animation: rig-in .9s var(--ease) .1s both; filter: drop-shadow(0 22px 24px rgba(60, 33, 104, .2)); }
+[dir=rtl] .rig { scale: -1 1; }
+.rig img, .rig svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.rig-body { position: absolute; inset: 0; transform: translate(calc(var(--lx) * 2px), 0); transition: transform .5s var(--ease); }
+.rig-body img { transform-origin: 57% 100%; animation: rig-breathe 4.6s ease-in-out infinite; }
+.rig-look { position: absolute; inset: 0; transform-origin: 57.5% 46%; transform: translate(calc(var(--lx) * 6px), calc(var(--ly) * 3.5px)) rotate(calc(var(--lx) * 2.2deg)); transition: transform .45s var(--ease); }
+.rig-head { position: absolute; inset: 0; transform-origin: 57.5% 46%; animation: rig-hello 1.9s var(--ease) .75s both, rig-idle 9s ease-in-out 2.8s infinite; }
+.lid { transform-box: fill-box; transform-origin: 50% 0; transform: scaleY(0); animation: rig-blink 5.2s 2.2s infinite; }
+.lid + .lid { animation-delay: 2.23s; }
+.doc-fig .bubble { top: 70px; inset-inline-start: 6px; animation-delay: 1s; }
+@keyframes rig-in { from { opacity: 0; transform: translateY(26px); } }
+@keyframes rig-breathe { 50% { transform: scale(1.006, 1.012); } }
+/* the greeting: a friendly tilt and a small nod, head only */
+@keyframes rig-hello { 0% { transform: none; } 22% { transform: rotate(-4deg) translateY(1px); } 46% { transform: rotate(3.5deg); } 62% { transform: rotate(3.5deg) translateY(5px); } 78% { transform: rotate(2deg) translateY(0); } 100% { transform: none; } }
+@keyframes rig-idle { 0%, 100% { transform: none; } 30% { transform: rotate(-1.8deg); } 68% { transform: rotate(1.6deg) translateY(1.5px); } }
+@keyframes rig-blink { 0%, 3.2%, 100% { transform: scaleY(0); } 1.4%, 1.9% { transform: scaleY(1); } 46%, 49.5% { transform: scaleY(0); } 47.4%, 48% { transform: scaleY(1); } }
+@media (max-width: 1020px) { .doc-fig { width: 300px; inset-inline-end: 6px; } }
+@media (max-width: 720px) { .doc-fig { width: 172px; inset-inline-end: -10px; top: 6px; bottom: auto; } .doc-fig .bubble { top: 4px; inset-inline-start: -26px; } }

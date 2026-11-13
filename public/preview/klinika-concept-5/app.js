@@ -54,49 +54,15 @@
   const mk = (file) => `<span class="mk${/radiology/.test(file) ? " big" : ""}" style="--m:url(img/${file})" aria-hidden="true"></span>`;
 
 
-  /* ---------- the virtual doctor, drawn in code so each part can move on its own ---------- */
-  const DOCTOR = `<svg class="vd" viewBox="0 0 400 440" aria-hidden="true">
-    <defs>
-      <linearGradient id="vd-coat" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#E4DAF1"/></linearGradient>
-      <linearGradient id="vd-skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F8CFAF"/><stop offset="1" stop-color="#E9AE8A"/></linearGradient>
-      <linearGradient id="vd-hair" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7A513A"/><stop offset="1" stop-color="#4A2E20"/></linearGradient>
-      <linearGradient id="vd-tie" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7A4BB5"/><stop offset="1" stop-color="#4A2A7A"/></linearGradient>
-      <radialGradient id="vd-cheek"><stop offset="0" stop-color="#F08FA0" stop-opacity=".55"/><stop offset="1" stop-color="#F08FA0" stop-opacity="0"/></radialGradient>
-    </defs>
-    <g class="vd-body">
-      <path d="M62 440C62 352 104 304 162 290h76c58 14 100 62 100 150z" fill="url(#vd-coat)" stroke="#CFC2E4" stroke-width="2"/>
-      <path d="M168 288l32 58 32-58z" fill="#9CC0F0"/>
-      <path d="M168 288l32 58-22 14-24-62zM232 288l-32 58 22 14 24-62z" fill="#C4DAF7" stroke="#8FB0DE" stroke-width="1.5" stroke-linejoin="round"/>
-      <path d="M191 318h18l-3 14 9 62-15 18-15-18 9-62z" fill="url(#vd-tie)"/>
-      <path d="M154 292l46 104-22 44h-26l-26-112zM246 292l-46 104 22 44h26l26-112z" fill="#F6F1FB" stroke="#CFC2E4" stroke-width="2" stroke-linejoin="round"/>
-      <path d="M112 440c0-40 4-66 14-88" fill="none" stroke="#D9CEEA" stroke-width="2.5" stroke-linecap="round"/>
-      <rect x="226" y="386" width="46" height="30" rx="5" fill="#fff" stroke="#CFC2E4" stroke-width="2"/><path d="M240 386v-9M250 386v-13" stroke="#C2408F" stroke-width="4" stroke-linecap="round"/>
-      <g class="vd-steth"><path d="M164 290c-18 34-20 58-14 82M236 290c20 30 26 52 20 74" fill="none" stroke="#3A3350" stroke-width="5" stroke-linecap="round"/>
-        <circle cx="149" cy="376" r="5" fill="#3A3350"/><circle cx="255" cy="376" r="14" fill="#D5D8E2" stroke="#3A3350" stroke-width="3"/><circle cx="255" cy="376" r="6" fill="#fff" stroke="#9AA0B4" stroke-width="2"/></g>
-    </g>
-    <g class="vd-arm">
-      <path d="M300 432L346 290" stroke="#CFC2E4" stroke-width="56" stroke-linecap="round"/><path d="M300 432L346 290" stroke="url(#vd-coat)" stroke-width="52" stroke-linecap="round"/>
-      <path d="M327 276l44 14" stroke="#9CC0F0" stroke-width="12" stroke-linecap="round"/>
-      <g class="vd-hand"><g transform="translate(-6 14) rotate(8 358 266)"><path d="M346 228l-5-28M357 224l-1-32M368 225l3-30M378 231l7-23M340 248l-13-13" stroke="url(#vd-skin)" stroke-width="11.5" stroke-linecap="round"/>
-        <ellipse cx="360" cy="242" rx="23" ry="25" fill="url(#vd-skin)"/><path d="M347 250q12 8 25-1" fill="none" stroke="#D99A78" stroke-width="2" stroke-linecap="round"/></g></g>
-    </g>
-    <g class="vd-head">
-      <rect x="180" y="238" width="40" height="60" rx="18" fill="#E2A27F"/>
-      <ellipse cx="137" cy="190" rx="10" ry="15" fill="#EBB392"/><ellipse cx="263" cy="190" rx="10" ry="15" fill="#EBB392"/>
-      <ellipse cx="200" cy="182" rx="62" ry="72" fill="url(#vd-skin)"/>
-      <circle cx="160" cy="212" r="16" fill="url(#vd-cheek)"/><circle cx="240" cy="212" r="16" fill="url(#vd-cheek)"/>
-      <path d="M139 192c2 46 30 66 61 66s59-20 61-66c-6 24-20 36-34 32-12-8-42-8-54 0-14 4-28-8-34-32z" fill="#63402D"/>
-      <path d="M178 222q22 22 44 0z" fill="#fff" stroke="#7A3B34" stroke-width="2.5" stroke-linejoin="round"/>
-      <path d="M201 188q-8 15 2 19" fill="none" stroke="#D99A78" stroke-width="3" stroke-linecap="round"/>
-      <path d="M136 176c-12-62 30-92 70-86 48-8 74 34 58 86-4-22-16-38-34-44-30 12-64 8-80 18-8 8-11 16-14 26z" fill="url(#vd-hair)"/>
-      <path d="M160 116c18-16 44-18 62-10" fill="none" stroke="#9A6B4E" stroke-width="5" stroke-linecap="round" opacity=".7"/>
-      <g class="vd-brow"><path d="M163 158q13-8 27-2M210 156q14-6 27 2" fill="none" stroke="#4A2E20" stroke-width="6" stroke-linecap="round"/></g>
-      <g class="vd-eye"><ellipse cx="176" cy="180" rx="10" ry="11" fill="#fff"/><g class="vd-pupil"><circle cx="176" cy="181" r="6" fill="#4A77B8"/><circle cx="176" cy="181" r="3" fill="#1E1830"/><circle cx="178" cy="179" r="1.4" fill="#fff"/></g></g>
-      <g class="vd-eye"><ellipse cx="224" cy="180" rx="10" ry="11" fill="#fff"/><g class="vd-pupil"><circle cx="224" cy="181" r="6" fill="#4A77B8"/><circle cx="224" cy="181" r="3" fill="#1E1830"/><circle cx="226" cy="179" r="1.4" fill="#fff"/></g></g>
-      <g fill="rgba(255,255,255,.18)" stroke="#2A2038" stroke-width="3.5"><rect x="155" y="162" width="41" height="35" rx="13"/><rect x="204" y="162" width="41" height="35" rx="13"/></g>
-      <path d="M196 176q4-4 8 0M155 176l-17 4M245 176l17 4" fill="none" stroke="#2A2038" stroke-width="3.5" stroke-linecap="round"/>
-    </g>
-  </svg>`;
+
+
+  /* ---------- the Klinika 3D doctor as a layered puppet: body, head, eyelids ---------- */
+  const DOCTOR = `<div class="rig"><div class="rig-body"><img src="img/doctor-body.webp" alt="" width="627" height="632"></div>
+    <div class="rig-look"><div class="rig-head"><img src="img/doctor-head.webp" alt="" width="627" height="632">
+      <svg viewBox="0 0 627 632" aria-hidden="true"><defs><linearGradient id="lid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3C2A8"/><stop offset="1" stop-color="#E8A483"/></linearGradient></defs>
+        <g class="lid"><ellipse cx="317.5" cy="168" rx="21.5" ry="14.5" transform="rotate(-4 317.5 168)" fill="url(#lid)"/><path d="M297 171q20 13 41 1" fill="none" stroke="#5A3327" stroke-width="2.6" stroke-linecap="round"/></g>
+        <g class="lid"><ellipse cx="399" cy="163.5" rx="23" ry="15" transform="rotate(5 399 163.5)" fill="url(#lid)"/><path d="M377 165q22 14 44 3" fill="none" stroke="#5A3327" stroke-width="2.6" stroke-linecap="round"/></g>
+      </svg></div></div></div>`;
 
   /* ---------- data helpers ---------- */
   const SVC = { clinic_visit: ["visits.clinic", "clinic"], telehealth: ["visits.tele", "video"], home_visit: ["visits.home", "home"] };
@@ -670,17 +636,17 @@
   window.addEventListener("scroll", () => { const h = document.querySelector(".top"); if (h) h.classList.toggle("stuck", window.scrollY > 8); }, { passive: true });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeSegs);
 
-  // the eyes of the doctor follow the pointer (desktop only, off when reduced motion is asked for)
+  // the doctor leans and turns his head towards the pointer (desktop only, off when reduced motion is asked for)
   if (window.matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)").matches) {
     let raf = 0;
     window.addEventListener("mousemove", (e) => {
       if (raf) return;
       raf = requestAnimationFrame(() => {
         raf = 0;
-        const vd = document.querySelector(".vd"); if (!vd) return;
-        const r = vd.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height * 0.41;
-        const dx = Math.max(-1, Math.min(1, (e.clientX - cx) / 420)) * (lang === "ar" ? -1 : 1), dy = Math.max(-1, Math.min(1, (e.clientY - cy) / 320));
-        vd.style.setProperty("--ex", (dx * 3.2).toFixed(2) + "px"); vd.style.setProperty("--ey", (dy * 2.6).toFixed(2) + "px");
+        const vd = document.querySelector(".rig"); if (!vd) return;
+        const r = vd.getBoundingClientRect(), cx = r.left + r.width * 0.57, cy = r.top + r.height * 0.3;
+        const dx = Math.max(-1, Math.min(1, (e.clientX - cx) / 520)) * (lang === "ar" ? -1 : 1), dy = Math.max(-1, Math.min(1, (e.clientY - cy) / 380));
+        vd.style.setProperty("--lx", dx.toFixed(3)); vd.style.setProperty("--ly", dy.toFixed(3));
       });
     }, { passive: true });
   }
