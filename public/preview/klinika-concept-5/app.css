@@ -115,11 +115,15 @@ a.p:active, button.p:active, .tap:active { transform: scale(.985); }
 .sugg a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 11px; color: var(--ink); }
 .sugg a:hover, .sugg a:focus { background: var(--li); }
 .sugg img { width: 26px; height: 26px; }
-.doc-fig { position: absolute; z-index: 1; inset-inline-end: 70px; bottom: -40px; width: 392px; pointer-events: none; }
-.doc-fig img { width: 100%; transform-origin: 50% 92%; animation: greet 1.5s var(--ease) .35s both, float 7s ease-in-out 2s infinite; }
-[dir=rtl] .doc-fig img { scale: -1 1; }
-.doc-fig .bubble { position: absolute; top: 74px; inset-inline-start: -8px; background: #fff; border: 1.5px solid var(--bd); color: var(--pu); font-weight: 500; font-size: 16px; padding: 7px 15px; border-radius: 16px; border-end-end-radius: 4px; box-shadow: 0 10px 22px -14px rgba(60, 33, 104, .7); animation: pop .5s var(--ease) 1.25s both; }
-.doc-fig .shadow { position: absolute; left: 22%; right: 22%; bottom: 20px; height: 22px; border-radius: 50%; background: rgba(60, 33, 104, .16); filter: blur(8px); animation: shade 7s ease-in-out 2s infinite; }
+/* the Klinika doctor: one rendered 3D figure that moves as a whole (the film is drawn on the canvas, the picture is its resting pose) */
+.doc-fig { position: absolute; z-index: 1; inset-inline-end: -20px; bottom: -24px; width: 420px; pointer-events: none; translate: calc(var(--px, 0) * 6px) calc(var(--py, 0) * 3px); transition: translate .7s var(--ease); }
+.doc { position: relative; aspect-ratio: 1; animation: doc-in .9s var(--ease) .1s both; filter: drop-shadow(0 22px 24px rgba(60, 33, 104, .2)); }
+[dir=rtl] .doc { scale: -1 1; }
+.doc img, .doc canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.doc canvas { visibility: hidden; }
+.doc.live canvas { visibility: visible; }
+.doc.live img { visibility: hidden; }
+.doc-fig .bubble { position: absolute; top: 62px; inset-inline-start: -58px; background: #fff; border: 1.5px solid var(--bd); color: var(--pu); font-weight: 500; font-size: 16px; padding: 7px 15px; border-radius: 16px; border-end-end-radius: 4px; box-shadow: 0 10px 22px -14px rgba(60, 33, 104, .7); animation: pop .5s var(--ease) 1s both; }
 
 /* instant consultation: the one dark panel on the page */
 .instant { position: relative; overflow: hidden; margin-top: 14px; border-radius: 22px; padding: 22px 28px; background: linear-gradient(110deg, var(--pu-d), var(--pu) 62%, #7A3F9C); color: #EADFF7; display: flex; align-items: center; gap: 20px; }
@@ -303,9 +307,7 @@ dialog[open] { animation: rise .35s var(--ease); }
 @keyframes rise { from { opacity: 0; transform: translateY(20px) scale(.97); } }
 @keyframes pop { 0% { opacity: 0; transform: scale(.7); } 70% { transform: scale(1.05); } 100% { opacity: 1; transform: none; } }
 @keyframes pick { 50% { transform: scale(1.07); } }
-@keyframes greet { 0% { opacity: 0; transform: translateY(46px); } 38% { opacity: 1; transform: translateY(0) rotate(0); } 54% { transform: rotate(-3.5deg); } 70% { transform: rotate(2.5deg); } 84% { transform: rotate(-1.5deg); } 100% { opacity: 1; transform: none; } }
-@keyframes float { 50% { transform: translateY(-9px); } }
-@keyframes shade { 50% { transform: scaleX(.88); opacity: .7; } }
+@keyframes doc-in { from { opacity: 0; transform: translateY(26px); } }
 @keyframes drift { to { transform: translate(-50px, -30px) scale(1.15); } }
 @keyframes glow { to { opacity: .55; transform: translateX(-30px); } }
 @keyframes halo { 0% { opacity: .75; transform: scale(1); } 45%, 100% { opacity: 0; transform: scale(1.22, 1.5); } }
@@ -324,7 +326,8 @@ dialog[open] { animation: rise .35s var(--ease); }
 
 /* ---------- tablet ---------- */
 @media (max-width: 1020px) {
-  .doc-fig { width: 300px; inset-inline-end: 10px; }
+  .doc-fig { width: 300px; inset-inline-end: -30px; bottom: -18px; }
+  .doc-fig .bubble { top: 40px; inset-inline-start: -36px; }
   .hero-in { max-width: 520px; }
   .svc { grid-template-columns: repeat(3, 1fr); }
   .grid4 { grid-template-columns: repeat(2, 1fr); }
@@ -341,9 +344,8 @@ dialog[open] { animation: rise .35s var(--ease); }
   .hero { padding: 24px 18px 20px; border-radius: 22px; margin-top: 6px; min-height: 0; display: block; }
   .instant .btn::after { animation-name: halo-s; }
   .hero .h1 { max-width: 62%; min-height: 128px; font-size: 29px; }
-  .doc-fig { width: 168px; inset-inline-end: -8px; top: 8px; bottom: auto; }
-  .doc-fig .bubble { top: 6px; inset-inline-start: -30px; font-size: 13.5px; padding: 4px 11px; }
-  .doc-fig .shadow { display: none; }
+  .doc-fig { width: 210px; inset-inline-end: -24px; top: 6px; bottom: auto; }
+  .doc-fig .bubble { top: 2px; inset-inline-start: -34px; font-size: 13.5px; padding: 4px 11px; }
   .hero-art::before { width: 300px; height: 300px; }
   .search { margin-top: 16px; padding: 6px; padding-inline-start: 14px; flex-wrap: wrap; }
   .search input { height: 42px; font-size: 16px; }
@@ -378,24 +380,4 @@ dialog[open] { animation: rise .35s var(--ease); }
 }
 
 .prof > *, .book > *, .about > *, .list > * { min-width: 0; }
-
-/* ---------- the 3D doctor as a layered puppet ---------- */
-.doc-fig { width: 400px; bottom: -34px; inset-inline-end: 60px; }
-.rig { position: relative; aspect-ratio: 627 / 632; --lx: 0; --ly: 0; animation: rig-in .9s var(--ease) .1s both; filter: drop-shadow(0 22px 24px rgba(60, 33, 104, .2)); }
-[dir=rtl] .rig { scale: -1 1; }
-.rig img, .rig svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.rig-body { position: absolute; inset: 0; transform: translate(calc(var(--lx) * 2px), 0); transition: transform .5s var(--ease); }
-.rig-body img { transform-origin: 57% 100%; animation: rig-breathe 4.6s ease-in-out infinite; }
-.rig-look { position: absolute; inset: 0; transform-origin: 57.5% 46%; transform: translate(calc(var(--lx) * 6px), calc(var(--ly) * 3.5px)) rotate(calc(var(--lx) * 2.2deg)); transition: transform .45s var(--ease); }
-.rig-head { position: absolute; inset: 0; transform-origin: 57.5% 46%; animation: rig-hello 1.9s var(--ease) .75s both, rig-idle 9s ease-in-out 2.8s infinite; }
-.lid { transform-box: fill-box; transform-origin: 50% 0; transform: scaleY(0); animation: rig-blink 5.2s 2.2s infinite; }
-.lid + .lid { animation-delay: 2.23s; }
-.doc-fig .bubble { top: 70px; inset-inline-start: 6px; animation-delay: 1s; }
-@keyframes rig-in { from { opacity: 0; transform: translateY(26px); } }
-@keyframes rig-breathe { 50% { transform: scale(1.006, 1.012); } }
-/* the greeting: a friendly tilt and a small nod, head only */
-@keyframes rig-hello { 0% { transform: none; } 22% { transform: rotate(-4deg) translateY(1px); } 46% { transform: rotate(3.5deg); } 62% { transform: rotate(3.5deg) translateY(5px); } 78% { transform: rotate(2deg) translateY(0); } 100% { transform: none; } }
-@keyframes rig-idle { 0%, 100% { transform: none; } 30% { transform: rotate(-1.8deg); } 68% { transform: rotate(1.6deg) translateY(1.5px); } }
-@keyframes rig-blink { 0%, 3.2%, 100% { transform: scaleY(0); } 1.4%, 1.9% { transform: scaleY(1); } 46%, 49.5% { transform: scaleY(0); } 47.4%, 48% { transform: scaleY(1); } }
-@media (max-width: 1020px) { .doc-fig { width: 300px; inset-inline-end: 6px; } }
-@media (max-width: 720px) { .doc-fig { width: 172px; inset-inline-end: -10px; top: 6px; bottom: auto; } .doc-fig .bubble { top: 4px; inset-inline-start: -26px; } }
+@media (max-width: 350px) { .doc-fig { width: 164px; inset-inline-end: -20px; top: 40px; } .doc-fig .bubble { display: none; } }

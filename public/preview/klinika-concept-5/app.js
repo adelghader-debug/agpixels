@@ -56,13 +56,77 @@
 
 
 
-  /* ---------- the Klinika 3D doctor as a layered puppet: body, head, eyelids ---------- */
-  const DOCTOR = `<div class="rig"><div class="rig-body"><img src="img/doctor-body.webp" alt="" width="627" height="632"></div>
-    <div class="rig-look"><div class="rig-head"><img src="img/doctor-head.webp" alt="" width="627" height="632">
-      <svg viewBox="0 0 627 632" aria-hidden="true"><defs><linearGradient id="lid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3C2A8"/><stop offset="1" stop-color="#E8A483"/></linearGradient></defs>
-        <g class="lid"><ellipse cx="317.5" cy="168" rx="21.5" ry="14.5" transform="rotate(-4 317.5 168)" fill="url(#lid)"/><path d="M297 171q20 13 41 1" fill="none" stroke="#5A3327" stroke-width="2.6" stroke-linecap="round"/></g>
-        <g class="lid"><ellipse cx="399" cy="163.5" rx="23" ry="15" transform="rotate(5 399 163.5)" fill="url(#lid)"/><path d="M377 165q22 14 44 3" fill="none" stroke="#5A3327" stroke-width="2.6" stroke-linecap="round"/></g>
-      </svg></div></div></div>`;
+  /* ---------- the Klinika doctor: a 3D character rendered as two short films, so the whole figure moves as one ---------- */
+  // A film is an ordinary video with the picture in its top half and its see-through mask in the bottom half; a small
+  // shader joins the two on a canvas, which gives a moving figure with no box around it in every browser.
+  // He greets once (doc-hello), then idles (doc-idle) for as long as he is on screen. Both films start and end on the
+  // same resting pose, which is also the picture shown first, and the only thing shown when motion is turned off or a
+  // film cannot play. The idle film is held twice and the two copies take turns, so the loop never has to seek and
+  // there is no hitch where it joins.
+  const DOCTOR = `<div class="doc"><img src="img/doc-still.webp" alt="" width="640" height="640"></div>`;
+  const Doc = (() => {
+    const VS = "attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;gl_Position=vec4(p,0.,1.);}";
+    const FS = "precision mediump float;uniform sampler2D t;varying vec2 v;void main(){float y=clamp(v.y*.5,.001,.499);vec3 c=texture2D(t,vec2(v.x,y+.5)).rgb;float a=clamp(texture2D(t,vec2(v.x,y)).g*1.06-.03,0.,1.);gl_FragColor=vec4(min(c,vec3(a)),a);}";
+    const quiet = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let cv, gl, hello, idle, cur, box, watch, dead = false, seen = true, tick = 0;
+    function stop() { dead = true; if (box) box.classList.remove("live"); [hello].concat(idle || []).forEach((v) => v && v.pause()); }
+    function film(name) {
+      const v = document.createElement("video");
+      v.muted = v.defaultMuted = v.playsInline = true; v.preload = "auto"; v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.src = `img/${name}.mp4`;
+      v.addEventListener("error", stop);
+      // when one film ends the next takes over on the same pose, and an idle copy rewinds while the other one plays
+      v.addEventListener("ended", () => { if (dead || v !== cur) return; cur = idle[v === idle[0] ? 1 : 0]; run(); loop(++tick); if (v !== hello) v.currentTime = 0; });
+      return v;
+    }
+    function setup() {
+      cv = document.createElement("canvas");
+      gl = cv.getContext("webgl", { alpha: true, premultipliedAlpha: true, antialias: false, depth: false, stencil: false, powerPreference: "low-power" });
+      if (!gl) return false;
+      const pr = gl.createProgram();
+      [[gl.VERTEX_SHADER, VS], [gl.FRAGMENT_SHADER, FS]].forEach(([type, src]) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); gl.attachShader(pr, s); });
+      gl.linkProgram(pr); if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return false;
+      gl.useProgram(pr);
+      gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+      const at = gl.getAttribLocation(pr, "p"); gl.enableVertexAttribArray(at); gl.vertexAttribPointer(at, 2, gl.FLOAT, false, 0, 0);
+      gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
+      [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach((k) => gl.texParameteri(gl.TEXTURE_2D, k, gl.CLAMP_TO_EDGE));
+      [gl.TEXTURE_MIN_FILTER, gl.TEXTURE_MAG_FILTER].forEach((k) => gl.texParameteri(gl.TEXTURE_2D, k, gl.LINEAR));
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+      cv.addEventListener("webglcontextlost", (e) => { e.preventDefault(); stop(); });
+      hello = film("doc-hello"); idle = [film("doc-idle"), film("doc-idle")];
+      document.addEventListener("visibilitychange", run);
+      return true;
+    }
+    function draw(v) {
+      if (cv.width !== v.videoWidth) { cv.width = v.videoWidth; cv.height = v.videoHeight / 2; gl.viewport(0, 0, cv.width, cv.height); }
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, v); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      if (box) box.classList.add("live");
+    }
+    // one frame of the current film is drawn each time the browser has a new one ready
+    function loop(id) {
+      if (id !== tick || dead) return;
+      const v = cur; let was = -1;
+      const step = () => { if (id !== tick || dead) return; if (v.readyState > 1 && v.videoWidth && v.currentTime !== was) { was = v.currentTime; draw(v); } wait(); };
+      const wait = () => (v.requestVideoFrameCallback ? v.requestVideoFrameCallback(step) : requestAnimationFrame(step));
+      wait();
+    }
+    // the film only runs while the doctor is on screen and the tab is in front
+    function run() { if (dead || !cur) return; if (seen && !document.hidden && box && box.isConnected) cur.play().catch(refused); else cur.pause(); }
+    // a browser that will not start a film by itself (a phone saving power, for one) gets the still picture, and the film on the first tap
+    function refused(e) { if (!e || e.name === "AbortError") return; if (e.name === "NotAllowedError") document.addEventListener("pointerdown", run, { once: true }); else stop(); }
+    function mount() {
+      box = document.querySelector(".doc"); tick++;
+      if (watch) watch.disconnect();
+      if (!box || dead || quiet.matches || (navigator.connection && navigator.connection.saveData)) { if (cur) cur.pause(); return; }
+      if (!cv && !setup()) { dead = true; return; }
+      box.appendChild(cv);
+      [hello].concat(idle).forEach((v) => { v.pause(); if (v.readyState) v.currentTime = 0; });
+      cur = hello; seen = true;
+      if ("IntersectionObserver" in window) { watch = new IntersectionObserver((es) => { seen = es[es.length - 1].isIntersecting; run(); }); watch.observe(box); }
+      run(); loop(tick);
+    }
+    return { mount };
+  })();
 
   /* ---------- data helpers ---------- */
   const SVC = { clinic_visit: ["visits.clinic", "clinic"], telehealth: ["visits.tele", "video"], home_visit: ["visits.home", "home"] };
@@ -552,7 +616,7 @@
     app.innerHTML = `${header(name)}<main id="main">${html}</main>${footer()}${bottomNav(name)}`;
     document.title = (app.querySelector("h1") ? app.querySelector("h1").textContent.trim() + " | " : "") + "Klinika";
     if (!keepScroll) window.scrollTo(0, 0);
-    after();
+    after(); Doc.mount();
     if (pendingGoto) { const el = document.getElementById(pendingGoto); pendingGoto = null; if (el) setTimeout(() => el.scrollIntoView({ block: "start" }), 60); }
   }
   let io;
@@ -636,17 +700,16 @@
   window.addEventListener("scroll", () => { const h = document.querySelector(".top"); if (h) h.classList.toggle("stuck", window.scrollY > 8); }, { passive: true });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeSegs);
 
-  // the doctor leans and turns his head towards the pointer (desktop only, off when reduced motion is asked for)
+  // the whole figure drifts a few pixels towards the pointer (desktop only, off when reduced motion is asked for)
   if (window.matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)").matches) {
     let raf = 0;
     window.addEventListener("mousemove", (e) => {
       if (raf) return;
       raf = requestAnimationFrame(() => {
         raf = 0;
-        const vd = document.querySelector(".rig"); if (!vd) return;
-        const r = vd.getBoundingClientRect(), cx = r.left + r.width * 0.57, cy = r.top + r.height * 0.3;
-        const dx = Math.max(-1, Math.min(1, (e.clientX - cx) / 520)) * (lang === "ar" ? -1 : 1), dy = Math.max(-1, Math.min(1, (e.clientY - cy) / 380));
-        vd.style.setProperty("--lx", dx.toFixed(3)); vd.style.setProperty("--ly", dy.toFixed(3));
+        const f = document.querySelector(".doc-fig"); if (!f) return;
+        const r = f.parentNode.getBoundingClientRect(), unit = (n) => Math.max(-1, Math.min(1, n)).toFixed(3);
+        f.style.setProperty("--px", unit((e.clientX - r.left - r.width / 2) / (r.width / 2))); f.style.setProperty("--py", unit((e.clientY - r.top - r.height / 2) / r.height));
       });
     }, { passive: true });
   }
