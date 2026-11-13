@@ -378,3 +378,27 @@ dialog[open] { animation: rise .35s var(--ease); }
 }
 
 .prof > *, .book > *, .about > *, .list > * { min-width: 0; }
+
+/* ---------- the coded doctor: each part moves on its own ---------- */
+.doc-fig { width: 384px; bottom: 0; inset-inline-end: 64px; }
+.vd { display: block; width: 100%; height: auto; overflow: visible; animation: vd-in .8s var(--ease) .15s both; filter: drop-shadow(0 18px 22px rgba(60, 33, 104, .18)); }
+[dir=rtl] .vd { scale: -1 1; }
+.vd-body { transform-box: view-box; transform-origin: 200px 440px; animation: vd-breathe 4.5s ease-in-out infinite; }
+.vd-head { transform-box: view-box; transform-origin: 200px 262px; animation: vd-head 7s ease-in-out infinite; }
+.vd-arm { transform-box: view-box; transform-origin: 300px 432px; animation: vd-wave 7s ease-in-out .9s infinite; }
+.vd-hand { transform-box: view-box; transform-origin: 350px 284px; animation: vd-hand 7s ease-in-out .9s infinite; }
+.vd-eye { transform-box: fill-box; transform-origin: center; animation: vd-blink 4.8s infinite; }
+.vd-pupil { transform: translate(var(--ex, 0px), var(--ey, 0px)); transition: transform .18s ease-out; }
+.vd-brow { animation: vd-brow 7s ease-in-out .9s infinite; }
+.vd-steth { transform-box: view-box; transform-origin: 200px 290px; animation: vd-sway 4.5s ease-in-out infinite; }
+.doc-fig .bubble { top: 104px; inset-inline-start: -30px; animation-delay: .9s; }
+@keyframes vd-in { from { opacity: 0; transform: translateY(16px); } }
+@keyframes vd-breathe { 50% { transform: scaleY(1.012); } }
+@keyframes vd-head { 0%, 100% { transform: rotate(-1.6deg); } 50% { transform: rotate(2deg); } }
+@keyframes vd-wave { 0%, 34%, 100% { transform: rotate(0); } 5% { transform: rotate(-7deg); } 11% { transform: rotate(6deg); } 17% { transform: rotate(-7deg); } 23% { transform: rotate(6deg); } 29% { transform: rotate(-3deg); } }
+@keyframes vd-hand { 0%, 34%, 100% { transform: rotate(0); } 5% { transform: rotate(-10deg); } 11% { transform: rotate(12deg); } 17% { transform: rotate(-10deg); } 23% { transform: rotate(12deg); } 29% { transform: rotate(-4deg); } }
+@keyframes vd-blink { 0%, 93%, 100% { transform: scaleY(1); } 96.5% { transform: scaleY(.08); } }
+@keyframes vd-brow { 0%, 34%, 100% { transform: none; } 6%, 28% { transform: translateY(-3px); } }
+@keyframes vd-sway { 50% { transform: rotate(1.2deg); } }
+@media (max-width: 1020px) { .doc-fig { width: 270px; inset-inline-end: 12px; } }
+@media (max-width: 720px) { .doc-fig { width: 150px; inset-inline-end: 2px; top: 14px; bottom: auto; } .doc-fig .bubble { top: 0; inset-inline-start: -36px; } }
