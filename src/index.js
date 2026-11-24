@@ -229,27 +229,45 @@ async function handleContact(request, env, ctx) {
     return json({ success: false, message: "Invalid request body" }, 400);
   }
 
+  // Gates 2-4 no longer discard anything. They used to answer with a fake
+  // success, so the visitor saw "Thanks" while the message was thrown away,
+  // and real people were caught too (a tab left open for over an hour, a
+  // password manager filling a hidden field). Now a flagged submission still
+  // reaches Adel, marked "[Possible spam]" with the reason, but gets no
+  // confirmation email and no Meta Lead event. The visitor sees the same
+  // response either way, so bots learn nothing.
+  const spamReasons = [];
+
   // --- Anti-spam gate 2: checkbox honeypot (legacy; kept for defense in depth)
   if (data.botcheck) {
-    console.warn("Rejected /api/contact: checkbox honeypot filled");
-    return json({ success: true, message: "OK" });
+    console.warn("Flagged /api/contact: checkbox honeypot filled");
+    spamReasons.push("The hidden anti-spam checkbox was ticked.");
   }
 
   // --- Anti-spam gate 3: text-named honeypot.
-  // Bots autofill URL-shaped field names. A real user never sees these.
+  // Bots autofill URL-shaped field names. A real user never sees these,
+  // although some password managers and autofill tools do fill them.
   if ((data.website || "").toString().trim() || (data.url || "").toString().trim()) {
-    console.warn("Rejected /api/contact: text honeypot filled", { website: data.website, url: data.url });
-    return json({ success: true, message: "OK" });
+    console.warn("Flagged /api/contact: text honeypot filled", { website: data.website, url: data.url });
+    spamReasons.push(`A hidden field was filled in (${String(data.website || data.url).trim().slice(0, 100)}).`);
   }
 
-  // --- Anti-spam gate 4: form_loaded_at — page render timestamp set by JS.
-  // Missing / non-numeric / submitted in < 3s / older than 1h → bot.
+  // --- Anti-spam gate 4: form_loaded_at, the page render timestamp set by JS.
+  // Missing / non-numeric / submitted in < 3s / older than 1h.
   const loaded = Number(data.form_loaded_at);
   const elapsed = Date.now() - loaded;
-  if (!Number.isFinite(loaded) || loaded <= 0 || elapsed < FORM_MIN_AGE_MS || elapsed > FORM_MAX_AGE_MS) {
-    console.warn("Rejected /api/contact: bad form_loaded_at", { loaded, elapsed });
-    return json({ success: true, message: "OK" });
+  if (!Number.isFinite(loaded) || loaded <= 0) {
+    console.warn("Flagged /api/contact: missing form_loaded_at", { loaded });
+    spamReasons.push("The page's script did not run, so the form has no load time.");
+  } else if (elapsed < FORM_MIN_AGE_MS) {
+    console.warn("Flagged /api/contact: form sent too fast", { loaded, elapsed });
+    const secs = Math.max(0, Math.round(elapsed / 1000));
+    spamReasons.push(`The form was sent ${secs} second${secs === 1 ? "" : "s"} after the page loaded.`);
+  } else if (elapsed > FORM_MAX_AGE_MS) {
+    console.warn("Flagged /api/contact: stale form_loaded_at", { loaded, elapsed });
+    spamReasons.push(`The form was sent ${formatDuration(elapsed)} after the page loaded (the page may simply have been left open).`);
   }
+  const flagged = spamReasons.length > 0;
 
   // Validate required fields
   const name    = (data.name    || "").trim();
@@ -290,16 +308,17 @@ async function handleContact(request, env, ctx) {
     return json({ success: false, message: "Email service not configured" }, 500);
   }
 
-  // Send both emails in parallel
+  // Send both emails in parallel. A flagged submission only notifies Adel:
+  // no confirmation goes to an address a bot may have made up.
   const [notifyRes, confirmRes] = await Promise.allSettled([
     sendEmail(env.RESEND_API_KEY, {
       from: FROM_EMAIL,
       to: TO_EMAIL,
       reply_to: email,
-      subject: `New project inquiry — ${name}${source === "hero-mini" ? " (hero mini-form)" : ""}`,
-      html: notificationEmail({ name, email, phone, projectType, message, source, attribution }),
+      subject: `${flagged ? "[Possible spam] " : ""}New project inquiry — ${name}${source === "hero-mini" ? " (hero mini-form)" : ""}`,
+      html: notificationEmail({ name, email, phone, projectType, message, source, attribution, spamReasons }),
     }),
-    sendEmail(env.RESEND_API_KEY, {
+    flagged ? Promise.resolve(null) : sendEmail(env.RESEND_API_KEY, {
       from: FROM_EMAIL,
       to: email,
       reply_to: REPLY_TO,
@@ -324,7 +343,7 @@ async function handleContact(request, env, ctx) {
   // Contact details are hashed in metaUserData before they leave the Worker.
   const metaEventId = String(data.meta_event_id || "");
   const leadPage = referer.startsWith(SITE_URL + "/") ? referer : SITE_URL + "/";
-  if (/^[\w.-]{8,64}$/.test(metaEventId) && !leadPage.startsWith(SITE_URL + "/preview/") && metaAllowed(request, env)) {
+  if (!flagged && /^[\w.-]{8,64}$/.test(metaEventId) && !leadPage.startsWith(SITE_URL + "/preview/") && metaAllowed(request, env)) {
     ctx.waitUntil((async () => sendMetaEvent(env, {
       event_name: "Lead",
       event_time: Math.floor(Date.now() / 1000),
@@ -449,7 +468,20 @@ function escapeHtml(s) {
     .replace(/'/g, "&#39;");
 }
 
-function notificationEmail({ name, email, phone, projectType, message, source, attribution }) {
+// "2 hours 5 minutes", "45 minutes", "3 days": for the stale-form spam reason.
+function formatDuration(ms) {
+  const minutes = Math.round(ms / 60000);
+  if (minutes < 60) return `${minutes} minute${minutes === 1 ? "" : "s"}`;
+  const hours = Math.floor(minutes / 60);
+  if (hours >= 48) {
+    const days = Math.round(hours / 24);
+    return `${days} days`;
+  }
+  const rest = minutes % 60;
+  return `${hours} hour${hours === 1 ? "" : "s"}${rest ? ` ${rest} minute${rest === 1 ? "" : "s"}` : ""}`;
+}
+
+function notificationEmail({ name, email, phone, projectType, message, source, attribution, spamReasons = [] }) {
   const safeName    = escapeHtml(name);
   const safeEmail   = escapeHtml(email);
   const safePhone   = escapeHtml(phone || "");
@@ -468,9 +500,14 @@ function notificationEmail({ name, email, phone, projectType, message, source, a
   };
   const sourceLabel = SOURCE_LABELS[safeSource] || `Contact form (${safeSource})`;
   const safeAttribution = escapeHtml(attribution || "");
+  const spamBanner = spamReasons.length ? `
+  <div style="margin:0 0 20px;padding:14px 16px;background:#FFF7E6;border:1px solid #F2C46D;border-radius:8px;font-size:14px;line-height:1.5;color:#5C4200;">
+    <strong>Possible spam.</strong> The spam filter flagged this message, so the sender did not get the usual confirmation email. It may still be a real enquiry:
+    <ul style="margin:8px 0 0;padding-left:18px;">${spamReasons.map((r) => `<li>${escapeHtml(r)}</li>`).join("")}</ul>
+  </div>` : "";
 
   return `<!DOCTYPE html><html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#0F0E1A;background:#fafafc;margin:0;padding:24px;">
-<div style="max-width:560px;margin:0 auto;background:#fff;border:1px solid #e6e5ee;border-radius:12px;padding:28px;">
+<div style="max-width:560px;margin:0 auto;background:#fff;border:1px solid #e6e5ee;border-radius:12px;padding:28px;">${spamBanner}
   <h2 style="margin:0 0 16px;font-size:18px;color:#6B5DF7;">New project inquiry from agpixels.ca</h2>
   <table style="width:100%;border-collapse:collapse;font-size:15px;">
     <tr><td style="padding:6px 0;color:#6B6A78;width:120px;">Name</td><td style="padding:6px 0;"><strong>${safeName}</strong></td></tr>
